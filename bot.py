@@ -9,7 +9,7 @@ prefix = "!"
 
 
 client = discord.Client()
-client = commands.Bot(command_prefix = "!")
+
 
 
 
