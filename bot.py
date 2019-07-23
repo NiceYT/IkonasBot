@@ -123,23 +123,7 @@ async def on_message(message):
                                               
                                               
                                               
-     if command == "Мут":
-        if message.author.guild_permissions.manage_roles:
-                try:
-                    commands.has_permissions(manage_roles= True)
-                    if not message.mentions: return await message.channel.send('Укажите пользователя!')
-                    user = message.mentions[0] 
-        
-                    mute_role = discord.utils.get(message.guild.roles, name="Muted")
-                    await asyncio.sleep(60)                          
-                    await user.add_roles(mute_role)
-                    await message.channel.send(f"Участник {user.mention} замучен!")
-        except discord.errors.Forbidden:
-            emb = discord.Embed(title= "Ошибка!", colour = 0xfc2525)
-            emb.add_field(name= "У бота недостаточно прав!/Либо роль нарушителя выше чем его или такая-же!", value = "Добавь боту права на управление ролями/сделай роль бота выше роли нарушителя.")
-            await message.channel.send(embed=emb)
-        else:
-                return await message.channel.send("У вас нету прав!")
+
         
                
         
