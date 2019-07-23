@@ -1,12 +1,11 @@
 import discord
 import asyncio
 import random
-from settings import  prefix
 from discord.ext import commands
 
 import os
 
-
+prefix = "!"
 
 
 client = discord.Client()
