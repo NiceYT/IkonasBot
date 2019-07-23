@@ -1,7 +1,6 @@
 import discord
 import asyncio
 import random
-import settings
 from settings import  prefix
 from discord.ext import commands
 
