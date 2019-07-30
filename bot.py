@@ -81,6 +81,9 @@ async def on_message(message):
                     return
                 else:
                     Win = "Сигна от иконаса"
+                    emb = discord.Embed(title= "Число:" + str(case_num), colour= 0x2bbdf3)
+                    emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
+                    await message.channel.send(embed= emb)
                     await channel3.send(f"{message.author} выиграл:" + str(Win))
                     await user.add_roles(win2)
             elif case_num <= 301:
@@ -90,6 +93,9 @@ async def on_message(message):
                     return
                 else:
                     Win = "Добавление в друзья к иконасу"
+                    emb = discord.Embed(title= "Число:" + str(case_num), colour= 0x2bbdf3)
+                    emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
+                    await message.channel.send(embed= emb)
                     await channel3.send(f"{message.author} выиграл:" + str(Win))
                     await user.add_roles(win3)
             elif case_num <= 401:
@@ -99,6 +105,9 @@ async def on_message(message):
                     return
                 else:
                     Win = "Выбор роли"
+                    emb = discord.Embed(title= "Число:" + str(case_num), colour= 0x2bbdf3)
+                    emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
+                    await message.channel.send(embed= emb)
                     await channel3.send(f"{message.author} выиграл:" + str(Win))
                     await user.add_roles(win4)
             elif case_num <= 501:
@@ -112,6 +121,9 @@ async def on_message(message):
                     return
                 else:
                     Win = "Личная голосовая комната"
+                    emb = discord.Embed(title= "Число:" + str(case_num), colour= 0x2bbdf3)
+                    emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
+                    await message.channel.send(embed= emb)
                     await channel3.send(f"{message.author} выиграл:" + str(Win))
                     await user.add_roles(win5)
             emb = discord.Embed(title= "Число:" + str(case_num), colour= 0x2bbdf3)
