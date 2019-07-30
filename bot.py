@@ -55,8 +55,9 @@ async def on_message(message):
     if command == "case":
         case_role = discord.utils.get(message.guild.roles, name= "Кейс")
         if case_role in message.author.roles:
-            channel3 = client.get_channel(int(605289537287094272)
             user = message.author
+            channel3 = client.get_channel(int(605289537287094272)
+           
         
         
          
