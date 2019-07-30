@@ -2,10 +2,10 @@ import discord
 import asyncio
 import random
 from discord.ext import commands
-
 import os
 
-prefix = "!"
+
+prefix = "."
 
 
 client = discord.Client()
@@ -19,8 +19,6 @@ async def on_ready():
     print("Я включен")
 
             
-
-
 
 
 
@@ -57,7 +55,6 @@ async def on_message(message):
     if command == "case":
         case_role = discord.utils.get(message.guild.roles, name= "Кейс")
         if case_role in message.author.roles:
-            ctx = message.mentions[0] if (message.mentions) else message.author
             user = message.author
         
         
@@ -65,30 +62,43 @@ async def on_message(message):
 
             case_num = (random.randint(101,601))
             if case_num <= 101:
-                Win = "10 робуксов"
+                channel1 = client.get_channel(int(605289537287094272))
                 win1 = discord.utils.get(message.guild.roles, name="10 робуксов")
-                await user.add_roles(win1)
+                if win1 in message.author.roles:
+                    return await channel1.send("Участнику {} выпал повторный приз 10 робуксов".format(message.author))
+                else:
+                    Win = "10 робуксов"
+                    await user.add_roles(win1)
             elif case_num <= 201:
                 win2 = discord.utils.get(message.guild.roles, name="Сигна")
+                if win2 in message.author.roles:
+                    return await message.send("Вам выпала повторная роль! Введите команду заново!")
                 Win = "Сигна от иконаса"
                 await user.add_roles(win2)
             elif case_num <= 301:
                 win3 = discord.utils.get(message.guild.roles, name="Добавление в друзья")
+                if win3 in message.author.roles:
+                    return await message.send("Вам выпала повторная роль! Введите команду заново!")
                 Win = "Добавление в друзья к иконасу"
                 await user.add_roles(win3)
             elif case_num <= 401:
                 win4 = discord.utils.get(message.guild.roles, name="Выбор роли")
+                if win4 in message.author.roles:
+                    return await message.send("Вам выпала повторная роль! Введите команду заново!")
                 Win = "Выбор роли"
                 await user.add_roles(win4)
             elif case_num <= 501:
-                channel = client.get_channel(int(597755853625491465))
+                channel2 = client.get_channel(int(532573322014359552))
                 Win = "15000 ананасов"
-                await channel.send("Тест")
+                await channel2.send("=add-money {} 15000".format(message.author))
             elif case_num <= 601:
                 win5 = discord.utils.get(message.guild.roles, name="Личная комната")
+                if win5 in message.author.roles:
+                    return await message.send("Вам выпала повторная роль! Введите команду заново!")
                 Win = "Личная голосовая комната"
                 await user.add_roles(win5)
-            await ctx.send("Вы выиграли:" + str(Win))
+            channel3 = client.get_channel(int(605289537287094272))
+            await channel3.send(f"{message.author} выиграл:" + str(Win))
             emb = discord.Embed(title= "Число:" + str(case_num), colour= 0x2bbdf3)
             emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
             await message.channel.send(embed= emb)
@@ -97,57 +107,7 @@ async def on_message(message):
             await user.remove_roles(case1)
         else:
             return
-        
-
-    
-    if command  == "спам":
-        if message.author.guild_permissions.manage_messages:
-            pass 
-        else:
-            return await message.channel.send("У вас нету прав!")
-        ctx = message.mentions[0] if (message.mentions) else message.author
-        
-        gg = 1
-        while gg == 1:
-            await ctx.send("СПАМ")
-            
-    if command  == "Спам":
-        if message.author.guild_permissions.manage_messages:
-            gg = 1
-            while gg == 1:
-                await message.channel.send("СПАМ")
-            
-        
-        else:
-            return await message.channel.send("У вас нету прав!)
-                                              
-                                              
-                                              
-
-        
-               
-        
-        
-        
-        
-
-    
-    
-       
-        
-    
-        
-
-
-    
-
-
-
-
-
+                
 
 token = os.environ.get("BOT_TOKEN")
-
 client.run(str(token))
-
-
