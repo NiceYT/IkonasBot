@@ -57,7 +57,8 @@ async def on_message(message):
         if case_role in message.author.roles:
             user = message.author
             case_num = (random.randint(1,601))
-            channel3 = client.get_channel(int(605289537287094272)
+            channel3 = client.get_channel(int(605289537287094272))
+            
 
             if case_num <= 101:
                 channel1 = client.get_channel(int(605289537287094272))
