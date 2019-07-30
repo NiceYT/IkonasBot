@@ -55,6 +55,7 @@ async def on_message(message):
     if command == "case":
         case_role = discord.utils.get(message.guild.roles, name= "Кейс")
         if case_role in message.author.roles:
+            channel3 = client.get_channel(int(605289537287094272)
             user = message.author
         
         
@@ -69,21 +70,26 @@ async def on_message(message):
                     return
                 else:
                     Win = "10 робуксов"
+                    await channel3.send(f"{message.author} выиграл:" + str(Win))
                     await user.add_roles(win1)
             elif case_num <= 201:
                 win2 = discord.utils.get(message.guild.roles, name="Сигна")
                 if win2 in message.author.roles:
                     await message.channel.send("Вам выпала повторная роль! Введите команду заново!")
                     return
-                Win = "Сигна от иконаса"
-                await user.add_roles(win2)
+                else:
+                    Win = "Сигна от иконаса"
+                    await channel3.send(f"{message.author} выиграл:" + str(Win))
+                    await user.add_roles(win2)
             elif case_num <= 301:
                 win3 = discord.utils.get(message.guild.roles, name="Добавление в друзья")
                 if win3 in message.author.roles:
                     await message.channel.send("Вам выпала повторная роль! Введите команду заново!")
                     return
-                Win = "Добавление в друзья к иконасу"
-                await user.add_roles(win3)
+                else:
+                    Win = "Добавление в друзья к иконасу"
+                    await channel3.send(f"{message.author} выиграл:" + str(Win))
+                    await user.add_roles(win3)
             elif case_num <= 401:
                 win4 = discord.utils.get(message.guild.roles, name="Выбор роли")
                 if win4 in message.author.roles:
@@ -91,6 +97,7 @@ async def on_message(message):
                     return
                 else:
                     Win = "Выбор роли"
+                    await channel3.send(f"{message.author} выиграл:" + str(Win))
                     await user.add_roles(win4)
             elif case_num <= 501:
                 channel2 = client.get_channel(int(532573322014359552))
@@ -103,9 +110,8 @@ async def on_message(message):
                     return
                 else:
                     Win = "Личная голосовая комната"
+                    await channel3.send(f"{message.author} выиграл:" + str(Win))
                     await user.add_roles(win5)
-            channel3 = client.get_channel(int(605289537287094272))
-            await channel3.send(f"{message.author} выиграл:" + str(Win))
             emb = discord.Embed(title= "Число:" + str(case_num), colour= 0x2bbdf3)
             emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
             await message.channel.send(embed= emb)
