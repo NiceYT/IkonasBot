@@ -60,7 +60,7 @@ async def on_message(message):
         
          
 
-            case_num = (random.randint(101,601))
+            case_num = (random.randint(1,601))
             if case_num <= 101:
                 channel1 = client.get_channel(int(605289537287094272))
                 win1 = discord.utils.get(message.guild.roles, name="10 робуксов")
