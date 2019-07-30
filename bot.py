@@ -68,8 +68,8 @@ async def on_message(message):
                     return
                 else:
                     Win = "10 робуксов"
-                    emb = discord.Embed(title= " ", colour = 0xff0404)
-                    emb.add_field(name= f"{message.author} выиграл:" + str(Win), value= " ")
+                    emb = discord.Embed(title= "10 робуксов", colour = 0xff0404)
+                    emb.add_field(name= f"{message.author} выиграл:" + str(Win), value= "Иконас выдай робуксы {message.author}")
                     await channel3.send(embed= emb)
                     await user.add_roles(win1)
             elif case_num <= 201:
