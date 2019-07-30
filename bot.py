@@ -64,8 +64,10 @@ async def on_message(message):
                 channel1 = client.get_channel(int(605289537287094272))
                 win1 = discord.utils.get(message.guild.roles, name="10 робуксов")
                 if win1 in message.author.roles:
-                    await message.channel.sen
-                    await channel1.send("Участнику {} выпал повторный приз 10 робуксов".format(message.author))
+                    await message.channel.send("Вам выпал повторный приз 10 робуксов! Поздравляю!")
+                    emb = discord.Embed(title= "Повторный выиграш 10 робуксов", colour = 0xff0404 )
+                    emb.add_field(name= "Участнику {} выпал повторный приз 10 робуксов".format(message.author), value= f"Иконас выдай робуксы {message.author)")
+                    await channel1.send(embed= emb)
                     return
                 else:
                     Win = "10 робуксов"
