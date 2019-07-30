@@ -68,7 +68,6 @@ async def on_message(message):
                     emb = discord.Embed(title= "Повторный выиграш 10 робуксов", colour = 0xff0404 )
                     emb.add_field(name= "Участнику {} выпал повторный приз 10 робуксов".format(message.author), value= f"Иконас выдай робуксы {message.author}")
                     await channel1.send(embed= emb)
-                    return
                 else:
                     Win = "10 робуксов"
                     emb = discord.Embed(title= "10 робуксов", colour = 0xff0404)
