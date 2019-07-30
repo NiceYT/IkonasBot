@@ -73,21 +73,21 @@ async def on_message(message):
             elif case_num <= 201:
                 win2 = discord.utils.get(message.guild.roles, name="Сигна")
                 if win2 in message.author.roles:
-                    await message.send("Вам выпала повторная роль! Введите команду заново!")
+                    await message.channel.send("Вам выпала повторная роль! Введите команду заново!")
                     return
                 Win = "Сигна от иконаса"
                 await user.add_roles(win2)
             elif case_num <= 301:
                 win3 = discord.utils.get(message.guild.roles, name="Добавление в друзья")
                 if win3 in message.author.roles:
-                    await message.send("Вам выпала повторная роль! Введите команду заново!")
+                    await message.channel.send("Вам выпала повторная роль! Введите команду заново!")
                     return
                 Win = "Добавление в друзья к иконасу"
                 await user.add_roles(win3)
             elif case_num <= 401:
                 win4 = discord.utils.get(message.guild.roles, name="Выбор роли")
                 if win4 in message.author.roles:
-                    await message.send("Вам выпала повторная роль! Введите команду заново!")
+                    await message.channel.send("Вам выпала повторная роль! Введите команду заново!")
                     return
                 else:
                     Win = "Выбор роли"
@@ -99,7 +99,7 @@ async def on_message(message):
             elif case_num <= 601:
                 win5 = discord.utils.get(message.guild.roles, name="Личная комната")
                 if win5 in message.author.roles:
-                    await message.send("Вам выпала повторная роль! Введите команду заново!")
+                    await message.channel.send("Вам выпала повторная роль! Введите команду заново!")
                     return
                 else:
                     Win = "Личная голосовая комната"
