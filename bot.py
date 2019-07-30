@@ -68,7 +68,9 @@ async def on_message(message):
                     return
                 else:
                     Win = "10 робуксов"
-                    await channel3.send(f"{message.author} выиграл:" + str(Win))
+                    10rb = discord.Embed(title= "10 Робуксов", colour = 0xff0404)
+                    10rb.add_field(name= "f"{message.author} выиграл:" + str(Win)
+                    await channel3.send(embed= 10rb)
                     await user.add_roles(win1)
             elif case_num <= 201:
                 win2 = discord.utils.get(message.guild.roles, name="Сигна")
