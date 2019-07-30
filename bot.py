@@ -66,7 +66,7 @@ async def on_message(message):
                 if win1 in message.author.roles:
                     await message.channel.send("Вам выпал повторный приз 10 робуксов! Поздравляю!")
                     emb = discord.Embed(title= "Повторный выиграш 10 робуксов", colour = 0xff0404 )
-                    emb.add_field(name= "Участнику {} выпал повторный приз 10 робуксов".format(message.author), value= f"Иконас выдай робуксы {message.author)")
+                    emb.add_field(name= "Участнику {} выпал повторный приз 10 робуксов".format(message.author), value= f"Иконас выдай робуксы {message.author}")
                     await channel1.send(embed= emb)
                     return
                 else:
