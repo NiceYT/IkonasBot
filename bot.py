@@ -113,7 +113,10 @@ async def on_message(message):
             elif case_num <= 501:
                 channel2 = client.get_channel(int(532573322014359552))
                 Win = "15000 ананасов"
-                await channel2.send("=add-money {} 15000".format(message.author))
+                emb = discord.Embed(title= "Число:" + str(case_num), colour= 0x2bbdf3)
+                emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
+                await message.channel.send(embed= emb)
+                await channel2.send(f"=add-money @{message.author} 15000".format)
             elif case_num <= 601:
                 win5 = discord.utils.get(message.guild.roles, name="Личная комната")
                 if win5 in message.author.roles:
