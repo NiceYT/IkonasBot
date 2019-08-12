@@ -32,7 +32,7 @@ async def on_message(message):
     command = args[0][len(prefix):].lower()
     args = args[1:]
     if message.guild == None:
-        channel = client.get.channel(532573322014359552) 
+        channel = client.get_channel(532573322014359552) 
         emb = discord.Embed(title=f'"{message.author}", desciption=f'"{message.content}", color= 0xff0404)
         await channel.send(embed=emb)
         
