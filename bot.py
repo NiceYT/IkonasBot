@@ -28,15 +28,15 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    
-            
-    if message.content == client.user.mention:
-        await message.channel.send(f'Мой префикс: `{prefix}`\nПример использования команд: `{prefix}help`')
-
-    if not message.content.startswith(prefix) or message.author.bot: return
     args = message.content.split(' ')
     command = args[0][len(prefix):].lower()
     args = args[1:]
+    if message.guild == None:
+        channel = client.get.channel(532573322014359552) 
+        emb = discord.Embed(title=f'"{message.author}", desciption=f'"{message.content}", color= 0xff0404)
+        await channel.send(embed=emb)
+        
+        
     
     
 
