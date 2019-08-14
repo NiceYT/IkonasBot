@@ -33,9 +33,9 @@ async def on_message(message):
     command = args[0][len(prefix):].lower()
     args = args[1:]
     if message.guild == None:
-        timeRU = datetime.now() 
+        timeRU = datetime.now(tz= MSK) 
         channel = client.get_channel(532573322014359552) 
-        emb = discord.Embed(title = message.author.name, description = message.content + str(timeRU), color= 0xff0404)
+        emb = discord.Embed(title = message.author.name, description = message.content +  str(timeRU.hours) +str(timeRU.minutes), color= 0xff0404)
         await channel.send(embed=emb)
         
         
