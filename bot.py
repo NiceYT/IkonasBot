@@ -38,6 +38,7 @@ async def on_message(message):
         time_now = str(datetime.now(tz)).split(' ')[1][:8]
         channel = client.get_channel(532573322014359552) 
         emb = discord.Embed(title = message.author.name, description = message.content + time_now, color=0xff0404)
+        await channel.send(embed=emb) 
         
         
     
