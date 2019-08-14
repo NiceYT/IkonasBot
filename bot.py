@@ -38,7 +38,7 @@ async def on_message(message):
         time_now = str(datetime.now(tz)).split(' ')[1][:8]
         channel = client.get_channel(532573322014359552) 
         emb = discord.Embed(title = str(message.author), description = message.content+  "\nСегодня в " +time_now, color=0xff0404)
-        emb.set_footer(text= int(message.author.id) + message.author.icon + "|" + time_now
+        emb.set_footer(text= int(message.author.id) + message.author.icon + "| " +str(time_now)) 
 
         await channel.send(embed=emb) 
         
