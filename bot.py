@@ -1,7 +1,7 @@
 import discord
 import asyncio
 import random 
-from datetime import datetime
+from datetime 
 from discord.ext import commands
 import os
 
@@ -33,9 +33,9 @@ async def on_message(message):
     command = args[0][len(prefix):].lower()
     args = args[1:]
     if message.guild == None:
-        timeRU = datetime.datetime.now() 
+        timeRU = datetime.now() 
         channel = client.get_channel(532573322014359552) 
-        emb = discord.Embed(title = message.author.name, description = message.content + TimeRU, color= 0xff0404)
+        emb = discord.Embed(title = message.author.name, description = message.content + str(TimeRU), color= 0xff0404)
         await channel.send(embed=emb)
         
         
