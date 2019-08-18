@@ -15,7 +15,7 @@ prefix = "."
 
 
 @client.event
-async def on_ready(message):
+async def on_ready():
     print("Я включен")
     await client.process_commands(message)
 
@@ -149,6 +149,7 @@ async def on_message(message):
             await user.remove_roles(case1)
         else:
             return
+    await client.process_commands(message)
      
                 
 
