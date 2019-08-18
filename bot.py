@@ -6,7 +6,7 @@ from datetime import datetime
 from discord.ext import commands
 import os
 
-client = commands.Bot(command_prefix = '!')
+client = commands.Bot(command_prefix = '.')
 prefix = "."
 
 
@@ -28,8 +28,13 @@ blacklist = []
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def block(ctx, id):
     blacklist.append(int(id))
-    print(blacklist)
-
+    await ctx.send(f"Вы заблокировали пользователя с ID {id} \n Теперь список состоит из ID: {blacklist}")
+@client.command()
+@commands.has_any_role(532444048166748170, 532444461985300481)
+async def unblock(ctx, id):
+    blacklist.remove(int(id))
+    await ctx.send(f"Вы Разблокировали пользователя с ID {id} \n Теперь список состоит из ID: {blacklist}")
+    
         
                   
 
@@ -42,7 +47,9 @@ async def on_message(message):
         
         
     if message.guild == None:
-        if message.author.id in blacklist: return
+        if message.author.id in blacklist:
+            blocked = message.author
+            await blocked.send("Вы в черном списке этого сервера!")
         else:
             tz = pytz.timezone('Europe/Moscow')
             time_now = str(datetime.now(tz)).split(' ')[1][:8]
