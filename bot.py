@@ -25,7 +25,7 @@ blacklist = []
 
 
 @client.command()
-@commands.has_permisions(administator= True)
+@commands.has_permissions(administator= True)
 async def block(ctx, id):
     blacklist.append(id)
 
