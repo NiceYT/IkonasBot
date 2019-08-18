@@ -6,11 +6,9 @@ from datetime import datetime
 from discord.ext import commands
 import os
 
-
+client = commands.Bot(command_prefix = '!')
 prefix = "."
 
-
-client = discord.Client()
 
 
 
