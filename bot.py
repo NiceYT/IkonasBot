@@ -41,7 +41,7 @@ async def on_message(message):
         
         
     if message.guild == None:
-        if message.author.id in len(blacklist): return
+        if message.author.id in blacklist: return
         else:
             tz = pytz.timezone('Europe/Moscow')
             time_now = str(datetime.now(tz)).split(' ')[1][:8]
