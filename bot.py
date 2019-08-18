@@ -17,12 +17,13 @@ client = discord.Client()
 
 
 @client.event
-async def on_ready():
+async def on_ready(ctx):
     print("Я включен")
+    await client.process_commands(ctx)
 
 blacklist = []
     
-     
+
 
 
 @client.command()
@@ -150,7 +151,7 @@ async def on_message(message):
             await user.remove_roles(case1)
         else:
             return
-    await client.process_commands(message)  
+     
                 
 
 token = os.environ.get("BOT_TOKEN")
