@@ -53,7 +53,7 @@ async def on_message(message):
         
         
     if message.guild == None:
-        if message.author == bot.user:
+        if message.author == client.user:
             return
         else:
             if message.author.id in blacklist:
