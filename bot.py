@@ -17,7 +17,7 @@ prefix = "."
 @client.event
 async def on_ready():
     print("Я включен")
-    await client.process_commands(message)
+    
 
 blacklist = []
     
