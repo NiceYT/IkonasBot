@@ -27,16 +27,21 @@ blacklist = []
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def block(ctx, id):
-    blacklist.append(int(id))
-    await ctx.send(f"Вы заблокировали пользователя с ID {id} \n Теперь список состоит из ID: {blacklist}")
+    emb = discord.Embed(title=f"Вы заблокировали пользователя с ID {id}", description = f"Теперь список состоит из ID: {blacklist}")
+    await ctx.send(embed=emb)
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def unblock(ctx, id):
     blacklist.remove(int(id))
-    await ctx.send(f"Вы Разблокировали пользователя с ID {id} \n Теперь список состоит из ID: {blacklist}")
-    
-        
-                  
+    emb = discord.Embed(title=f"Вы Разблокировали пользователя с ID {id}", description = f"Теперь список состоит из ID: {blacklist}")
+    await ctx.send(embed=emb)
+
+@client.command()
+@commands.has_any_role(532444048166748170, 532444461985300481)
+async def blocked(ctx):
+    emb = discord.Embed(title="Список заблокированных людей", description = f"{blacklist}")
+    await ctx.send(embed=emb)
+               
 
 @client.event
 async def on_message(message):
@@ -47,17 +52,20 @@ async def on_message(message):
         
         
     if message.guild == None:
-        if message.author.id in blacklist:
-            blocked = message.author
-            await blocked.send("Вы в черном списке этого сервера!")
+        if message.author == bot.user:
+            return
         else:
-            tz = pytz.timezone('Europe/Moscow')
-            time_now = str(datetime.now(tz)).split(' ')[1][:8]
-            channel = client.get_channel(532573322014359552) 
-            emb = discord.Embed(title = str(message.author), description = message.content, color=0xff0404)
-            emb.set_footer(icon_url = str(message.author.avatar_url),text= str(message.author.id) + " | " +str(time_now)) 
+            if message.author.id in blacklist:
+                blocked = message.author
+                await blocked.send("Вы в черном списке этого сервера!")
+            else:
+                tz = pytz.timezone('Europe/Moscow')
+                time_now = str(datetime.now(tz)).split(' ')[1][:8]
+                channel = client.get_channel(532573322014359552) 
+                emb = discord.Embed(title = str(message.author), description = message.content, color=0xff0404)
+                emb.set_footer(icon_url = str(message.author.avatar_url),text= str(message.author.id) + " | " +str(time_now)) 
 
-            await channel.send(embed=emb) 
+                await channel.send(embed=emb) 
         
         
     
