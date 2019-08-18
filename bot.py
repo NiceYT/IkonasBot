@@ -28,13 +28,13 @@ blacklist = []
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def block(ctx, id):
     blacklist.append(int(id))
-    emb = discord.Embed(title=f"Вы заблокировали пользователя с ID {id}", description = f"Теперь список состоит из ID: {blacklist}", color= 0xee4426)
+    emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Айди человека: {id}", color= 0xee4426)
     await ctx.send(embed=emb)
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def unblock(ctx, id):
     blacklist.remove(int(id))
-    emb = discord.Embed(title=f"Вы Разблокировали пользователя с ID {id}", description = f"Теперь список состоит из ID: {blacklist}", color= 0xee4426)
+    emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: {id}", color= 0xee4426)
     await ctx.send(embed=emb)
 
 @client.command()
