@@ -20,27 +20,37 @@ client = discord.Client()
 async def on_ready():
     print("Я включен")
 
-            
+blacklist = []
+    
+     
 
 
-
+@client.command()
+@commands.has_permisions(administator= True)
+async def block(ctx, id):
+    blacklist.append(id)
 
         
                   
 
 @client.event
 async def on_message(message):
+     
     args = message.content.split(' ')
     command = args[0][len(prefix):].lower()
     args = args[1:]
+        
+        
     if message.guild == None:
-        tz = pytz.timezone('Europe/Moscow')
-        time_now = str(datetime.now(tz)).split(' ')[1][:8]
-        channel = client.get_channel(532573322014359552) 
-        emb = discord.Embed(title = str(message.author), description = message.content, color=0xff0404)
-        emb.set_footer(icon_url = str(message.author.avatar_url),text= str(message.author.id) + " | " +str(time_now)) 
+        if message.author in len(blacklist): return
+        else:
+            tz = pytz.timezone('Europe/Moscow')
+            time_now = str(datetime.now(tz)).split(' ')[1][:8]
+            channel = client.get_channel(532573322014359552) 
+            emb = discord.Embed(title = str(message.author), description = message.content, color=0xff0404)
+            emb.set_footer(icon_url = str(message.author.avatar_url),text= str(message.author.id) + " | " +str(time_now)) 
 
-        await channel.send(embed=emb) 
+            await channel.send(embed=emb) 
         
         
     
@@ -140,6 +150,7 @@ async def on_message(message):
             await user.remove_roles(case1)
         else:
             return
+    await client.process_commands(message)  
                 
 
 token = os.environ.get("BOT_TOKEN")
