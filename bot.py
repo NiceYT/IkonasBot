@@ -20,6 +20,7 @@ async def on_ready():
     
 
 blacklist = []
+mention_list = []
     
 
 
@@ -28,19 +29,21 @@ blacklist = []
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def block(ctx, id):
     blacklist.append(int(id))
+    mention_list.append(<@id>)
     emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Айди человека: {id}", color= 0xee4426)
     await ctx.send(embed=emb)
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def unblock(ctx, id):
     blacklist.remove(int(id))
+    mention_list.remove(<@id>)
     emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: {id}", color= 0xee4426)
     await ctx.send(embed=emb)
 
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def blocked(ctx):
-    emb = discord.Embed(title= "Список заблокированных людей: ", description="\n".join([str(i) for i in blacklist]),  color= 0xee4426)
+    emb = discord.Embed(title= "Список заблокированных людей: ", description="\n".join([str(i) for i in mention_list]),  color= 0xee4426)
     #emb.add_field(name="\n".join(blacklist)",  value = "powered by Ikonas Family")
     await ctx.send(embed=emb)
                
