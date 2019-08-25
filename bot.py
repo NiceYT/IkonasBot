@@ -29,7 +29,7 @@ mention_list = []
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def block(ctx, id):
     blacklist.append(int(id))
-    mention_list.append("<@"id">")
+    mention_list.append("<@"+id+">")
     emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Айди человека: <@{id}>", color= 0xee4426)
     await ctx.send(embed=emb)
 @client.command()
@@ -37,7 +37,7 @@ async def block(ctx, id):
 async def unblock(ctx, id):
     blacklist.remove(int(id))
     id2 = <@id>
-    mention_list.remove("<@"id">")
+    mention_list.remove("<@"+id+">")
     emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: <@{id}>", color= 0xee4426)
     await ctx.send(embed=emb)
 
