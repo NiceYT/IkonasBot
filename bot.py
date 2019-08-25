@@ -40,7 +40,7 @@ async def unblock(ctx, id):
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def blocked(ctx):
-    emb = discord.Embed(title="Список заблокированных людей", description = f"{blacklist}",  color= 0xee4426)
+    emb = discord.Embed(title="Список заблокированных людей", description = "\n".join(blacklist),  color= 0xee4426)
     await ctx.send(embed=emb)
                
 
