@@ -96,15 +96,21 @@ async def on_message(message):
             
 
             if case_num <= 101:
-                channel1 = client.get_channel(int(605289537287094272))
+                
                 win1 = discord.utils.get(message.guild.roles, name="10 робуксов")
                 if win1 in message.author.roles:
-                    await message.channel.send("Вам выпал повторный приз 10 робуксов! Поздравляю!")
+                    Win = "10 робуксов"
+                    embe= discord.Embed(title="Число:" + str(case_num), colour= 0x2bbdf3)
+                    embe.add_field(name="Вы выиграли повторный приз: " + str(Win), value = "Молодец!")
+                    await message.channel.send(embed=embe)
                     emb = discord.Embed(title= "Повторный выиграш 10 робуксов", colour = 0xff0404 )
                     emb.add_field(name= "Участнику {} выпал повторный приз 10 робуксов".format(message.author), value= f"Иконас выдай робуксы {message.author}")
-                    await channel1.send(embed= emb)
+                    await channel3.send(embed= emb)
                 else:
                     Win = "10 робуксов"
+                    embe= discord.Embed(title="Число:" + str(case_num), colour= 0x2bbdf3)
+                    embe.add_field(name="Вы выиграли приз: " + str(Win), value = "Молодец!")
+                    await message.channel.send(embed=embe)
                     emb = discord.Embed(title= "10 робуксов", colour = 0xff0404)
                     emb.add_field(name= f"{message.author} выиграл:" + str(Win), value= f"Иконас выдай робуксы {message.author}")
                     await channel3.send(embed= emb)
