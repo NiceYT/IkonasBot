@@ -2,6 +2,7 @@ import discord
 import asyncio
 import random
 import pytz
+import sqlite3
 from datetime import datetime 
 from discord.ext import commands
 import os
@@ -19,32 +20,46 @@ async def on_ready():
     print("Я включен")
     
 
-blacklist = [""]
-mention_list = []
-    
 
+    
+class DateBase():
+    conn = sqlite3.connect("datebase.sqlite")
+    cursor = conn.cursor()
+    
+    try:
+        cursor.execute('''CREATE TABLE IF NOT EXISTS idbase (id text)''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS mentionbase (mention text)''')
+    except:
+        pass
+    
 
 
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def block(ctx, id):
-    blacklist.append(int(id))
-    mention_list.append("<@"+id+">")
+    cursor.execute(f"INSERT INTO  idbase (id) VALUES ({id})")
+    cursor.execute(f"INSERT INTO  mentionbase (mention) VALUES ("<@"+{id}+">")")
+    conn.commit()
     emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Айди человека: <@{id}>", color= 0xee4426)
     await ctx.send(embed=emb)
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def unblock(ctx, id):
-    blacklist.remove(int(id))
-    mention_list.remove("<@"+id+">")
+    cursor.execute(f"DELETE FROM idbase WHERE id = {id}")
+    cursor.execute(f"DELETE FROM mentionbase WHERE mention = "<@"+{id}+">")
+    conn.commit()
     emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: <@{id}>", color= 0xee4426)
     await ctx.send(embed=emb)
 
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def blocked(ctx):
-    emb = discord.Embed(title= "Список заблокированных людей: ", description="\n".join([str(i) for i in mention_list]),  color= 0xee4426)
-    await ctx.send(embed=emb)
+    cursor.execute('SELECT * FROM idbase')
+    row = cursor.fetchone()
+    while row is not None:
+        emb = discord.Embed(title= "Список заблокированных людей: ", description="\n".join([str(i) for i in row]),  color= 0xee4426)
+        await ctx.send(embed=emb)
+        row = cursor.fetchone()
                
 
 @client.event
@@ -59,7 +74,9 @@ async def on_message(message):
         if message.author == client.user:
             return
         else:
-            if message.author.id in blacklist:
+            cursor.execute('SELECT * FROM idbase')
+            row = int(cursor.fetchone())     
+            if message.author.id in row:
                 blocked = message.author
                 await blocked.send("Вы в черном списке этого сервера!")
             else:
