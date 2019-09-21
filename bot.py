@@ -22,14 +22,13 @@ async def on_ready():
 
 
     
-class DateBase():
-    conn = sqlite3.connect("datebase.sqlite")
-    cursor = conn.cursor()
+conn = sqlite3.connect("datebase.sqlite")
+cursor = conn.cursor()
     
-    try:
-        cursor.execute('''CREATE TABLE IF NOT EXISTS idbase (id text)''')
-    except:
-        pass
+try:
+    cursor.execute('''CREATE TABLE IF NOT EXISTS idbase (id text)''')
+except:
+    pass
     
 
 
