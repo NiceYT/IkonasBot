@@ -72,7 +72,6 @@ async def on_message(message):
         else:
             cursor.execute('SELECT * FROM idbase')
             row = cursor.fetchone() 
-            print(row)
             for i in row:
                 if message.author.id in int(i):
                     blocked = message.author
