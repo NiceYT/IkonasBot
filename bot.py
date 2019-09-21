@@ -28,7 +28,6 @@ class DateBase():
     
     try:
         cursor.execute('''CREATE TABLE IF NOT EXISTS idbase (id text)''')
-        cursor.execute('''CREATE TABLE IF NOT EXISTS mentionbase (mention text)''')
     except:
         pass
     
@@ -38,7 +37,6 @@ class DateBase():
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def block(ctx, id):
     cursor.execute(f"INSERT INTO  idbase (id) VALUES ({id})")
-    cursor.execute(f"INSERT INTO  mentionbase (mention) VALUES ("<@"+{id}+">")")
     conn.commit()
     emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Айди человека: <@{id}>", color= 0xee4426)
     await ctx.send(embed=emb)
@@ -46,7 +44,6 @@ async def block(ctx, id):
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def unblock(ctx, id):
     cursor.execute(f"DELETE FROM idbase WHERE id = {id}")
-    cursor.execute(f"DELETE FROM mentionbase WHERE mention = "<@"+{id}+">")
     conn.commit()
     emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: <@{id}>", color= 0xee4426)
     await ctx.send(embed=emb)
