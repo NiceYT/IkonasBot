@@ -73,8 +73,7 @@ async def on_message(message):
             cursor.execute('SELECT * FROM idbase')
             row = cursor.fetchone() 
             for i in row:
-                print(i)
-                if message.author.id in int(i):
+                if str(message.author.id) in str(i):
                     blocked = message.author
                     await blocked.send("Вы в черном списке этого сервера!")
                 else:
