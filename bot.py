@@ -26,19 +26,19 @@ normal_list = (discord.Color.red(),
                 discord.Color.orange(),
                 discord.Color.dark_orange()
                 )
-spooky_list = (0xFFA500
-               0xFF8C00
-               0xFF4500
-               0xFF6347
-               0xFF7F50
-               0xFFA07A
-               0xFFFF00
-               0xFFD700
-               0xFFDAB9
-               0x8B4513
-               0xA52A2A
-               0xA0522D
-               0xD2691E
+spooky_list = (0xFFA500,
+               0xFF8C00,
+               0xFF4500,
+               0xFF6347,
+               0xFF7F50,
+               0xFFA07A,
+               0xFFFF00,
+               0xFFD700,
+               0xFFDAB9,
+               0x8B4513,
+               0xA52A2A,
+               0xA0522D,
+               0xD2691E,
                0xB8860B)
 clr = spooky_list
 
