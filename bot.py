@@ -60,6 +60,10 @@ async def blocked(ctx):
         emb = discord.Embed(title= "Список заблокированных людей: ", description="\n".join([str(i) for i in row]),  color= 0xee4426)
         await ctx.send(embed=emb)
         row = cursor.fetchone()
+@client.command()
+@commands.has_any_role(532444048166748170, 532444461985300481)
+async def answer(ctx, member, *, textAnswer):
+    await member.send(embed=discord.Embed(title=f"Вы получили ответ от {ctx.message.author} ", description=textAnswer).set_footer(text="С уважением, {ctx.message.author},icon_url=f"{ctx.message.author.avatar_url}"))
                
 
 @client.event
