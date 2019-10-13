@@ -93,7 +93,30 @@ async def blocked(ctx):
 async def answer(ctx, member: discord.Member, *, textAnswer):
     await member.send(embed=discord.Embed(title=f"Вы получили ответ от {ctx.message.author}. ", description=textAnswer, color= random.choice(clr)).set_footer(text=f"С уважением, {ctx.message.author}",icon_url=f"{ctx.message.author.avatar_url}"))
     await ctx.send(embed=discord.Embed(title="Успех!", description=f"Вы успешно отправили сообщение участнику {member}.", color=random.choice(clr)))          
+@client.command()
+async def start(ctx, maxUsers: int, game: str, *, time: str):
+        await ctx.message.delete()
+        users = 0
+        message = await ctx.send(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description=f"Максимальное число участников: {maxUsers} , время провидение {time}"))
+        await message.add_reaction("✔")
+        while True:
+            try:
+                r, u = await client.wait_for('reaction_add', check=lambda r,u: r.message.id == message.id)
+            except asyncio.TimeoutError as e:
+                return 
+            else:
+                if u != client.user: 
+                    if str(r) == '✔':
+                        if users != maxUsers:
+                            await ctx.send("Добавлен участник:" + str(u))
+                            users+=1
+                            await message.edit(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description=f"Максимальное число участников: {maxUsers} , время провидение {time}. Текущее кол-во участников: {users}"))
 
+                        elif users == maxUsers:
+                            await message.remove_reaction("✔")
+                            await message.edit(embed=discord.Embed(title="Набор закрыт по причине: превышение участников."))
+                else:
+                    pass
 @client.event
 async def on_message(message):
      
