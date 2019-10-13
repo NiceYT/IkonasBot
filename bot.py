@@ -92,7 +92,7 @@ async def blocked(ctx):
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def answer(ctx, member: discord.Member, *, textAnswer):
     await member.send(embed=discord.Embed(title=f"Вы получили ответ от {ctx.message.author}. ", description=textAnswer, color= random.choice(clr)).set_footer(text=f"С уважением, {ctx.message.author}",icon_url=f"{ctx.message.author.avatar_url}"))
-    await ctx.send(embed=discord.Embed(title="Успех", description=f"Вы успешно отправили сообщение участнику {member}.", color=random.choice(clr)))          
+    await ctx.send(embed=discord.Embed(title="Успех!", description=f"Вы успешно отправили сообщение участнику {member}.", color=random.choice(clr)))          
 
 @client.event
 async def on_message(message):
