@@ -40,7 +40,7 @@ async def block(ctx, member: discord.Member):
     conn.commit()
     emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Айди человека: <@{id}>", color= 0xee4426)
     await ctx.send(embed=emb)
-    await member.send(f"Вы были заблокированы на 24 часа администратором{ctx.message.author}")
+    await member.send(f"Вы были заблокированы на 24 часа администратором {ctx.message.author}")
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def unblock(ctx, member: discord.Member):
@@ -49,7 +49,7 @@ async def unblock(ctx, member: discord.Member):
     conn.commit()
     emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: <@{id}>", color= 0xee4426)
     await ctx.send(embed=emb)
-    await member.send(f"Вы были разблокированы администратором{ctx.message.author}")
+    await member.send(f"Вы были разблокированы администратором {ctx.message.author}")
 
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
