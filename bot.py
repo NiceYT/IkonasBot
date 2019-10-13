@@ -76,18 +76,17 @@ async def on_message(message):
         else:
             cursor.execute('SELECT * FROM idbase')
             row = cursor.fetchone() 
-            for i in row:
-                if str(message.author.id) in str(i):
-                    blocked = message.author
-                    await blocked.send("Вы в черном списке этого сервера!")
-                else:
-                    tz = pytz.timezone('Europe/Moscow')
-                    time_now = str(datetime.now(tz)).split(' ')[1][:8]
-                    channel = client.get_channel(532573322014359552) 
-                    emb = discord.Embed(title = str(message.author), description = message.content, color=0xff0404)
-                    emb.set_footer(icon_url = str(message.author.avatar_url),text= str(message.author.id) + " | " +str(time_now)) 
+            if str(message.author.id) in str(row):
+                blocked = message.author
+                await blocked.send("Вы в черном списке этого сервера!")
+            else:
+                tz = pytz.timezone('Europe/Moscow')
+                time_now = str(datetime.now(tz)).split(' ')[1][:8]
+                channel = client.get_channel(532573322014359552) 
+                emb = discord.Embed(title = str(message.author), description = message.content, color=0xff0404)
+                emb.set_footer(icon_url = str(message.author.avatar_url),text= str(message.author.id) + " | " +str(time_now)) 
 
-                    await channel.send(embed=emb) 
+                await channel.send(embed=emb) 
         
         
     
