@@ -117,11 +117,11 @@ async def start(ctx, maxUsers: int, game: str, *, time: str):
                             await message.remove_reaction("✔")
                             await message.edit(embed=discord.Embed(title="Набор закрыт по причине: превышение участников.", color= random.choice(clr)))
                         try:
-                            r, u = await self.bot.wait_for('reaction_remove', check=lambda r,u: r.message.id == message.id)
+                            r, u = await client.wait_for('reaction_remove', check=lambda r,u: r.message.id == message.id)
                         except asyncio.TimeoutError as e:
                             return
                         else:
-                            if u != self.bot.user: 
+                            if u != client.user: 
                                 if str(r) == '✔':
                                     await ctx.send("Из игры ушел участник:" + str(u))
                                     users-=1
