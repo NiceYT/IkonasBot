@@ -125,7 +125,7 @@ async def start(ctx, maxUsers: int, game: str, *, time: str):
                                 if str(r) == '✔':
                                     await ctx.send("Из игры ушел участник:" + str(u))
                                     users-=1
-                                    await message.edit(embed=discord.Embed(title=f"Набор на игру {game} открыт", description=f"Максимальное число участников: {maxUsers} , время провидение {time}. Текущее кол-во участников: {users}"))
+                                    await message.edit(embed=discord.Embed(title=f"Набор на игру {game} открыт", description=f"Максимальное число участников: {maxUsers} , время провидение {time}. Текущее кол-во участников: {users}", color= random.choice(clr)))
                             
                 else:     
                     pass
