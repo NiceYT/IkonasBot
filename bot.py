@@ -112,7 +112,7 @@ async def start(ctx, maxUsers: int, game: str, *, time: str):
                             await ctx.send("Добавлен участник:" + str(u))
                             users+=1
                             await message.edit(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description=f"Максимальное число участников: {maxUsers} , время провидение {time}. Текущее кол-во участников: {users}", color= random.choice(clr)))
-                        
+                            await asyncio.sleep(2)
                         elif users == maxUsers:
                             await message.remove_reaction("✔")
                             await message.edit(embed=discord.Embed(title="Набор закрыт по причине: превышение участников.", color= random.choice(clr)))
@@ -126,7 +126,7 @@ async def start(ctx, maxUsers: int, game: str, *, time: str):
                                     await ctx.send("Из игры ушел участник:" + str(u))
                                     users-=1
                                     await message.edit(embed=discord.Embed(title=f"Набор на игру {game} открыт", description=f"Максимальное число участников: {maxUsers} , время провидение {time}. Текущее кол-во участников: {users}", color= random.choice(clr)))
-                            
+                                    await asyncio.sleep(2)
                 else:     
                     pass
 @client.event
