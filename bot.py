@@ -98,7 +98,7 @@ async def answer(ctx, member: discord.Member, *, textAnswer):
 async def start(ctx, maxUsers: int, game: str, *, time: str):
         await ctx.message.delete()
         users = 0
-        message = await ctx.send(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description=f"Максимальное число участников: {maxUsers} , время провидение {time}", color= random.choice(clr)))
+        message = await ctx.send(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description="Нажми на реакцию ниже, чтобы участвовать.", color= random.choice(clr)).add_field(name="Максимальное число участников:",value=f"{maxUsers}", inline=False).add_field(name="Время провидения:", value=f"{time}", inline=False))
         await message.add_reaction("✔")
         while True:
             try:
@@ -111,7 +111,7 @@ async def start(ctx, maxUsers: int, game: str, *, time: str):
                         if users != maxUsers:
                             await ctx.send("Добавлен участник:" + str(u))
                             users+=1
-                            await message.edit(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description=f"Максимальное число участников: {maxUsers} , время провидение {time}. Текущее кол-во участников: {users}", color= random.choice(clr)))
+                            await message.edit(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description="Нажми на реакцию ниже, чтобы участвовать.", color= random.choice(clr)).add_field(name="Максимальное число участников:",value=f"{maxUsers}", inline=False).add_field(name="Время провидения:", value=f"{time}", inline=False).add_field(name="Текущее кол-во участников:", value=f"{users}"))
                             await asyncio.sleep(2)
                         elif users == maxUsers:
                             await message.remove_reaction("✔")
@@ -125,7 +125,7 @@ async def start(ctx, maxUsers: int, game: str, *, time: str):
                                 if str(r) == '✔':
                                     await ctx.send("Из игры ушел участник:" + str(u))
                                     users-=1
-                                    await message.edit(embed=discord.Embed(title=f"Набор на игру {game} открыт", description=f"Максимальное число участников: {maxUsers} , время провидение {time}. Текущее кол-во участников: {users}", color= random.choice(clr)))
+                                    await message.edit(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description="Нажми на реакцию ниже, чтобы участвовать.", color= random.choice(clr)).add_field(name="Максимальное число участников:",value=f"{maxUsers}", inline=False).add_field(name="Время провидения:", value=f"{time}", inline=False).add_field(name="Текущее кол-во участников:", value=f"{users}"))
                                     await asyncio.sleep(2)
                 else:     
                     pass
