@@ -114,7 +114,7 @@ async def start(ctx, maxUsers: int, game: str, *, time: str):
                             await message.edit(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description="Нажми на реакцию ниже, чтобы участвовать.", color= random.choice(clr)).add_field(name="Максимальное число участников:",value=f"{maxUsers}", inline=False).add_field(name="Время провидения:", value=f"{time}", inline=False).add_field(name="Текущее кол-во участников:", value=f"{users}"))
                             await asyncio.sleep(2)
                         elif users == maxUsers:
-                            #await message.remove_reaction("✔", u)
+                            await message.remove_reaction("✔", u)
                             await message.edit(embed=discord.Embed(title="Набор закрыт по причине: превышение участников.", color= random.choice(clr)))
                         try:
                             r, u = await client.wait_for('reaction_remove', check=lambda r,u: r.message.id == message.id)
