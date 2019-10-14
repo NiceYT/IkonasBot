@@ -112,11 +112,22 @@ async def start(ctx, maxUsers: int, game: str, *, time: str):
                             await ctx.send("Добавлен участник:" + str(u))
                             users+=1
                             await message.edit(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description=f"Максимальное число участников: {maxUsers} , время провидение {time}. Текущее кол-во участников: {users}", color= random.choice(clr)))
-
+                        
                         elif users == maxUsers:
                             await message.remove_reaction("✔")
                             await message.edit(embed=discord.Embed(title="Набор закрыт по причине: превышение участников.", color= random.choice(clr)))
-                else:
+                        try:
+                            r, u = await self.bot.wait_for('reaction_remove', check=lambda r,u: r.message.id == message.id)
+                        except asyncio.TimeoutError as e:
+                            return
+                        else:
+                            if u != self.bot.user: 
+                                if str(r) == '✔':
+                                    await ctx.send("Из игры ушел участник:" + str(u))
+                                    users-=1
+                                    await message.edit(embed=discord.Embed(title=f"Набор на игру {game} открыт", description=f"Максимальное число участников: {maxUsers} , время провидение {time}. Текущее кол-во участников: {users}"))
+                            
+                else:     
                     pass
 @client.event
 async def on_message(message):
