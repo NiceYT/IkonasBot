@@ -122,10 +122,11 @@ async def start(ctx, maxUsers: int, game: str, *, time: str):
                         else:
                             if u != client.user: 
                                 if str(r) == '✔':
-                                    await ctx.send("Из игры ушел участник:" + str(u))
-                                    users-=1
-                                    await message.edit(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description="Нажми на реакцию ниже, чтобы участвовать.", color= random.choice(clr)).add_field(name="Максимальное число участников:",value=f"{maxUsers}", inline=False).add_field(name="Время провидения:", value=f"{time}", inline=False).add_field(name="Текущее кол-во участников:", value=f"{users}"))
-                                    await asyncio.sleep(2)
+                                    if users != 0:
+                                        await ctx.send("Из игры ушел участник:" + str(u))
+                                        users-=1
+                                        await message.edit(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description="Нажми на реакцию ниже, чтобы участвовать.", color= random.choice(clr)).add_field(name="Максимальное число участников:",value=f"{maxUsers}", inline=False).add_field(name="Время провидения:", value=f"{time}", inline=False).add_field(name="Текущее кол-во участников:", value=f"{users}"))
+                                        await asyncio.sleep(2)
                 else:     
                     pass
 @client.event
