@@ -97,7 +97,7 @@ async def answer(ctx, member: discord.Member, *, textAnswer):
 @client.command()
 async def start(ctx, maxUsers: int, game: str, *, time: str):
         await ctx.message.delete()
-        await ctx.send(embed=discord.Embed(title="**Внимание!**", description="При использовании **__любых__** багов вы будете лишены доступа в этот канал", color= random.choice(clr)).set_footer(text=f"С уважением, {ctx.message.author}",icon_url=f"{ctx.message.author.avatar_url}")))
+        await ctx.send(embed=discord.Embed(title="**Внимание!**", description="При использовании **__любых__** багов вы будете лишены доступа в этот канал", color= random.choice(clr)).set_footer(text=f"С уважением, {ctx.message.author}",icon_url=f"{ctx.message.author.avatar_url}"))
         users = 0
         message = await ctx.send(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description="Нажми на реакцию ниже, чтобы участвовать.", color= random.choice(clr)).add_field(name="Максимальное число участников:",value=f"{maxUsers}", inline=False).add_field(name="Время провидения:", value=f"{time}", inline=False))
         await message.add_reaction("✔")
