@@ -65,9 +65,9 @@ except:
 async def send_code(ctx):
     code = random.choice(codes)
     if celebration == False:
-        pineapples = random.randint(-100, 2500)
+        pineapples = random.randint(-100, 1250)
     elif celebration == True:
-        pineapples = random.randint(500, 3500)
+        pineapples = random.randint(250, 1500)
     hard = random.randint(1, 15)
     channel = client.get_channel(int(random.choice(channels)))
     if hard == 3:
