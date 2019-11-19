@@ -48,13 +48,13 @@ pineapples = 0
 @client.event
 async def on_ready():
     print("Я включен")
-    code = (random.choice(codes))
+    code = random.choice(codes)
     if celebration == False:
-        pineapples = (random.randint(-100, 2500))
+        pineapples = random.randint(-100, 2500)
     elif celebration == True:
-        pineapples = (random.randint(500, 3500))
-    hard = (random.randint(1, 15)
-    channel = (random.choice(channels_send))
+        pineapples = random.randint(500, 3500)
+    hard = random.randint(1, 15)
+    channel = random.choice(channels_send)
     if hard == 3:
         await channel.send(embed=discord.Embed(title=f"Элитный код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*"))
     else:
@@ -73,13 +73,13 @@ except:
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def send_code(ctx):
-    code = (random.choice(codes))
+    code = random.choice(codes)
     if celebration == False:
-        pineapples = (random.randint(-100, 2500))
+        pineapples = random.randint(-100, 2500)
     elif celebration == True:
-        pineapples = (random.randint(500, 3500))
+        pineapples = random.randint(500, 3500)
     hard = (random.randint(1, 15)
-    channel = (random.choice(channels_send))
+    channel = random.choice(channels_send)
     if hard == 3:
         await channel.send(embed=discord.Embed(title=f"Элитный код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*"))
     else:
