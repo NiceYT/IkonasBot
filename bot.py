@@ -56,9 +56,9 @@ async def on_ready():
     hard = random.randint(1, 15)
     channel = random.choice(channels)
     if hard == 3:
-        await channel.send(embed=discord.Embed(title=f"Элитный код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*"color= random.choice(clr)))
+        await channel.send(embed=discord.Embed(title=f"Элитный код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)))
     else:
-        await channel.send(embed=discord.Embed(title=f"Код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*"color= random.choice(clr)))
+        await channel.send(embed=discord.Embed(title=f"Код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)))
 
 
     
@@ -81,9 +81,9 @@ async def send_code(ctx):
     hard = (random.randint(1, 15)
     channel = random.choice(channels)
     if hard == 3:
-        await channel.send(embed=discord.Embed(title=f"Элитный код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*"color= random.choice(clr)))
+        await channel.send(embed=discord.Embed(title=f"Элитный код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)))
     else:
-        await channel.send(embed=discord.Embed(title=f"Код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*"color= random.choice(clr)))
+        await channel.send(embed=discord.Embed(title=f"Код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)))
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def block(ctx, member: discord.Member):
