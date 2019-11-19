@@ -44,22 +44,21 @@ clr = spooky_list
 celebration = False
 channels_send = [645275470086275142,645275741524852736,645275781387386880]
 codes = ['gwQIep2','XdOtIEm','x7W160Q','o9xvIW1','vk8kIwb','X2OVRfR','MhclQDo','AcrmW3F','ZFC2y0F','Pbem6mI','BYvtx1c','V0AdnBu','1SMX5ML','XAslRT7','uIz9NO8','DLvKA1b','DbkX6xQ','JjGrACm','V88W8HI','k4CzHHz','N7gNFmQ','6oc3M2S','O7100EU','zDAMZRX']
-
+pineapples = 0
 @client.event
 async def on_ready():
     print("Я включен")
     code = (random.choice(codes))
-    pineapples = 0
     if celebration == False:
-        pineapples = (random.randint(3000, 3500))
+        pineapples = (random.randint(-100, 2500))
     elif celebration == True:
-        pineapples = (random.randint(4500, 5500))
+        pineapples = (random.randint(500, 3500))
     hard = (random.randint(1, 15)
     channel = (random.choice(channels_send))
     if hard == 3:
-        await channel.send(embed=discord.Embed(title=f"Элитный код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#36288*"))
+        await channel.send(embed=discord.Embed(title=f"Элитный код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*"))
     else:
-        await channel.send(embed=discord.Embed(title=f"Код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#36288*"))
+        await channel.send(embed=discord.Embed(title=f"Код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*"))
 
 
     
@@ -71,8 +70,20 @@ try:
 except:
     pass
     
-
-
+@client.command()
+@commands.has_any_role(532444048166748170, 532444461985300481)
+async def send_code(ctx):
+    code = (random.choice(codes))
+    if celebration == False:
+        pineapples = (random.randint(-100, 2500))
+    elif celebration == True:
+        pineapples = (random.randint(500, 3500))
+    hard = (random.randint(1, 15)
+    channel = (random.choice(channels_send))
+    if hard == 3:
+        await channel.send(embed=discord.Embed(title=f"Элитный код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*"))
+    else:
+        await channel.send(embed=discord.Embed(title=f"Код:{code}", description=f"Этот код дает: {pineapples} монет./n*Напишите этот код администратору: Nice#3628*"))
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def block(ctx, member: discord.Member):
