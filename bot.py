@@ -61,7 +61,7 @@ except:
     pass
     
 @client.command()
-@commands.has_any_role(645265129893658624)
+@commands.has_any_role(645265129893658624, 532444461985300481)
 async def send_code(ctx):
     print("working")
     code = random.choice(codes)
