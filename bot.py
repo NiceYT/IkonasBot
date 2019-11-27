@@ -111,7 +111,7 @@ async def answer(ctx, member: discord.Member, *, textAnswer):
 
 @client.event
 async def on_message(message):
-     
+    await client.process_commands(message)
     args = message.content.split(' ')
     command = args[0][len(prefix):].lower()
     args = args[1:]
@@ -253,7 +253,7 @@ async def on_message(message):
                 await user.remove_roles(case1)
             else:
                 return
-        await client.process_commands(message)
+        
      
                 
 
