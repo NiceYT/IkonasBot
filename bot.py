@@ -61,8 +61,9 @@ except:
     pass
     
 @client.command()
-@commands.has_any_role(532444048166748170, 532444461985300481)
+@commands.has_any_role(645265129893658624)
 async def send_code(ctx):
+    print("working")
     code = random.choice(codes)
     if celebration == False:
         pineapples = random.randint(-100, 1250)
@@ -75,7 +76,7 @@ async def send_code(ctx):
     else:
         await channel.send(embed=discord.Embed(title=f"Код:{code}", description=f"Этот код дает: {pineapples} монет. /n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)))
 @client.command()
-@commands.has_any_role(532444048166748170, 532444461985300481)
+@commands.has_any_role(645265129893658624)
 async def block(ctx, member: discord.Member):
     id = member.id
     cursor.execute(f"INSERT INTO  idbase (id) VALUES ({id})")
@@ -84,7 +85,7 @@ async def block(ctx, member: discord.Member):
     await ctx.send(embed=emb)
     await member.send(f"Вы были заблокированы на 24 часа администратором {ctx.message.author}")
 @client.command()
-@commands.has_any_role(532444048166748170, 532444461985300481)
+@commands.has_any_role(645265129893658624)
 async def unblock(ctx, member: discord.Member):
     id = member.id
     cursor.execute(f"DELETE FROM idbase WHERE id = {id}")
@@ -103,47 +104,11 @@ async def blocked(ctx):
         await ctx.send(embed=emb)
         row = cursor.fetchone()
 @client.command()
-@commands.has_any_role(532444048166748170, 532444461985300481)
+@commands.has_any_role(645265129893658624)
 async def answer(ctx, member: discord.Member, *, textAnswer):
     await member.send(embed=discord.Embed(title=f"Вы получили ответ от {ctx.message.author}. ", description=textAnswer, color= random.choice(clr)).set_footer(text=f"С уважением, {ctx.message.author}",icon_url=f"{ctx.message.author.avatar_url}"))
     await ctx.send(embed=discord.Embed(title="Успех!", description=f"Вы успешно отправили сообщение участнику {member}.", color=random.choice(clr)))          
-@commands.has_any_role(532444048166748170, 532444461985300481)
-@client.command()
-async def start(ctx, maxUsers: int, game: str, *, time: str):
-        await ctx.message.delete()
-        await ctx.send(embed=discord.Embed(title="**Внимание!**", description="При использовании **__любых__** багов вы будете лишены доступа в этот канал", color= random.choice(clr)).set_footer(text=f"С уважением, {ctx.message.author}",icon_url=f"{ctx.message.author.avatar_url}"))
-        users = 0
-        message = await ctx.send(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description="Нажми на реакцию ниже, чтобы участвовать.", color= random.choice(clr)).add_field(name="Максимальное число участников:",value=f"{maxUsers}", inline=False).add_field(name="Время провидения:", value=f"{time}", inline=False))
-        await message.add_reaction("✔")
-        while True:
-            try:
-                r, u = await client.wait_for('reaction_add', check=lambda r,u: r.message.id == message.id)
-            except asyncio.TimeoutError as e:
-                return 
-            else:
-                if u != client.user: 
-                    if str(r) == '✔':
-                        if users != maxUsers:
-                            await ctx.send("Добавлен участник:" + str(u))
-                            users+=1
-                            await message.edit(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description="Нажми на реакцию ниже, чтобы участвовать.", color= random.choice(clr)).add_field(name="Максимальное число участников:",value=f"{maxUsers}", inline=False).add_field(name="Время провидения:", value=f"{time}", inline=False).add_field(name="Текущее кол-во участников:", value=f"{users}"))
-                            await asyncio.sleep(2)
-                        elif users == maxUsers:
-                            pass
-                        try:
-                            r, u = await client.wait_for('reaction_remove', check=lambda r,u: r.message.id == message.id)
-                        except asyncio.TimeoutError as e:
-                            return
-                        else:
-                            if u != client.user: 
-                                if str(r) == '✔':
-                                    if users != 0:
-                                        await ctx.send("Из игры ушел участник:" + str(u))
-                                        users-=1
-                                        await message.edit(embed=discord.Embed(title=f"Набор на игру {game} был открыт", description="Нажми на реакцию ниже, чтобы участвовать.", color= random.choice(clr)).add_field(name="Максимальное число участников:",value=f"{maxUsers}", inline=False).add_field(name="Время провидения:", value=f"{time}", inline=False).add_field(name="Текущее кол-во участников:", value=f"{users}"))
-                                        await asyncio.sleep(2)
-                else:     
-                    pass
+
 @client.event
 async def on_message(message):
      
