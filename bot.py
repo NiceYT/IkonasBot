@@ -59,7 +59,8 @@ try:
     cursor.execute('''CREATE TABLE IF NOT EXISTS idbase (id text)''')
 except:
     pass
-    
+
+
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def send_code(ctx):
