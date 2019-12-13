@@ -21,7 +21,7 @@ class UtilsCog(commands.Cog):
         self.bot = bot
         self.active = True
 
-    #@commands.has_any_role(645265129893658624)
+    @commands.has_any_role(645265129893658624)
     @commands.command()
     async def start(self, ctx, maxUsers: int, game: str, *, time: str):
         await ctx.send(embed=discord.Embed(title="**Все возможные игры**", description="Игры:").add_field(name="Гонки:", value="1; Ивенты: 1: x2 очки, минус 1-3 поинта у рандомного человека.", inline=False).add_field(name="Idk:", value="2"))
@@ -45,7 +45,7 @@ class UtilsCog(commands.Cog):
             conn.commit()
             await message.add_reaction("✔")
             
-    #@commands.has_any_role(532444048166748170, 532444461985300481)
+    @commands.has_any_role(645265129893658624)
     @commands.command()
     async def finish(self, ctx):
         await ctx.message.delete()
@@ -161,7 +161,7 @@ class UtilsCog(commands.Cog):
                                     cursor.fetchone()
         except Exception as e:
             print(e)  
-    #@commands.has_any_role(532444048166748170, 532444461985300481)
+    @commands.has_any_role(645265129893658624)
     @commands.command()
     async def game_i(self, ctx, *, game_sel: int = None):
         if game_sel == None:
@@ -171,14 +171,13 @@ class UtilsCog(commands.Cog):
             await ctx.send(embed= discord.Embed(title="Гонка", description="В этой игре выиграет тот, кто наберет первым 100 очков. Очки могут и убавляться и прибавляться. Игроки получают очки с помощью рандомайзера Бота. Обычно в игру играют 5 человек."))
         elif game_sel == 2: #
             pass
-    #@commands.has_any_role(532444048166748170, 532444461985300481)
+    @commands.has_any_role(645265129893658624)
     @commands.command()
     async def game_start(self, ctx, game: int, *, event: int):
         if game == 1 & event == 1: #Числовая гонки
             await ctx.send("Числовая гонки с ивентом x2 очки началась!")
         if game == 1 & event == 2: #Числовая гонки
             await ctx.send("Числовая гонки с ивентом минус 1-3 поинта у рандомного человека началась!")
-    
     @commands.command()
     async def game_role(self, ctx):
         if ctx.channel.id != 644030582237560834:
