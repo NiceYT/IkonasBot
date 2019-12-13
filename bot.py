@@ -65,7 +65,16 @@ pineapples = 0
 @client.event
 async def on_ready():
     print("Я включен")
-    
+client.remove_command("help")
+cogs = ['cogs.event']
+for i in cogs:
+    try:
+        client.load_extension(i)
+    except Exception as e:
+        print(f'{i} cannot be loaded {e}')
+    else:
+        print(f"{i.replace('cogs.', '')} has been loaded!")
+
 
 
     
@@ -98,14 +107,11 @@ async def magic(ctx):
             user_choose = i
             count = count + 1
             users_win_row.append(str(user_choose))
-            await asyncio.sleep(0.25)
+            await asyncio.sleep(0.15)
     while count2 != 2:
-        print(str(users_win_row))
         user_row = random.choice(users_win_row)
         count2 = count2 + 1
-        print(count2)
         users_lose_row.append(user_row)
-        print(users_lose_row)
         users_win_row.remove(user_row)
     users_win = ("\n".join([(i) for i in users_win_row]))
     users_lose = ("\n".join([(i) for i in users_lose_row]))
@@ -114,7 +120,6 @@ async def magic(ctx):
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def send_code(ctx):
-    print("working")
     code = random.choice(codes)
     if celebration == False:
         pineapples = random.randint(-100, 1250)
