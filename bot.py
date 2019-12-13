@@ -40,7 +40,24 @@ spooky_list = (0xFFA500,
                0xA0522D,
                0xD2691E,
                0xB8860B)
-clr = spooky_list
+New_Year = (0xFF0000,
+            0xFFFF00,
+            0x0000FF,
+            0xFFFFFF,
+            0x000080,
+            0x87CEEB,
+            0x00FF00,
+            0xFA8072,
+            0xFFC0CB,
+            0xFFDAB9,
+            0x00FFFF,
+            0xFF00FF,
+            0x6A5ACD,
+            0x7B68EE,
+            0xE0FFFF,
+            0x00FF7F,
+            0xC0C0C0)
+clr = New_Year
 celebration = False
 channels = [645275470086275142,645275741524852736,645275781387386880]
 codes = ['gwQIep2','XdOtIEm','x7W160Q','o9xvIW1','vk8kIwb','X2OVRfR','MhclQDo','AcrmW3F','ZFC2y0F','Pbem6mI','BYvtx1c','V0AdnBu','1SMX5ML','XAslRT7','uIz9NO8','DLvKA1b','DbkX6xQ','JjGrACm','V88W8HI','k4CzHHz','N7gNFmQ','6oc3M2S','O7100EU','zDAMZRX']
@@ -59,7 +76,40 @@ try:
     cursor.execute('''CREATE TABLE IF NOT EXISTS idbase (id text)''')
 except:
     pass
-
+@client.command()
+@commands.has_any_role(645265129893658624)
+async def magic(ctx):
+    count = 0
+    count2 = 0
+    users = []
+    users_win_row = []
+    users_lose_row = []
+    user_choose = None
+    nagrada = random.randint(50, 150)
+    lose = random.randint(-125, -25)
+    for m in ctx.guild.members:
+        if m.bot: continue
+        users.append(str(m))
+    while count != 6:
+        i = random.choice(users)
+        if i in users_win_row:
+            pass
+        else:
+            user_choose = i
+            count = count + 1
+            users_win_row.append(str(user_choose))
+            await asyncio.sleep(0.25)
+    while count2 != 2:
+        print(str(users_win_row))
+        user_row = random.choice(users_win_row)
+        count2 = count2 + 1
+        print(count2)
+        users_lose_row.append(user_row)
+        print(users_lose_row)
+        users_win_row.remove(user_row)
+    users_win = ("\n".join([(i) for i in users_win_row]))
+    users_lose = ("\n".join([(i) for i in users_lose_row]))
+    await ctx.send(embed= discord.Embed(title="**Удача!**", description=f"Дед мороз дал подарки ({nagrada} ананасов) участникам:\n {users_win}",color= random.choice(clr)).add_field(name="**Неудача!**", value=f"Гринч украл подарки ({lose} ананасов) у участников:\n {users_lose}"))
 
 @client.command()
 @commands.has_any_role(645265129893658624)
