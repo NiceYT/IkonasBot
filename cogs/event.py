@@ -174,10 +174,12 @@ class UtilsCog(commands.Cog):
     @commands.has_any_role(645265129893658624)
     @commands.command()
     async def game_start(self, ctx, game: int, *, event: int):
+        if game == 1 & event == 0:
+            await ctx.send("Числовая гонка без ивента началась!")
         if game == 1 & event == 1: #Числовая гонки
-            await ctx.send("Числовая гонки с ивентом x2 очки началась!")
+            await ctx.send("Числовая гонка с ивентом **x2 очки** началась!")
         if game == 1 & event == 2: #Числовая гонки
-            await ctx.send("Числовая гонки с ивентом минус 1-3 поинта у рандомного человека началась!")
+            await ctx.send("Числовая гонка с ивентом **минус 1-3 поинта** у рандомного человека началась!")
     @commands.command()
     async def game_role(self, ctx):
         if ctx.channel.id != 644030582237560834:
