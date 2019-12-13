@@ -173,9 +173,9 @@ class UtilsCog(commands.Cog):
             pass
     @commands.has_any_role(645265129893658624)
     @commands.command()
-    async def game_start(self, ctx, game: int, *, event: int):
+    async def game_start(self, ctx, game: int, event: int):
         if game == 1 & event == 0:
-            await ctx.send("Числовая гонка без ивента началась!")
+            await ctx.send("Числовая гонка **без ивента** началась!")
         if game == 1 & event == 1: #Числовая гонки
             await ctx.send("Числовая гонка с ивентом **x2 очки** началась!")
         if game == 1 & event == 2: #Числовая гонки
