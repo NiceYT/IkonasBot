@@ -57,6 +57,8 @@ New_Year = (0xFF0000,
             0xE0FFFF,
             0x00FF7F,
             0xC0C0C0)
+good = "Дед мороз"
+bad = "Гринч"
 clr = New_Year
 celebration = False
 channels = [645275470086275142,645275741524852736,645275781387386880]
@@ -115,7 +117,7 @@ async def magic(ctx):
         users_win_row.remove(user_row)
     users_win = ("\n".join([(i) for i in users_win_row]))
     users_lose = ("\n".join([(i) for i in users_lose_row]))
-    await ctx.send(embed= discord.Embed(title="**Удача!**", description=f"Дед мороз дал подарки ({nagrada} ананасов) участникам:\n {users_win}",color= random.choice(clr)).add_field(name="**Неудача!**", value=f"Гринч украл подарки ({lose} ананасов) у участников:\n {users_lose}"))
+    await ctx.send(embed= discord.Embed(title="**Удача!**", description=f"{good} дал подарки ({nagrada} ананасов) участникам:\n {users_win}",color= random.choice(clr)).add_field(name="**Неудача!**", value=f"{bad} украл подарки ({lose} ананасов) у участников:\n {users_lose}"))
 
 @client.command()
 @commands.has_any_role(645265129893658624)
