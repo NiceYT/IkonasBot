@@ -130,9 +130,9 @@ async def send_code(ctx):
     hard = random.randint(1, 15)
     channel = client.get_channel(int(random.choice(channels)))
     if hard == 3:
-        await channel.send(embed=discord.Embed(title=f"Элитный код:{code}", description=f"Этот код дает: {pineapples} монет. \n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)))
+        await channel.send(embed=discord.Embed(title=f"Элитный код:{code}", description=f"Этот код дает: {pineapples} монет. \n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)),delete_after=600)
     else:
-        await channel.send(embed=discord.Embed(title=f"Код:{code}", description=f"Этот код дает: {pineapples} монет. \n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)))
+        await channel.send(embed=discord.Embed(title=f"Код:{code}", description=f"Этот код дает: {pineapples} монет. \n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)), delete_after=600)
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def block(ctx, member: discord.Member):
