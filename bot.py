@@ -91,12 +91,12 @@ except:
 @commands.has_any_role(645265129893658624)
 async def clear_roles(ctx, role_id: int):
     counter = 0
-    await ctx.send(title=f"Очистка роли {role_to_clear.name}у участников началась!", description=f"Вызвано: {ctx.author}",color= random.choice(clr))
+    await ctx.send(embed=discord.Embed (title=f"Очистка роли {role_to_clear.name}у участников началась!", description=f"Вызвано: {ctx.author}",color= random.choice(clr))) 
     role_to_clear = discord.utils.get(ctx.guild.roles, id=role_id)
     for m in ctx.guild.members:
         await m.add_roles(role_to_clear)
         counter = counter + 1
-    await ctx.send(embed = discord.Embed (Title = f"Очистка роли {role_to_clear.name} у {counter} участников закончилась!", description=f"Вызвано: {ctx.author}",color= random.choice(clr))
+    await ctx.send(embed = discord.Embed (Title = f"Очистка роли {role_to_clear.name} у {counter} участников закончилась!", description=f"Вызвано: {ctx.author}",color= random.choice(clr)))
 
 @client.command()
 @commands.has_any_role(645265129893658624)
