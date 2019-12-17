@@ -85,7 +85,7 @@ cursor = conn.cursor()
     
 try:
     cursor.execute('''CREATE TABLE IF NOT EXISTS idbase (id text)''')
-    cursor.execute('''CREATE TABLE IF NOT EXISTS codes (code text)''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS code_base (code text)''')
 except:
     pass
 """@client.command()
@@ -135,8 +135,8 @@ async def magic(ctx):
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def send_code(ctx):
-    code_to_send = random.choice(codes)
-    cursor.execute(f"INSERT INTO codes (code) VALUES ({code_to_send})")
+    secret = random.choice(codes)
+    cursor.execute(f"INSERT INTO code_base (code) VALUES ({secret})")
     conn.commit()
     if celebration == False:
         pineapples = random.randint(-100, 1250)
@@ -150,12 +150,12 @@ async def send_code(ctx):
         await channel.send(embed=discord.Embed(title=f"Код:{code_to_send}", description=f"Этот код дает: {pineapples} монет. \n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)), delete_after=600)
 @client.command()
 async def enter_code(ctx, code: str):
-    cursor.execute('SELECT * FROM codes')
+    cursor.execute('SELECT * FROM code_base')
     row = cursor.fetchone()
     db_code = " ".join([str(i) for i in row])
-    if code == db_code.replace(" ", ""):
+    if redeem_code == db_code.replace(" ", ""):
        await ctx.send(embed=discord.embed(title="Поздравляю!", description="Вы ввели правильный код!", color= random.choice(clr)).set_footer(icon_url = str(message.author.avatar_url),text=str(message.author.id)))
-       cursor.execute(f"DELETE FROM codes WHERE code = {db_code}")
+       cursor.execute(f"DELETE FROM code_base WHERE code = {db_code}")
        conn.commit()
     else:
        await ctx.send(embed=discord.embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(message.author.avatar_url),text=str(message.author.id)))
