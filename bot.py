@@ -154,11 +154,11 @@ async def enter_code(ctx, code: str):
     row = cursor.fetchone()
     db_code = " ".join([str(i) for i in row])
     if code == db_code.replace(" ", ""):
-       await ctx.send(embed=discord.embed(title="Поздравляю!", description="Вы ввели правильный код!", color= random.choice(clr)).set_footer(icon_url = str(message.author.avatar_url),text=str(message.author.id))
+       await ctx.send(embed=discord.embed(title="Поздравляю!", description="Вы ввели правильный код!", color= random.choice(clr)).set_footer(icon_url = str(message.author.avatar_url),text=str(message.author.id)))
        cursor.execute(f"DELETE FROM codes WHERE code = {db_code}")
        conn.commit()
     else:
-       await ctx.send(embed=discord.embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(message.author.avatar_url),text=str(message.author.id))
+       await ctx.send(embed=discord.embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(message.author.avatar_url),text=str(message.author.id)))
                    
     
 @client.command()
