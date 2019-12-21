@@ -61,9 +61,7 @@ good = "Дед мороз"
 bad = "Гринч"
 clr = New_Year
 celebration = False
-channels = [645275470086275142,645275741524852736,645275781387386880]
-codes = ['gwQIep2','XdOtIEm','x7W160Q','o9xvIW1','vk8kIwb','X2OVRfR','MhclQDo','AcrmW3F','ZFC2y0F','Pbem6mI','BYvtx1c','V0AdnBu','1SMX5ML','XAslRT7','uIz9NO8','DLvKA1b','DbkX6xQ','JjGrACm','V88W8HI','k4CzHHz','N7gNFmQ','6oc3M2S','O7100EU','zDAMZRX']
-pineapples = 0
+
 @client.event
 async def on_ready():
     print("Я включен")
@@ -132,33 +130,7 @@ async def magic(ctx):
     users_lose = ("\n".join([(i) for i in users_lose_row]))
     await ctx.send(embed= discord.Embed(title="**Удача!**", description=f"{good} дал подарки ({nagrada} ананасов) участникам:\n {users_win}",color= random.choice(clr)).add_field(name="**Неудача!**", value=f"{bad} украл подарки ({lose} ананасов) у участников:\n {users_lose}"))
 
-@client.command()
-@commands.has_any_role(645265129893658624)
-async def send_code(ctx):
-    secret = random.choice(codes)
-    cursor.execute(f"INSERT INTO code_base (code) VALUES ({secret})")
-    conn.commit()
-    if celebration == False:
-        pineapples = random.randint(-100, 1250)
-    elif celebration == True:
-        pineapples = random.randint(250, 1500)
-    hard = random.randint(1, 15)
-    channel = client.get_channel(int(random.choice(channels)))
-    if hard == 3:
-        await channel.send(embed=discord.Embed(title=f"Элитный код:{code_to_send}", description=f"Этот код дает: {pineapples} монет. \n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)),delete_after=600)
-    else:
-        await channel.send(embed=discord.Embed(title=f"Код:{code_to_send}", description=f"Этот код дает: {pineapples} монет. \n*Напишите этот код администратору: Nice#3628*",color= random.choice(clr)), delete_after=600)
-@client.command()
-async def enter_code(ctx, code: str):
-    cursor.execute('SELECT * FROM code_base')
-    row = cursor.fetchone()
-    db_code = " ".join([str(i) for i in row])
-    if redeem_code == db_code.replace(" ", ""):
-       await ctx.send(embed=discord.embed(title="Поздравляю!", description="Вы ввели правильный код!", color= random.choice(clr)).set_footer(icon_url = str(message.author.avatar_url),text=str(message.author.id)))
-       cursor.execute(f"DELETE FROM code_base WHERE code = {db_code}")
-       conn.commit()
-    else:
-       await ctx.send(embed=discord.embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(message.author.avatar_url),text=str(message.author.id)))
+
                    
     
 @client.command()
@@ -179,7 +151,63 @@ async def unblock(ctx, member: discord.Member):
     emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: <@{id}>", color= random.choice(clr))
     await ctx.send(embed=emb)
     await member.send(f"Вы были разблокированы администратором {ctx.message.author}")
+#Настройка отправки кода             
+channels = [645275470086275142,645275741524852736,645275781387386880]
 
+conn = sqlite3.connect("datebase.sqlite")
+cursor = conn.cursor()
+cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text)''')
+
+codes = ['gwQIep2','XdOtIEm','x7W160Q','o9xvIW1','vk8kIwb','X2OVRfR','MhclQDo','AcrmW3F',
+        'ZFC2y0F','Pbem6mI','BYvtx1c','V0AdnBu','1SMX5ML','XAslRT7','uIz9NO8','DLvKA1b',
+        'DbkX6xQ','JjGrACm','V88W8HI','k4CzHHz','N7gNFmQ','6oc3M2S','O7100EU','zDAMZRX']
+#Отправка кода
+@client.command()
+@commands.has_any_role(645265129893658624)
+async def send_code(ctx):
+    cursor.execute("DROP table kod")
+    conn.commit()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text)''')
+    conn.commit()
+
+    secret = random.choice(codes)
+    secret_list=[]
+    secret_list.append(secret)
+
+    cursor.execute(f"INSERT INTO kod(code) VALUES(?)", secret_list)
+    conn.commit()
+
+    pineapples = random.randint(250,1500) if celebration == True else random.randint(-100, 1250)
+    hard = random.randint(1, 15)
+
+    channel = client.get_channel(int(random.choice(channels)))
+
+    embed = discord.Embed(
+        title=f'{"Элитный код:" if hard==3 else "Код:"} **{secret}**',
+        description=f"Этот код дает: {pineapples} монет. \n*Чтобы его ввести напишите в канал для ботов: .enter_code [код]*",
+        color=random.choice(clr),
+        delete_after=600
+    )
+    await channel.send(embed=embed)
+#Ввод кода
+@client.command()
+async def enter_code(ctx, redeem_code: str):
+    try:
+        cursor.execute('SELECT * FROM kod')
+        row = cursor.fetchone()
+        db_code = " ".join([str(i) for i in row])
+        if redeem_code == db_code.replace(" ", ""):
+            await ctx.send(embed=discord.Embed(title="Поздравляю!", description="Вы ввели правильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
+
+            cursor.execute("DROP TABLE kod")
+            conn.commit()
+            cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text)''')
+            conn.commit()
+
+        else:
+            await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
+    except Exception as e:
+        pass
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def blocked(ctx):
