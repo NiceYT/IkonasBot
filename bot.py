@@ -230,7 +230,17 @@ async def on_message(message):
     command = args[0][len(prefix):].lower()
     args = args[1:]
         
-        
+    if message.channel.id == 647853551804088341:
+        if message.lower.startswith("#Идея"):
+              idea = "#Идея"
+              await message.delete()
+              embed = discord.Embed(
+                  title=f"Идея от {message.author}",
+                  description =f"{message.replace(idea.lower, "")},
+                  color=random.choice(clr)
+              )
+              emb_message = await ctx.send(embed=embed)
+              await emb_message.add_reaction("✔", "❌")
     if message.guild == None:
         if message.author == client.user:
             return
