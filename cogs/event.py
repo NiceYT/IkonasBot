@@ -24,7 +24,7 @@ class UtilsCog(commands.Cog):
     @commands.has_any_role(645265129893658624)
     @commands.command()
     async def start(self, ctx, maxUsers: int, game: str, *, time: str):
-        await ctx.send(embed=discord.Embed(title="**Все возможные игры**", description="Игры:").add_field(name="Гонки:", value="1; Ивенты: 1: x2 очки, минус 1-3 поинта у рандомного человека.", inline=False).add_field(name="Idk:", value="2"))
+        '''await ctx.send(embed=discord.Embed(title="**Все возможные игры**", description="Игры:").add_field(name="Гонки:", value="1; Ивенты: 1: x2 очки, минус 1-3 поинта у рандомного человека.", inline=False).add_field(name="Idk:", value="2"))'''
         cursor.execute('SELECT message_id FROM react')
         message = cursor.fetchone()
         cursor.fetchone()
@@ -161,7 +161,7 @@ class UtilsCog(commands.Cog):
                                     cursor.fetchone()
         except Exception as e:
             print(e)  
-    @commands.has_any_role(645265129893658624)
+    '''@commands.has_any_role(645265129893658624)
     @commands.command()
     async def game_i(self, ctx, *, game_sel: int = None):
         if game_sel == None:
@@ -191,7 +191,7 @@ class UtilsCog(commands.Cog):
                 await ctx.send(embed=discord.Embed(title="Неудача!", description=f"Игрок {ctx.author.name} потерял {lost} очков."))
             else:
                 up = (random.randint(1,6))
-                await ctx.send(embed=discord.Embed(title="Удача!", description=f"Игрок {ctx.author.name} получил {up} очков."))
+                await ctx.send(embed=discord.Embed(title="Удача!", description=f"Игрок {ctx.author.name} получил {up} очков."))'''
 
     '''@commands.command()
     async def masttest(self, ctx):
