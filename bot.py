@@ -60,7 +60,7 @@ New_Year = (0xFF0000,
 good = "Дед мороз"
 bad = "Гринч"
 clr = New_Year
-celebration = False
+celebration = True
 
 @client.event
 async def on_ready():
