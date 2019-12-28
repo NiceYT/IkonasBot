@@ -65,6 +65,17 @@ celebration = True
 @client.event
 async def on_ready():
     print("Я включен")
+    i = 0
+    while i == 0:
+        game = discord.Game(f"Хо-хо-хо! 2.0 Близко!")    
+        await client.change_presence(status=discord.Status.online, activity=game)
+        await asyncio.sleep(30)
+        game = discord.Game(r"Скоро Новый год!")    
+        await client.change_presence(status=discord.Status.online, activity=game)
+        await asyncio.sleep(60)
+        game = discord.Game(r"Бот для IKONAS FAMILY")    
+        await client.change_presence(status=discord.Status.online, activity=game)
+        await asyncio.sleep(60)
 client.remove_command("help")
 cogs = ['cogs.event']
 for i in cogs:
