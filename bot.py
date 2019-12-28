@@ -221,7 +221,7 @@ async def send_code(ctx):
     await channel.send(embed=embed)
 #Ввод кода
 @client.command()
-async def enter_code(ctx, redeem_code: str):
+async def enter_code(ctx, redeem_code: str == None):
     try:
         cursor.execute('SELECT * FROM kod')
         row = cursor.fetchone()
