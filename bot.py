@@ -272,7 +272,7 @@ async def on_message(message):
     args = args[1:]
         
     if message.channel.id == 647853551804088341:
-        if message.lower.startswith("#Идея"):
+        if message.content.lower.startswith("#идея"):
               idea = "#Идея"
               await message.delete()
               embed = discord.Embed(
