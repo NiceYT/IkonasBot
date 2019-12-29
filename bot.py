@@ -281,7 +281,7 @@ async def on_message(message):
                   description =f"{mess.replace(idea.lower(), '')}",
                   color=random.choice(clr)
               )
-              emb_message = await ctx.send(embed=embed)
+              emb_message = await message.channel.send(embed=embed)
               await emb_message.add_reaction("✔", "❌")
     if message.guild == None:
         if message.author == client.user:
