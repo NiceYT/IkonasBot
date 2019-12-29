@@ -210,7 +210,7 @@ codes = ['gwQIep2','XdOtIEm','x7W160Q','o9xvIW1','vk8kIwb','X2OVRfR','MhclQDo','
 async def send_code(ctx):
     cursor.execute("DROP table kod")
     conn.commit()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text)''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text, message int, channel)''')
     conn.commit()
 
     secret = random.choice(codes)
@@ -262,7 +262,7 @@ async def enter_code(ctx, redeem_code: str):
 
             cursor.execute("DROP TABLE kod")
             conn.commit()
-            cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text)''')
+            cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text, message int, channel)''')
             conn.commit()
             await message_delete.delete()
             channel = client.get_channel(532573322014359552)
