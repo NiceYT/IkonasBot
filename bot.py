@@ -114,29 +114,30 @@ async def clear_roles(ctx, role_id: int):
 @client.command()
 @commands.has_any_role("📝Inquirer📝") 
 async def c_poll(ctx):
-    members_role = discord.utils.get(ctx.guild.roles, id=532458373535236099)
     channel = ctx.channel
-    await channel.set_permissions(members_role, read_messages=False)
-    await ctx.message.delete()
-    poll_role = discord.utils.get(ctx.guild.roles, id=643506538673209344)
+    if channel.id == 645276243759071252:
+      members_role = discord.utils.get(ctx.guild.roles, id=532458373535236099)
+      await channel.set_permissions(members_role, read_messages=False)
+      await ctx.message.delete()
+      poll_role = discord.utils.get(ctx.guild.roles, id=643506538673209344)
 
-    embed = discord.Embed(colour = 0xff1b1b)
-    def check(msg):
-        return msg.author == ctx.author
+      embed = discord.Embed(colour = 0xff1b1b)
+      def check(msg):
+          return msg.author == ctx.author
 
-    msg = await ctx.send("Какой должна быть тема опроса?")
-    theme = await client.wait_for("message", check=check)
-    await theme.delete()
+      msg = await ctx.send("Какой должна быть тема опроса?")
+      theme = await client.wait_for("message", check=check)
+      await theme.delete()
 
-    await msg.edit(content="Какими должны быть варианты ответа?")
-    answers = await client.wait_for("message", check=check)
-    await answers.delete()
+      await msg.edit(content="Какими должны быть варианты ответа?")
+      answers = await client.wait_for("message", check=check)
+      await answers.delete()
 
-    embed.add_field(name="**"+ theme.content+ "**", value=answers.content)
+      embed.add_field(name="**"+ theme.content+ "**", value=answers.content)
 
-    await ctx.channel.send(poll_role.mention,embed=embed)
-    await msg.delete()
-    await channel.set_permissions(members_role, read_messages=True)
+      await ctx.channel.send(poll_role.mention,embed=embed)
+      await msg.delete()
+      await channel.set_permissions(members_role, read_messages=True)
 
               
 
