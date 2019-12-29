@@ -67,7 +67,7 @@ async def on_ready():
     print("Я включен")
     i = 0
     while i == 0:
-        game = discord.Game(f"Хо-хо-хо! 2.0 Близко!")    
+        game = discord.Game(f"Хо-хо-хо! 2.0 уже тут!")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(30)
         game = discord.Game(r"Скоро Новый год!")    
@@ -272,7 +272,8 @@ async def on_message(message):
     args = args[1:]
         
     if message.channel.id == 647853551804088341:
-        if message.content.lower.startswith("#идея"):
+        mess = message.content.lower()
+        if mess.startswith("#идея"):
               idea = "#Идея"
               await message.delete()
               embed = discord.Embed(
