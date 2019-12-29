@@ -199,7 +199,7 @@ channels = [645275470086275142,645275741524852736,645275781387386880]
 
 conn = sqlite3.connect("datebase.sqlite")
 cursor = conn.cursor()
-cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text)''')
+cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text, message int, channel)''')
 
 codes = ['gwQIep2','XdOtIEm','x7W160Q','o9xvIW1','vk8kIwb','X2OVRfR','MhclQDo','AcrmW3F',
         'ZFC2y0F','Pbem6mI','BYvtx1c','V0AdnBu','1SMX5ML','XAslRT7','uIz9NO8','DLvKA1b',
@@ -231,12 +231,30 @@ async def send_code(ctx):
         color=random.choice(clr),
         delete_after=600
     )
-    await channel.send(embed=embed)
+    channel_list = []
+    channel_list.append(channel.id)
+    cursor.execute(f"INSERT INTO kod(channel) VALUES(?)", channel_list)
+    conn.commit()    
+              
+    embed_message = await channel.send(embed=embed)
+              
+    message_list=[]
+    message_list.append(embed_message.id)
+    cursor.execute(f"INSERT INTO kod(message) VALUES(?)", message_list)
+    conn.commit()
 #Ввод кода
 @client.command()
 async def enter_code(ctx, redeem_code: str):
     try:
-        cursor.execute('SELECT * FROM kod')
+        cursor.execute("SELECT channel FROM kod")
+        channel = cursor.fetchone()
+        channel = "".join([str(i) for i in message])
+        cursor.execute("SELECT message FROM kod")
+        message = cursor.fetchone()
+        message= "".join([str(i) for i in message])
+        message_delete = await client.get_channel(int(channel)).fetch_message(int(message))
+              
+        cursor.execute('SELECT code FROM kod')
         row = cursor.fetchone()
         db_code = " ".join([str(i) for i in row])
         if redeem_code == db_code.replace(" ", ""):
@@ -246,6 +264,9 @@ async def enter_code(ctx, redeem_code: str):
             conn.commit()
             cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text)''')
             conn.commit()
+            await message_delete.delete()
+            channel = client.get_channel(532573322014359552)
+            await channel.send(f"Участник {ctx.author} ввел правильный код {message_delete.content}!")
         elif not redeem_code: await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
         else:
             await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
