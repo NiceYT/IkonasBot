@@ -282,7 +282,8 @@ async def on_message(message):
                   color=random.choice(clr)
               )
               emb_message = await message.channel.send(embed=embed)
-              await emb_message.add_reaction("✔", "❌")
+              await emb_message.add_reaction("✔")
+              await emb_message.add_reaction("❌")
     if message.guild == None:
         if message.author == client.user:
             return
