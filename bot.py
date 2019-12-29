@@ -278,7 +278,7 @@ async def on_message(message):
               await message.delete()
               embed = discord.Embed(
                   title=f"Идея от {message.author}",
-                  description =f"{message.replace(idea.lower, '')}",
+                  description =f"{mess.replace(idea.lower(), '')}",
                   color=random.choice(clr)
               )
               emb_message = await ctx.send(embed=embed)
