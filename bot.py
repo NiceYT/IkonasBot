@@ -246,7 +246,7 @@ async def enter_code(ctx, redeem_code: str == None):
             conn.commit()
             cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text)''')
             conn.commit()
-
+        elif not redeem_code: await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
         else:
             await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
     except Exception as e:
