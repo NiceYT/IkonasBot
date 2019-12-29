@@ -252,7 +252,7 @@ async def enter_code(ctx, redeem_code: str):
         cursor.execute("SELECT message FROM kod")
         message_code = cursor.fetchone()
         message_code= "".join([str(i) for i in message_code])
-        message_delete = await client.get_channel(int(channel)).fetch_message(int(message_code))
+        message_delete = await client.get_channel(channel).fetch_message(message_code)
               
         cursor.execute('SELECT code FROM kod')
         row = cursor.fetchone()
