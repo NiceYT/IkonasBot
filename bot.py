@@ -245,7 +245,7 @@ async def send_code(ctx):
 #Ввод кода
 @client.command()
 async def enter_code(ctx, redeem_code: str):
-    try:
+   
         cursor.execute("SELECT channel FROM kod")
         channel = cursor.fetchone()
         channel = "".join([str(i) for i in message])
@@ -270,8 +270,6 @@ async def enter_code(ctx, redeem_code: str):
         elif not redeem_code: await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
         else:
             await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
-    except Exception as e:
-        pass
 @client.command()
 @commands.has_any_role(532444048166748170, 532444461985300481)
 async def blocked(ctx):
