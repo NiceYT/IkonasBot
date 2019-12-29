@@ -112,6 +112,7 @@ async def clear_roles(ctx, role_id: int):
               
               
 @client.command()
+@commands.has_any_role(643506538673209344)
 async def c_poll(ctx):
     members_role = discord.utils.get(ctx.guild.roles, id=532458373535236099)
     channel = ctx.channel
