@@ -67,10 +67,10 @@ async def on_ready():
     print("Я включен")
     i = 0
     while i == 0:
-        game = discord.Game(f"Хо-хо-хо! 2.0 уже тут!")    
+        game = discord.Game(r"Отдыхаю...")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(30)
-        game = discord.Game(r"Скоро Новый год!")    
+        game = discord.Game(r"Никаких праздников близко нет.")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(60)
         game = discord.Game(r"Бот для IKONAS FAMILY")    
