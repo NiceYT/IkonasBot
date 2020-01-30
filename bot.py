@@ -5,7 +5,6 @@ import asyncio
 import pymysql
 from pymysql.cursors import DictCursor
 
-import sqlite3
 import random
 
 import pytz
@@ -106,15 +105,7 @@ for i in cogs:
 
 
 
-    
-conn = sqlite3.connect("datebase.sqlite")
-cursor = conn.cursor()
-    
-try:
-    cursor.execute('''CREATE TABLE IF NOT EXISTS idbase (id text)''')
-    cursor.execute('''CREATE TABLE IF NOT EXISTS code_base (code text)''')
-except:
-    pass
+  
     
 @client.command()
 async def case(ctx):
@@ -281,28 +272,54 @@ async def magic(ctx):
     users_win = ("\n".join([(i) for i in users_win_row]))
     users_lose = ("\n".join([(i) for i in users_lose_row]))
     await ctx.send(embed= discord.Embed(title="**Удача!**", description=f"{good} дал подарки ({nagrada} ананасов) участникам:\n {users_win}",color= random.choice(clr)).add_field(name="**Неудача!**", value=f"{bad} украл подарки ({lose} ананасов) у участников:\n {users_lose}"))
-
-
                    
     
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def block(ctx, member: discord.Member):
+              
     id = member.id
-    cursor.execute(f"INSERT INTO  idbase (id) VALUES ({id})")
-    conn.commit()
-    emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Айди человека: <@{id}>", color= random.choice(clr))
+              
+    conn = getConnection()
+    c = conn.cursor()
+    c.execute("INSERT INTO BS (user) VALUES (%s)", (id))
+              
+    emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Участник: member.mention", color= random.choice(clr))
     await ctx.send(embed=emb)
+              
     await member.send(f"Вы были заблокированы на 24 часа администратором {ctx.message.author}")
+    
+    conn.close()
+              
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def unblock(ctx, member: discord.Member):
+              
     id = member.id
-    cursor.execute(f"DELETE FROM idbase WHERE id = {id}")
-    conn.commit()
+              
+    conn = getConnection()
+    c = conn.cursor()
+    c.execute("DELETE FROM BS WHERE user = %s", id)
+              
     emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: <@{id}>", color= random.choice(clr))
     await ctx.send(embed=emb)
+              
     await member.send(f"Вы были разблокированы администратором {ctx.message.author}")
+              
+    conn.close()
+        
+@client.command()
+@commands.has_any_role(645265129893658624)
+async def blocked(ctx):
+    conn = getConnection()
+    c = conn.cursor()
+    c.execute('SELECT user FROM BS')
+    row = cursor.fetchall()
+              
+    emb = discord.Embed(title= "Список заблокированных людей: ", description=row["user"],  color= random.choice(clr))
+    await ctx.send(embed=emb)
+            
+    conn.close()
 #Настройка отправки кода             
 channels = [645275470086275142,645275741524852736,645275781387386880]
 
@@ -317,10 +334,6 @@ codes = ['gwQIep2','XdOtIEm','x7W160Q','o9xvIW1','vk8kIwb','X2OVRfR','MhclQDo','
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def send_code(ctx):
-    cursor.execute("DROP table kod")
-    conn.commit()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text, message int, channel)''')
-    conn.commit()
 
     secret = random.choice(codes)
     secret_list=[]
@@ -379,15 +392,7 @@ async def enter_code(ctx, redeem_code: str):
         elif not redeem_code: await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
         else:
             await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
-@client.command()
-@commands.has_any_role(532444048166748170, 532444461985300481)
-async def blocked(ctx):
-    cursor.execute('SELECT * FROM idbase')
-    row = cursor.fetchone()
-    while row is not None:
-        emb = discord.Embed(title= "Список заблокированных людей: ", description="\n".join([str(i) for i in row]),  color= random.choice(clr))
-        await ctx.send(embed=emb)
-        row = cursor.fetchone()
+
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def answer(ctx, member: discord.Member, *, textAnswer):
