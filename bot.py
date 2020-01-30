@@ -1,11 +1,16 @@
 import discord
-import asyncio
-import random
-import pymysql
-import pytz
-import sqlite3
-from datetime import datetime 
 from discord.ext import commands
+import asyncio
+
+import pymysql
+from pymysql.cursors import DictCursor
+
+import sqlite3
+import random
+
+import pytz
+from datetime import datetime 
+
 import os
 
 client = commands.Bot(command_prefix = '.')
@@ -60,8 +65,8 @@ New_Year = (0xFF0000,
             0xC0C0C0)
 good = "Дед мороз"
 bad = "Гринч"
-clr = New_Year
-celebration = True
+clr = normal_list
+celebration = False
 
 @client.event
 async def on_ready():
