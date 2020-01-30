@@ -13,6 +13,18 @@ from datetime import datetime
 
 import os
 
+user = os.environ.get("USER")
+password = os.environ.get("PW")
+def getConnection():
+    conn= pymysql.connect(
+        host='RemoteMysql.com',
+        user=user,
+        password=password,
+        db=user,
+        charset='utf8mb4',
+        cursorclass=DictCursor,
+        autocommit=True)
+    return conn
 client = commands.Bot(command_prefix = '.')
 prefix = "."
 normal_list = (discord.Color.red(),
