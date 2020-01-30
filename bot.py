@@ -97,19 +97,110 @@ try:
     cursor.execute('''CREATE TABLE IF NOT EXISTS code_base (code text)''')
 except:
     pass
-"""@client.command()
-@commands.has_any_role(645265129893658624)
-async def clear_roles(ctx, role_id: int):
-    counter = 0
-    await ctx.send(embed=discord.Embed (title=f"Очистка роли {role_to_clear.name}у участников началась!", description=f"Вызвано: {ctx.author}",color= random.choice(clr))) 
-    role_to_clear = discord.utils.get(ctx.guild.roles, id=role_id)
-    for m in ctx.guild.members:
-        await m.add_roles(role_to_clear)
-        counter = counter + 1
-        await asyncio.sleep(0.10)
-    await ctx.send(embed = discord.Embed (Title = f"Очистка роли {role_to_clear.name} у {counter} участников закончилась!", description=f"Вызвано: {ctx.author}",color= random.choice(clr)))"""
+    
+@client.command()
+async def case(ctx):
+        if ctx.channel.id == 605710082042363934 or 532573322014359552:
+            user = ctx.message.author
+            case_role = discord.utils.get(ctx.guild.roles, name= "Кейс")
+            if case_role in user.roles:
+                case_num = (random.randint(0,1000))
+                channel3 = client.get_channel(int(605289537287094272))
 
-              
+                if case_num <= 50:
+                    proc = "5%"
+                    win2 = discord.utils.get(ctx.guild.roles, name="Сигна")
+                    if win2 in user.roles:
+                        await ctx.channel.send("Вам выпала повторная роль! Введите команду заново!")
+                        return
+                    else:
+                        Win = "Сигна от иконаса"
+                        emb = discord.Embed(title= "Шанс:" + proc, color= random.choice(clr))
+                        emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
+                        emb.set_footer(text=ctx.author)
+                        await ctx.channel.send(embed= emb)
+                        await channel3.send(f"{ctx.author} выиграл:" + str(Win))
+                        await user.add_roles(win2)
+                elif case_num <= 150:
+                    proc = "10%"
+                    win1 = discord.utils.get(ctx.guild.roles, name="10 робуксов")
+                    if win1 in ctx.author.roles:
+                        Win = "10 робуксов"
+                        embe= discord.Embed(title="Шанс:" + proc, colour= random.choice(clr))
+                        embe.add_field(name="Вы выиграли повторный приз: " + str(Win), value = "Молодец!")
+                        embe.set_footer(text=ctx.author)
+                        await ctx.channel.send(embed=embe)
+                        emb = discord.Embed(title= "Повторный выиграш 10 робуксов", colour =random.choice(clr) )
+                        emb.add_field(name= "Участнику {} выпал повторный приз 10 робуксов".format(ctx.author), value= f"Иконас выдай робуксы {ctx.author}")
+                        await channel3.send(embed= emb)
+                    else:
+                        Win = "10 робуксов"
+                        embe= discord.Embed(title="Шанс:" + proc, color= random.choice(clr))
+                        embe.add_field(name="Вы выиграли приз: " + str(Win), value = "Молодец!")
+                        embe.set_footer(text=ctx.author)
+                        await ctx.channel.send(embed=embe)
+                        emb = discord.Embed(title= "10 робуксов", color= random.choice(clr))
+                        emb.add_field(name= f"{ctx.author} выиграл:" + str(Win), value= f"Иконас выдай робуксы {ctx.author}")
+                        await channel3.send(embed= emb)
+                        await user.add_roles(win1)
+
+                elif case_num <= 250:
+                    proc = "10%"
+                    win3 = discord.utils.get(ctx.guild.roles, name="Добавление в друзья")
+                    if win3 in ctx.author.roles:
+                        await ctx.channel.send("Вам выпала повторная роль! Введите команду заново!")
+                        return
+                    else:
+                        Win = "Добавление в друзья к иконасу"
+                        emb = discord.Embed(title= "Шанс:" + proc, colour= random.choice(clr))
+                        emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
+                        emb.set_footer(text=ctx.author)
+                        await ctx.channel.send(embed= emb)
+                        await channel3.send(f"{ctx.author} выиграл:" + str(Win))
+                        await user.add_roles(win3)
+                elif case_num <= 500:
+                    proc = "20%"
+                    win5 = discord.utils.get(ctx.guild.roles, name="Личная комната")
+                    if win5 in ctx.author.roles:
+                        await ctx.channel.send("Вам выпала повторная роль! Введите команду заново!")
+                        return
+                    else:
+                        Win = "Личная голосовая комната"
+                        emb = discord.Embed(title= "Шанс:" + proc, color= random.choice(clr))
+                        emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
+                        emb.set_footer(text=ctx.author)
+                        await ctx.channel.send(embed= emb)
+                        await channel3.send(f"{ctx.author} выиграл:" + str(Win))
+                        await user.add_roles(win5)
+                elif case_num <= 700:
+                    proc = "25%"
+                    win4 = discord.utils.get(ctx.guild.roles, name="Выбор роли")
+                    if win4 in ctx.author.roles:
+                        await ctx.channel.send("Вам выпала повторная роль! Введите команду заново!")
+                        return
+                    else:
+                        Win = "Выбор роли"
+                        emb = discord.Embed(title= "Шанс:" + proc, color= random.choice(clr))
+                        emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
+                        emb.set_footer(text=ctx.author)
+                        await ctx.channel.send(embed= emb)
+                        await channel3.send(f"{ctx.author} выиграл:" + str(Win))
+                        await user.add_roles(win4)
+                elif case_num <= 1000:
+                    proc = "30%"
+                    channel2 = client.get_channel(int(532573322014359552))
+                    Win = "20000 ананасов"
+                    emb = discord.Embed(title= "Шанс:" + proc, color= random.choice(clr))
+                    emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
+                    emb.set_footer(text=ctx.author)
+                    await ctx.channel.send(embed= emb)
+                    await channel2.send(f"=add-money {ctx.author.id} 20000")
+
+                await asyncio.sleep(5)
+                case1 = discord.utils.get(ctx.guild.roles, name="Кейс")
+                await user.remove_roles(case1)
+            else:
+                return            
               
 @client.command()
 @commands.has_any_role("📝Inquirer📝") 
@@ -324,126 +415,7 @@ async def on_message(message):
                 await channel.send(embed=emb) 
         
         
-    
-    
-
-    
-
-        
-    
-        
-    
-
-    
-
-    
-
-    
-    if command == "case":
-        if message.channel.id == 605710082042363934 or 532573322014359552:
-            case_role = discord.utils.get(message.guild.roles, name= "Кейс")
-            if case_role in message.author.roles:
-                user = message.author
-                case_num = (random.randint(0,1000))
-                channel3 = client.get_channel(int(605289537287094272))
-
-                if case_num <= 50:
-                    proc = "5%"
-                    win2 = discord.utils.get(message.guild.roles, name="Сигна")
-                    if win2 in message.author.roles:
-                        await message.channel.send("Вам выпала повторная роль! Введите команду заново!")
-                        return
-                    else:
-                        Win = "Сигна от иконаса"
-                        emb = discord.Embed(title= "Шанс:" + proc, color= random.choice(clr))
-                        emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
-                        emb.set_footer(text=message.author)
-                        await message.channel.send(embed= emb)
-                        await channel3.send(f"{message.author} выиграл:" + str(Win))
-                        await user.add_roles(win2)
-                elif case_num <= 150:
-                    proc = "10%"
-                    win1 = discord.utils.get(message.guild.roles, name="10 робуксов")
-                    if win1 in message.author.roles:
-                        Win = "10 робуксов"
-                        embe= discord.Embed(title="Шанс:" + proc, colour= random.choice(clr))
-                        embe.add_field(name="Вы выиграли повторный приз: " + str(Win), value = "Молодец!")
-                        embe.set_footer(text=message.author)
-                        await message.channel.send(embed=embe)
-                        emb = discord.Embed(title= "Повторный выиграш 10 робуксов", colour =random.choice(clr) )
-                        emb.add_field(name= "Участнику {} выпал повторный приз 10 робуксов".format(message.author), value= f"Иконас выдай робуксы {message.author}")
-                        await channel3.send(embed= emb)
-                    else:
-                        Win = "10 робуксов"
-                        embe= discord.Embed(title="Шанс:" + proc, color= random.choice(clr))
-                        embe.add_field(name="Вы выиграли приз: " + str(Win), value = "Молодец!")
-                        embe.set_footer(text=message.author)
-                        await message.channel.send(embed=embe)
-                        emb = discord.Embed(title= "10 робуксов", color= random.choice(clr))
-                        emb.add_field(name= f"{message.author} выиграл:" + str(Win), value= f"Иконас выдай робуксы {message.author}")
-                        await channel3.send(embed= emb)
-                        await user.add_roles(win1)
-
-                elif case_num <= 250:
-                    proc = "10%"
-                    win3 = discord.utils.get(message.guild.roles, name="Добавление в друзья")
-                    if win3 in message.author.roles:
-                        await message.channel.send("Вам выпала повторная роль! Введите команду заново!")
-                        return
-                    else:
-                        Win = "Добавление в друзья к иконасу"
-                        emb = discord.Embed(title= "Шанс:" + proc, colour= random.choice(clr))
-                        emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
-                        emb.set_footer(text=message.author)
-                        await message.channel.send(embed= emb)
-                        await channel3.send(f"{message.author} выиграл:" + str(Win))
-                        await user.add_roles(win3)
-                elif case_num <= 500:
-                    proc = "20%"
-                    win5 = discord.utils.get(message.guild.roles, name="Личная комната")
-                    if win5 in message.author.roles:
-                        await message.channel.send("Вам выпала повторная роль! Введите команду заново!")
-                        return
-                    else:
-                        Win = "Личная голосовая комната"
-                        emb = discord.Embed(title= "Шанс:" + proc, color= random.choice(clr))
-                        emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
-                        emb.set_footer(text=message.author)
-                        await message.channel.send(embed= emb)
-                        await channel3.send(f"{message.author} выиграл:" + str(Win))
-                        await user.add_roles(win5)
-                elif case_num <= 700:
-                    proc = "25%"
-                    win4 = discord.utils.get(message.guild.roles, name="Выбор роли")
-                    if win4 in message.author.roles:
-                        await message.channel.send("Вам выпала повторная роль! Введите команду заново!")
-                        return
-                    else:
-                        Win = "Выбор роли"
-                        emb = discord.Embed(title= "Шанс:" + proc, color= random.choice(clr))
-                        emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
-                        emb.set_footer(text=message.author)
-                        await message.channel.send(embed= emb)
-                        await channel3.send(f"{message.author} выиграл:" + str(Win))
-                        await user.add_roles(win4)
-                elif case_num <= 1000:
-                    proc = "30%"
-                    channel2 = client.get_channel(int(532573322014359552))
-                    Win = "20000 ананасов"
-                    emb = discord.Embed(title= "Шанс:" + proc, color= random.choice(clr))
-                    emb.add_field(name="Вы выиграли: " + str(Win), value = "Молодец!")
-                    emb.set_footer(text=message.author)
-                    await message.channel.send(embed= emb)
-                    await channel2.send(f"=add-money {message.author.id} 20000")
-
-                await asyncio.sleep(5)
-                case1 = discord.utils.get(message.guild.roles, name="Кейс")
-                await user.remove_roles(case1)
-            else:
-                return
-        
-     
-                
+               
 
 token = os.environ.get("BOT_TOKEN")
 client.run(str(token))
