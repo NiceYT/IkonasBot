@@ -379,9 +379,7 @@ async def answer(ctx, member: discord.Member, *, textAnswer):
 @client.event
 async def on_message(message):
     await client.process_commands(message)
-    args = message.content.split(' ')
-    command = args[0][len(prefix):].lower()
-    args = args[1:]
+
         
     if message.channel.id == 647853551804088341:
         mess = message.content.lower()
