@@ -421,7 +421,7 @@ async def on_message(message):
         if message.author == client.user:
             return
         else:
-            cursor.execute('SELECT * FROM idbase')
+            cursor.execute('SELECT user FROM BS WHERE user = %s', message.author.id)
             row = cursor.fetchone() 
             if str(message.author.id) in str(row):
                 blocked = message.author
