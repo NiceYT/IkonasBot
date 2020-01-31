@@ -320,7 +320,15 @@ async def blocked(ctx):
     await ctx.send(embed=emb)
             
     conn.close()
-#Настройка отправки кода             
+              
+@client.command()
+@commands.has_any_role(645265129893658624)
+async def answer(ctx, member: discord.Member, *, textAnswer):
+    await member.send(embed=discord.Embed(title=f"Вы получили ответ от {ctx.message.author}. ", description=textAnswer, color= random.choice(clr)).set_footer(text=f"С уважением, {ctx.message.author}",icon_url=f"{ctx.message.author.avatar_url}"))
+    await ctx.send(embed=discord.Embed(title="Успех!", description=f"Вы успешно отправили сообщение участнику {member}.", color=random.choice(clr)))          
+              
+#Настройка отправки кода    
+'''
 channels = [645275470086275142,645275741524852736,645275781387386880]
 
 conn = sqlite3.connect("datebase.sqlite")
@@ -330,6 +338,7 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text, message int, channel
 codes = ['gwQIep2','XdOtIEm','x7W160Q','o9xvIW1','vk8kIwb','X2OVRfR','MhclQDo','AcrmW3F',
         'ZFC2y0F','Pbem6mI','BYvtx1c','V0AdnBu','1SMX5ML','XAslRT7','uIz9NO8','DLvKA1b',
         'DbkX6xQ','JjGrACm','V88W8HI','k4CzHHz','N7gNFmQ','6oc3M2S','O7100EU','zDAMZRX']
+
 #Отправка кода
 @client.command()
 @commands.has_any_role(645265129893658624)
@@ -392,7 +401,7 @@ async def enter_code(ctx, redeem_code: str):
         elif not redeem_code: await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
         else:
             await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
-
+'''
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def answer(ctx, member: discord.Member, *, textAnswer):
