@@ -313,13 +313,17 @@ async def unblock(ctx, member: discord.Member):
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def blocked(ctx):
+    bl = []
     conn = getConnection()
     c = conn.cursor()
     c.execute('SELECT user FROM BS')
     row = c.fetchall()
-    print(row)
+    for i in row:
+        i = i["user"]
+        bl.append(i)
+    print(bl)
               
-    emb = discord.Embed(title= "Список заблокированных людей: ", description=row["user"],  color= random.choice(clr))
+    emb = discord.Embed(title= "Список заблокированных людей: ", description=bl,  color= random.choice(clr))
     await ctx.send(embed=emb)
             
     conn.close()
