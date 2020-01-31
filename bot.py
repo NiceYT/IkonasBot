@@ -404,11 +404,7 @@ async def enter_code(ctx, redeem_code: str):
         else:
             await ctx.send(embed=discord.Embed(title="Неудача!", description="Вы ввели неправильный код!", color= random.choice(clr)).set_footer(icon_url = str(ctx.author.avatar_url),text=str(ctx.author)))
 '''
-@client.command()
-@commands.has_any_role(645265129893658624)
-async def answer(ctx, member: discord.Member, *, textAnswer):
-    await member.send(embed=discord.Embed(title=f"Вы получили ответ от {ctx.message.author}. ", description=textAnswer, color= random.choice(clr)).set_footer(text=f"С уважением, {ctx.message.author}",icon_url=f"{ctx.message.author.avatar_url}"))
-    await ctx.send(embed=discord.Embed(title="Успех!", description=f"Вы успешно отправили сообщение участнику {member}.", color=random.choice(clr)))          
+
 
 @client.event
 async def on_message(message):
