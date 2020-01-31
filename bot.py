@@ -431,7 +431,7 @@ async def on_message(message):
             conn = getConnection()
             c = conn.cursor()
             c.execute('SELECT user FROM BS WHERE user = %s', message.author.id)
-            row = cursor.fetchone() 
+            row = c.fetchone() 
             if str(message.author.id) in str(row):
                 blocked = message.author
                 await blocked.send("Вы в черном списке этого сервера!")
