@@ -322,7 +322,7 @@ async def blocked(ctx):
         i = i["user"]
         bl.append(i)
               
-    emb = discord.Embed(title= "Список заблокированных людей: ", description=("\n".join([(i) for i in bl])),  color= random.choice(clr))
+    emb = discord.Embed(title= "Список заблокированных людей: ", description=str("\n".join([(i) for i in bl])),  color= random.choice(clr))
     await ctx.send(embed=emb)
             
     conn.close()
