@@ -428,7 +428,9 @@ async def on_message(message):
         if message.author == client.user:
             return
         else:
-            cursor.execute('SELECT user FROM BS WHERE user = %s', message.author.id)
+            conn = getConnection()
+            c = conn.cursor()
+            c.execute('SELECT user FROM BS WHERE user = %s', message.author.id)
             row = cursor.fetchone() 
             if str(message.author.id) in str(row):
                 blocked = message.author
@@ -441,6 +443,7 @@ async def on_message(message):
                 emb.set_footer(icon_url = str(message.author.avatar_url),text= str(message.author.id) + " | " +str(time_now)) 
 
                 await channel.send(embed=emb) 
+            conn.close()
         
         
                
