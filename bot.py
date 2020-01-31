@@ -316,7 +316,7 @@ async def blocked(ctx):
     conn = getConnection()
     c = conn.cursor()
     c.execute('SELECT user FROM BS')
-    row = cursor.fetchall()
+    row = c.fetchall()
               
     emb = discord.Embed(title= "Список заблокированных людей: ", description=row["user"],  color= random.choice(clr))
     await ctx.send(embed=emb)
