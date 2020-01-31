@@ -335,7 +335,7 @@ channels = [645275470086275142,645275741524852736,645275781387386880]
 
 conn = sqlite3.connect("datebase.sqlite")
 cursor = conn.cursor()
-cursor.execute('''CREATE TABLE IF NOT EXISTS kod(code text, message int, channel)''')
+cursor.execute('CREATE TABLE IF NOT EXISTS kod(code text, message int, channel)')
 
 codes = ['gwQIep2','XdOtIEm','x7W160Q','o9xvIW1','vk8kIwb','X2OVRfR','MhclQDo','AcrmW3F',
         'ZFC2y0F','Pbem6mI','BYvtx1c','V0AdnBu','1SMX5ML','XAslRT7','uIz9NO8','DLvKA1b',
