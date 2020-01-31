@@ -93,7 +93,9 @@ async def on_ready():
         game = discord.Game(r"Бот для IKONAS FAMILY")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(60)
+        
 client.remove_command("help")
+'''
 cogs = ['cogs.event']
 for i in cogs:
     try:
@@ -101,7 +103,7 @@ for i in cogs:
     except Exception as e:
         print(f'{i} cannot be loaded {e}')
     else:
-        print(f"{i.replace('cogs.', '')} has been loaded!")
+        print(f"{i.replace('cogs.', '')} has been loaded!")'''
 
 
 
