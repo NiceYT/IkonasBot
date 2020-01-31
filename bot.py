@@ -289,7 +289,7 @@ async def block(ctx, member: discord.Member):
     emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Участник: {member.mention}", color= random.choice(clr))
     await ctx.send(embed=emb)
               
-    await member.send(f"Вы были заблокированы на 24 часа администратором {ctx.message.author}")
+    await member.send(f"Вы были заблокированы администратором {ctx.message.author}")
     
     conn.close()
               
@@ -303,7 +303,7 @@ async def unblock(ctx, member: discord.Member):
     c = conn.cursor()
     c.execute("DELETE FROM BS WHERE user = %s", id)
               
-    emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: {member.mention)", color= random.choice(clr))
+    emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: {member.mention}", color= random.choice(clr))
     await ctx.send(embed=emb)
               
     await member.send(f"Вы были разблокированы администратором {ctx.message.author}")
