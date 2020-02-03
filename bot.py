@@ -284,7 +284,7 @@ async def block(ctx, member: discord.Member):
               
     conn = getConnection()
     c = conn.cursor()
-    c.execute("INSERT INTO BS (user) VALUES (%s)", (id))
+    c.execute("INSERT INTO BS (ID, User) VALUES (%s, %s)", (id, member))
               
     emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Участник: {member.mention}", color= random.choice(clr))
     await ctx.send(embed=emb)
@@ -301,7 +301,7 @@ async def unblock(ctx, member: discord.Member):
               
     conn = getConnection()
     c = conn.cursor()
-    c.execute("DELETE FROM BS WHERE user = %s", id)
+    c.execute("DELETE FROM BS WHERE ID = %s", id)
               
     emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: {member.mention}", color= random.choice(clr))
     await ctx.send(embed=emb)
@@ -316,11 +316,12 @@ async def blocked(ctx):
     bl = []
     conn = getConnection()
     c = conn.cursor()
-    c.execute('SELECT user FROM BS')
+    c.execute('SELECT ID FROM BS')
     row = c.fetchall()
     for i in row:
         i = i["user"]
-        bl.append(i)
+        UM = ctx.guild.get_member(int(i))
+        bl.append(f"{i} - {UM.mention}")
               
     emb = discord.Embed(title= "Список заблокированных людей: ", description=("\n".join([str(i) for i in bl])),  color= random.choice(clr))
     await ctx.send(embed=emb)
