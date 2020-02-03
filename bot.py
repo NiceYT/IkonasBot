@@ -435,7 +435,7 @@ async def on_message(message):
         else:
             conn = getConnection()
             c = conn.cursor()
-            c.execute('SELECT user FROM BS WHERE ID = %s', message.author.id)
+            c.execute('SELECT ID FROM BS WHERE ID = %s', message.author.id)
             row = c.fetchone() 
             if str(message.author.id) in str(row):
                 blocked = message.author
