@@ -284,7 +284,7 @@ async def block(ctx, member: discord.Member):
               
     conn = getConnection()
     c = conn.cursor()
-    c.execute("INSERT INTO BS (ID, User) VALUES (%s, %s)", (id, member))
+    c.execute("INSERT INTO BS (ID) VALUES (%s)", id)
               
     emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Участник: {member.mention}", color= random.choice(clr))
     await ctx.send(embed=emb)
