@@ -319,7 +319,7 @@ async def blocked(ctx):
     c.execute('SELECT ID FROM BS')
     row = c.fetchall()
     for i in row:
-        i = i["user"]
+        i = i["ID"]
         UM = ctx.guild.get_member(int(i))
         bl.append(f"{i} - {UM.mention}")
               
