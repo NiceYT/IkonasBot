@@ -87,7 +87,7 @@ async def on_ready():
         game = discord.Game(r"Отдыхаю...")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(30)
-        game = discord.Game(r"Никаких праздников близко нет.")    
+        game = discord.Game(r"Скоро день Святого Валентина!")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(60)
         game = discord.Game(r"Бот для IKONAS FAMILY")    
