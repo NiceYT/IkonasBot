@@ -292,7 +292,7 @@ async def block(ctx, member: discord.Member):
         await member.send(f"Вы были заблокированы администратором {ctx.message.author}")
 
         conn.close()
-     else:
+    else:
          emb = discord.Embed(title="**Ошибка!**", description="Данного участника нет на сервере!",color= random.choice(clr))
          await ctx.send(emb)
         
