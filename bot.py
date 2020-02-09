@@ -281,17 +281,21 @@ async def magic(ctx):
 async def block(ctx, member: discord.Member):
               
     id = member.id
-              
-    conn = getConnection()
-    c = conn.cursor()
-    c.execute("INSERT INTO BS (ID) VALUES (%s)", id)
-              
-    emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Участник: {member.mention}", color= random.choice(clr))
-    await ctx.send(embed=emb)
-              
-    await member.send(f"Вы были заблокированы администратором {ctx.message.author}")
-    
-    conn.close()
+    if member in ctx.guild.members:          
+        conn = getConnection()
+        c = conn.cursor()
+        c.execute("INSERT INTO BS (ID) VALUES (%s)", id)
+
+        emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Участник: {member.mention}", color= random.choice(clr))
+        await ctx.send(embed=emb)
+
+        await member.send(f"Вы были заблокированы администратором {ctx.message.author}")
+
+        conn.close()
+     else:
+         emb = discord.Embed(title="**Ошибка!**", description="Данного участника нет на сервере!",color= random.choice(clr))
+         await ctx.send(emb)
+        
               
 @client.command()
 @commands.has_any_role(645265129893658624)
