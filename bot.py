@@ -104,7 +104,22 @@ for i in cogs:
         print(f'{i} cannot be loaded {e}')
     else:
         print(f"{i.replace('cogs.', '')} has been loaded!")'''
-
+@client.event
+async def on_member_update(before, after):
+    if before.guild.id == 675623807330942976:
+        role = discord.utils.get(before.guild.roles, id=676446348639338506)
+        name = after.name.lower()
+        name= str(name)
+        if role in before.roles:
+            if "ggrobux" in name:
+                pass
+            else:
+                await before.remove.roles(role)
+        else:
+            if "ggrobux" in name:
+                await before.add_roles(role)
+    else:
+        return
 
 
   
@@ -417,22 +432,23 @@ async def enter_code(ctx, redeem_code: str):
 
 @client.event
 async def on_message(message):
-    await client.process_commands(message)
+    if ctx.guild.id == 531006906630930432
+        await client.process_commands(message)
 
-        
-    if message.channel.id == 647853551804088341:
-        mess = message.content.lower()
-        if mess.startswith("#идея"):
-              idea = "#Идея"
-              await message.delete()
-              embed = discord.Embed(
-                  title=f"Идея от {message.author}",
-                  description =f"{mess.replace(idea.lower(), '')}",
-                  color=random.choice(clr)
-              )
-              emb_message = await message.channel.send(embed=embed)
-              await emb_message.add_reaction("✔")
-              await emb_message.add_reaction("❌")
+
+        if message.channel.id == 647853551804088341:
+            mess = message.content.lower()
+            if mess.startswith("#идея"):
+                  idea = "#Идея"
+                  await message.delete()
+                  embed = discord.Embed(
+                      title=f"Идея от {message.author}",
+                      description =f"{mess.replace(idea.lower(), '')}",
+                      color=random.choice(clr)
+                  )
+                  emb_message = await message.channel.send(embed=embed)
+                  await emb_message.add_reaction("✔")
+                  await emb_message.add_reaction("❌")
     if message.guild == None:
         if message.author == client.user:
             return
