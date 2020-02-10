@@ -110,19 +110,13 @@ async def on_member_update(before, after):
         role = discord.utils.get(before.guild.roles, id=676446348639338506)
         name = after.name.lower()
         name= str(name)
-        print(1)
         if role in before.roles:
-            print(2)
             if "ggrobux" in name:
-                print(3)
                 pass
             else:
-                print(4)
                 await before.remove.roles(role)
         else:
-            print("5" + str(after.name))
             if "ggrobux" in name:
-                print(6)
                 await before.add_roles(role)
             else:
                 pass
