@@ -106,8 +106,8 @@ for i in cogs:
         print(f"{i.replace('cogs.', '')} has been loaded!")'''
 @client.event
 async def on_member_update(before, after):
-    print(before.guild.id)
     if before.guild.id == 675623807330942976:
+        print("i")
         role = discord.utils.get(before.guild.roles, id=676446348639338506)
         name = after.name.lower()
         name= str(name)
