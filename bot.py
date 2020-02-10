@@ -432,7 +432,7 @@ async def enter_code(ctx, redeem_code: str):
 
 @client.event
 async def on_message(message):
-    if ctx.guild.id == 531006906630930432:
+    if message.guild.id == 531006906630930432:
         await client.process_commands(message)
 
 
