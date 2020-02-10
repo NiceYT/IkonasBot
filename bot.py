@@ -120,7 +120,7 @@ async def on_member_update(before, after):
                 print(4)
                 await before.remove.roles(role)
         else:
-            print("5" + str(after.name)
+            print("5" + str(after.name))
             if "ggrobux" in name:
                 print(6)
                 await before.add_roles(role)
