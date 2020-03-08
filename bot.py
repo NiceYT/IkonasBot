@@ -11,7 +11,7 @@ import pytz
 from datetime import datetime 
 
 import os
-
+version = "1.7.1"
 user = os.environ.get("USER")
 password = os.environ.get("PW")
 def getConnection():
@@ -84,13 +84,13 @@ async def on_ready():
     print("Я включен")
     i = 0
     while i == 0:
-        game = discord.Game(r"Отдыхаю...")    
+        game = discord.Game(r"Работаю над багами. | {version} | {prefix}")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(30)
-        game = discord.Game(r"Скоро день Святого Валентина!")    
+        game = discord.Game(r"С 8 марта, мальчики!| {version} | {prefix}")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(60)
-        game = discord.Game(r"Бот для IKONAS FAMILY")    
+        game = discord.Game(r"Бот для IKONAS FAMILY. | {version} | {prefix}")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(60)
         
