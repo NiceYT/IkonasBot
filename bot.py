@@ -81,6 +81,9 @@ celebration = False
 
 @client.event
 async def on_ready():
+    conn = getConnection()
+    cur = conn.cursor()
+    conn.close()
     print("Я включен")
     i = 0
     while i == 0:
