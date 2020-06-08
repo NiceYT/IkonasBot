@@ -87,10 +87,10 @@ async def on_ready():
     print("Я включен")
     i = 0
     while i == 0:
-        game = discord.Game(f"Отдыхаю. | {version} | {prefix}")    
+        game = discord.Game(f"В статусе разработки. | {version} | {prefix}")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(30)
-        game = discord.Game(f"COVID-19 уже пандемия. Мойте руки!| {version} | {prefix}")    
+        game = discord.Game(f"Нету новостей.| {version} | {prefix}")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(60)
         game = discord.Game(f"Бот для IKONAS FAMILY. | {version} | {prefix}")    
@@ -107,25 +107,6 @@ for i in cogs:
         print(f'{i} cannot be loaded {e}')
     else:
         print(f"{i.replace('cogs.', '')} has been loaded!")'''
-@client.event
-async def on_member_update(before, after):
-    if before.guild.id == 675623807330942976:
-        role = discord.utils.get(before.guild.roles, id=676446348639338506)
-        name = after.name.lower()
-        name= str(name)
-        if role in before.roles:
-            if "ggrobux" in name:
-                pass
-            else:
-                await before.remove.roles(role)
-        else:
-            if "ggrobux" in name:
-                await before.add_roles(role)
-            else:
-                pass
-    else:
-        return
-
 
   
     
