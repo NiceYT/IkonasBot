@@ -3,4 +3,4 @@ pytz
 aiohttp
 websockets
 chardet
-pymysql
+pymongo
