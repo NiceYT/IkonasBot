@@ -1,29 +1,23 @@
+import pymongo
+from pymongo import MongoClient
+
+
 import discord
 from discord.ext import commands
+from discord.ext.commands import errors
 import asyncio
-
-import pymysql
-from pymysql.cursors import DictCursor
-
 import random
 
 import pytz
 from datetime import datetime 
 
 import os
-version = "1.7.1"
-user = os.environ.get("USER")
-password = os.environ.get("PW")
-def getConnection():
-    conn= pymysql.connect(
-        host='RemoteMysql.com',
-        user=user,
-        password=password,
-        db=user,
-        charset='utf8mb4',
-        cursorclass=DictCursor,
-        autocommit=True)
-    return conn
+
+db_pass = os.environ.get("DB_pass")
+db_pass = str(db_pass)
+
+
+version = "0.9.8"
 client = commands.Bot(command_prefix = '.')
 prefix = "."
 normal_list = (discord.Color.red(),
@@ -81,9 +75,6 @@ celebration = False
 
 @client.event
 async def on_ready():
-    conn = getConnection()
-    cur = conn.cursor()
-    conn.close()
     print("Я включен")
     i = 0
     while i == 0:
@@ -218,7 +209,7 @@ async def case(ctx):
 @commands.has_any_role("📝Inquirer📝") 
 async def c_poll(ctx):
     channel = ctx.channel
-    if channel.id == 645276243759071252:
+    if channel.id == 724336893545808003:
       members_role = discord.utils.get(ctx.guild.roles, id=532458373535236099)
       await channel.set_permissions(members_role, read_messages=False)
       await ctx.message.delete()
@@ -282,20 +273,27 @@ async def magic(ctx):
 async def block(ctx, member: discord.Member):
               
     id = member.id
-    if member in ctx.guild.members:          
-        conn = getConnection()
-        c = conn.cursor()
-        c.execute("INSERT INTO BS (ID) VALUES (%s)", id)
+    if member in ctx.guild.members:   
 
-        emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Участник: {member.mention}", color= random.choice(clr))
-        await ctx.send(embed=emb)
+        block_system = MongoClient(db_pass)
+        db = block_system["BlockSystem"]
+        collection = db["Block"] 
+        results = collection.find_one({"id": id})
+        if results == None:
 
-        await member.send(f"Вы были заблокированы администратором {ctx.message.author}")
+            collection.insert_one({"id": id, "status": "blocked"})
+            emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Участник: {member.mention}", color= random.choice(clr))
+            await ctx.send(embed=emb)
 
-        conn.close()
+            await member.send(f"Вы были заблокированы администратором {ctx.message.author}")
+        elif results["id"] == id:
+            emb = discord.Embed(title="Ошибка!", description="Этот участник уже был заблокирован!",color= random.choice(clr))
+            await ctx.send(embed=emb)
+
+        
     else:
-         emb = discord.Embed(title="**Ошибка!**", description="Данного участника нет на сервере!",color= random.choice(clr))
-         await ctx.send(emb)
+        emb = discord.Embed(title="Ошибка!", description="Данного участника нет на сервере!",color= random.choice(clr))
+        await ctx.send(embed=emb)
         
               
 @client.command()
@@ -303,36 +301,42 @@ async def block(ctx, member: discord.Member):
 async def unblock(ctx, member: discord.Member):
               
     id = member.id
+
+    block_system = MongoClient(db_pass)
+    db = block_system["BlockSystem"]
+    collection = db["Block"] 
+
+    results = collection.find_one({"id": id})
+    if results == None:
+        embed = discord.Embed(title="Ошибка!",description=f"Участник {member.mention} не заблокирован.",color= random.choice(clr))
+        await ctx.send(embed=embed)
+
+    else:
+        collection.delete_one({"id": id})        
+
+        emb = discord.Embed(title=f"Вы разблокировали пользователя", description = f"Упоминание участника: {member.mention}", color= random.choice(clr))
+        await ctx.send(embed=emb)
+                        
+        await member.send(f"Вы были разблокированы администратором {ctx.message.author}")
               
-    conn = getConnection()
-    c = conn.cursor()
-    c.execute("DELETE FROM BS WHERE ID = %s", id)
-              
-    emb = discord.Embed(title=f"Вы Разблокировали пользователя", description = f"Айди человека: {member.mention}", color= random.choice(clr))
-    await ctx.send(embed=emb)
-              
-    await member.send(f"Вы были разблокированы администратором {ctx.message.author}")
-              
-    conn.close()
         
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def blocked(ctx):
-    bl = []
-    conn = getConnection()
-    c = conn.cursor()
-    c.execute('SELECT ID FROM BS')
-    row = c.fetchall()
-    for i in row:
-        i = i["ID"]
-        UM = ctx.guild.get_member(int(i))
-        bl.append(f"{i} - {UM.mention}")
+    block_system = MongoClient(db_pass)
+    db = block_system["BlockSystem"]
+    collection = db["Block"]
+    blocked = []
+    results = collection.find({"status":"blocked"})
+    for i in results:
+        i = i["id"]
+        blocked_users = ctx.guild.get_member(int(i))
+        blocked.append(f"{i} - {blocked_users.mention}")
               
-    emb = discord.Embed(title= "Список заблокированных людей: ", description=("\n".join([str(i) for i in bl])),  color= random.choice(clr))
+    emb = discord.Embed(title= "Список заблокированных людей: ", description=("\n".join([str(i) for i in blocked])),  color= random.choice(clr))
     await ctx.send(embed=emb)
-            
-    conn.close()
-              
+
+
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def answer(ctx, member: discord.Member, *, textAnswer):
@@ -418,43 +422,38 @@ async def enter_code(ctx, redeem_code: str):
 
 @client.event
 async def on_message(message):
-    if message.guild.id == 531006906630930432:
-        await client.process_commands(message)
-
-
-        if message.channel.id == 647853551804088341:
-            mess = message.content.lower()
-            if mess.startswith("#идея"):
-                  idea = "#Идея"
-                  await message.delete()
-                  embed = discord.Embed(
-                      title=f"Идея от {message.author}",
-                      description =f"{mess.replace(idea.lower(), '')}",
-                      color=random.choice(clr)
-                  )
-                  emb_message = await message.channel.send(embed=embed)
-                  await emb_message.add_reaction("✔")
-                  await emb_message.add_reaction("❌")
     if message.guild == None:
         if message.author == client.user:
             return
         else:
-            conn = getConnection()
-            c = conn.cursor()
-            c.execute('SELECT ID FROM BS WHERE ID = %s', message.author.id)
-            row = c.fetchone() 
-            if str(message.author.id) in str(row):
-                blocked = message.author
-                await blocked.send("Вы в черном списке этого сервера!")
-            else:
+            block_system = MongoClient(db_pass)
+            db = block_system["BlockSystem"]
+            collection = db["Block"] 
+            results = collection.find_one({"id": message.author.id})
+            if results == None:
                 tz = pytz.timezone('Europe/Moscow')
                 time_now = str(datetime.now(tz)).split(' ')[1][:8]
                 channel = client.get_channel(532573322014359552) 
                 emb = discord.Embed(title = str(message.author), description = message.content, color= random.choice(clr))
-                emb.set_footer(icon_url = str(message.author.avatar_url),text= str(message.author.id) + " | " +str(time_now)) 
-
-                await channel.send(embed=emb) 
-            conn.close()
+                emb.set_footer(icon_url = str(message.author.avatar_url),text= str(message.author.id) + " | " +str(time_now))
+                await channel.send(embed=emb)
+            elif str(message.author.id) == str(results["id"]):
+                await message.author.send("Вы в черном списке этого сервера!")
+        
+    elif message.guild.id == 531006906630930432:
+        if message.channel.id == 724336560987701289:
+            msg_low = message.content.lower()
+            if msg_low.startswith("#отзыв"):
+                feedback = "#отзыв"
+                await message.delete()
+                embed = discord.Embed(
+                    title=f"Отзыв от {message.author}",
+                    description =f"{msg_low.replace(feedback, '')}",
+                    color=random.choice(clr)
+                )
+                emb_msg = await message.channel.send(embed=embed)
+                await emb_msg.add_reaction("❤")
+    await client.process_commands(message)
         
         
                
