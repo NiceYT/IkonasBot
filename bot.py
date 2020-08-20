@@ -206,7 +206,7 @@ async def case(ctx):
                 return            
               
 @client.command()
-@commands.has_any_role("📝Inquirer📝") 
+@commands.has_any_role(642383351239409664) 
 async def c_poll(ctx):
     channel = ctx.channel
     if channel.id == 724336893545808003:
