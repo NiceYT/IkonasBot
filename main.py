@@ -285,19 +285,22 @@ async def enter_code(ctx, redeem_code: str):
 
 @client.event
 async def on_message(message):
-    if message.guild.id == 531006906630930432:
-        if message.channel.id == 724336560987701289:
-            msg_low = message.content.lower()
-            if msg_low.startswith("#отзыв"):
-                feedback = "#отзыв"
-                await message.delete()
-                embed = discord.Embed(
-                    title=f"Отзыв от {message.author}",
-                    description =f"{msg_low.replace(feedback, '')}",
-                    color=random.choice(clr)
-                )
-                emb_msg = await message.channel.send(embed=embed)
-                await emb_msg.add_reaction("❤")
-    await client.process_commands(message)
+    try:
+        if message.guild.id == 531006906630930432:
+            if message.channel.id == 724336560987701289:
+                msg_low = message.content.lower()
+                if msg_low.startswith("#отзыв"):
+                    feedback = "#отзыв"
+                    await message.delete()
+                    embed = discord.Embed(
+                        title=f"Отзыв от {message.author}",
+                        description =f"{msg_low.replace(feedback, '')}",
+                        color=random.choice(clr)
+                    )
+                    emb_msg = await message.channel.send(embed=embed)
+                    await emb_msg.add_reaction("❤")
+        await client.process_commands(message)
+    except:
+        pass
 token = os.environ.get("BOT_TOKEN")
 client.run(str(token))
