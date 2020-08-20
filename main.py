@@ -189,15 +189,13 @@ async def magic(ctx):
     win_row = []
     lose_row = []
     user_choose = None
-    winners = []
-    losers = []
     reward = random.randint(50, 150)
     lose = random.randint(-125, -25)
     for m in ctx.guild.members:
 
         if m.status == discord.Status.idle or m.status == discord.Status.offline: continue
         if m.bot: continue
-        users.append(str(m.id))
+        users.append(f"{m} - {m.id}")
     while win_count != 6:
         i = random.choice(users)
         if i in win_row:
@@ -212,14 +210,8 @@ async def magic(ctx):
         lose_count = lose_count + 1
         lose_row.append(user_row)
         win_row.remove(user_row)
-    for i in win_row:
-        user_row = ctx.guild.get_member(int(i))
-        winners.append(f"{user_row.mention}")
-    for i in lose_row:
-        user_row = ctx.guild.get_member(int(i))
-        losers.append(f"{user_row.mention}")
-    users_win = ("\n".join([(i) for i in winners]))
-    users_lose = ("\n".join([(i) for i in losers]))
+    users_win = ("\n".join([(i) for i in win_row]))
+    users_lose = ("\n".join([(i) for i in lose_row]))
     await ctx.send(embed= discord.Embed(title="**Удача!**", description=f"{good} дал подарки ({reward} ананасов) участникам:\n {users_win}",color= random.choice(clr)).add_field(name="**Неудача!**", value=f"{bad} украл подарки ({lose} ананасов) у участников:\n {users_lose}"))
                    
     
