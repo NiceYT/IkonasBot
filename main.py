@@ -183,34 +183,44 @@ async def c_poll(ctx):
 @client.command()
 @commands.has_any_role(645265129893658624)
 async def magic(ctx):
-    count = 0
-    count2 = 0
+    win_count = 0
+    lose_count = 0
     users = []
-    users_win_row = []
-    users_lose_row = []
+    win_row = []
+    lose_row = []
     user_choose = None
-    nagrada = random.randint(50, 150)
+    winners = []
+    losers = []
+    reward = random.randint(50, 150)
     lose = random.randint(-125, -25)
     for m in ctx.guild.members:
+
+        if m.status == discord.Status.idle or m.status == discord.Status.offline: continue
         if m.bot: continue
-        users.append(str(m))
-    while count != 6:
+        users.append(str(m.id))
+    while win_count != 6:
         i = random.choice(users)
-        if i in users_win_row:
+        if i in win_row:
             pass
         else:
             user_choose = i
-            count = count + 1
-            users_win_row.append(str(user_choose))
+            win_count = win_count + 1
+            win_row.append(str(user_choose))
             await asyncio.sleep(0.15)
-    while count2 != 2:
-        user_row = random.choice(users_win_row)
-        count2 = count2 + 1
-        users_lose_row.append(user_row)
-        users_win_row.remove(user_row)
-    users_win = ("\n".join([(i) for i in users_win_row]))
-    users_lose = ("\n".join([(i) for i in users_lose_row]))
-    await ctx.send(embed= discord.Embed(title="**Удача!**", description=f"{good} дал подарки ({nagrada} ананасов) участникам:\n {users_win}",color= random.choice(clr)).add_field(name="**Неудача!**", value=f"{bad} украл подарки ({lose} ананасов) у участников:\n {users_lose}"))
+    while lose_count != 2:
+        user_row = random.choice(win_row)
+        lose_count = lose_count + 1
+        lose_row.append(user_row)
+        win_row.remove(user_row)
+    for i in win_row:
+        user_row = ctx.guild.get_member(int(i))
+        winners.append(f"{i} - {user_row.mention}")
+    for i in lose_row:
+        user_row = ctx.guild.get_member(int(i))
+        losers.append(f"{i} - {user_row.mention}")
+    users_win = ("\n".join([(i) for i in winners]))
+    users_lose = ("\n".join([(i) for i in losers]))
+    await ctx.send(embed= discord.Embed(title="**Удача!**", description=f"{good} дал подарки ({reward} ананасов) участникам:\n {users_win}",color= random.choice(clr)).add_field(name="**Неудача!**", value=f"{bad} украл подарки ({lose} ананасов) у участников:\n {users_lose}"))
                    
     
         
