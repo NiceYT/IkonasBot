@@ -214,10 +214,10 @@ async def magic(ctx):
         win_row.remove(user_row)
     for i in win_row:
         user_row = ctx.guild.get_member(int(i))
-        winners.append(f"{i} - {user_row.mention}")
+        winners.append(f"{user_row.mention}")
     for i in lose_row:
         user_row = ctx.guild.get_member(int(i))
-        losers.append(f"{i} - {user_row.mention}")
+        losers.append(f"{user_row.mention}")
     users_win = ("\n".join([(i) for i in winners]))
     users_lose = ("\n".join([(i) for i in losers]))
     await ctx.send(embed= discord.Embed(title="**Удача!**", description=f"{good} дал подарки ({reward} ананасов) участникам:\n {users_win}",color= random.choice(clr)).add_field(name="**Неудача!**", value=f"{bad} украл подарки ({lose} ананасов) у участников:\n {users_lose}"))
