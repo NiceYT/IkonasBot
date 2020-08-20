@@ -68,8 +68,8 @@ New_Year = (0xFF0000,
             0xE0FFFF,
             0x00FF7F,
             0xC0C0C0)
-good = "Дед мороз"
-bad = "Гринч"
+good = "Полиция"
+bad = "Вор"
 clr = normal_list
 celebration = False
 
@@ -81,7 +81,7 @@ async def on_ready():
         game = discord.Game(f"В статусе разработки. | {version} | {prefix}")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(30)
-        game = discord.Game(f"Нету новостей.| {version} | {prefix}")    
+        game = discord.Game(f"Восстановление активности сервера...| {version} | {prefix}")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(60)
         game = discord.Game(f"Бот для IKONAS FAMILY. | {version} | {prefix}")    
@@ -101,7 +101,7 @@ for i in cogs:
 
   
     
-@client.command()
+"""@client.command()
 async def case(ctx):
         if ctx.channel.id == 605710082042363934 or 532573322014359552:
             user = ctx.message.author
@@ -203,7 +203,8 @@ async def case(ctx):
                 case1 = discord.utils.get(ctx.guild.roles, name="Кейс")
                 await user.remove_roles(case1)
             else:
-                return            
+                return
+"""
               
 @client.command()
 @commands.has_any_role(642383351239409664) 
