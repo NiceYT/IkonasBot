@@ -14,9 +14,9 @@ from datetime import datetime
 
 import os
 
-# db_pass = os.environ.get("DB_pass")
-# db_pass = str(db_pass)
-db_pass = "mongodb+srv://Nice:FFOBc0dAF8bnvAVc@ikonasbot.o8vxi.mongodb.net/IkonasFamily?retryWrites=true&w=majority"
+db_pass = os.environ.get("DB_pass")
+db_pass = str(db_pass)
+
 
 client = commands.Bot(command_prefix = '.')
 
