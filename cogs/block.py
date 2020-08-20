@@ -18,86 +18,72 @@ class blockCog(commands.Cog):
         self.bot = bot
     @commands.command()
     @commands.has_any_role(645265129893658624)
-    async def block(self, ctx, member: discord.Member):
-        try:        
-            id = member.id
-            if member in ctx.guild.members:   
+    async def block(self, ctx, member: discord.Member):   
+        id = member.id
+        if member in ctx.guild.members:   
 
-                block_system = MongoClient(db_pass)
-                db = block_system["BlockSystem"]
-                collection = db["Block"] 
-                results = collection.find_one({"id": id})
-                if results == None:
+            block_system = MongoClient(db_pass)
+            db = block_system["BlockSystem"]
+            collection = db["Block"] 
+            results = collection.find_one({"id": id})
+            if results == None:
 
-                    collection.insert_one({"id": id, "status": "blocked"})
-                    emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Участник: {member.mention}", color= random.choice(clr))
-                    await ctx.send(embed=emb)
+                collection.insert_one({"id": id, "status": "blocked"})
+                emb = discord.Embed(title=f"Вы заблокировали пользователя ", description = f"Участник: {member.mention}", color= random.choice(clr))
+                await ctx.send(embed=emb)
 
-                    await member.send(f"Вы были заблокированы администратором {ctx.message.author}")
-                elif results["id"] == id:
-                    emb = discord.Embed(title="Ошибка!", description="Этот участник уже был заблокирован!",color= random.choice(clr))
-                    await ctx.send(embed=emb)
-
-                
+                await member.send(f"Вы были заблокированы администратором {ctx.message.author}")
+            elif results["id"] == id:
+                emb = discord.Embed(title="Ошибка!", description="Этот участник уже был заблокирован!",color= random.choice(clr))
+                await ctx.send(embed=emb)  
             else:
                 emb = discord.Embed(title="Ошибка!", description="Данного участника нет на сервере!",color= random.choice(clr))
                 await ctx.send(embed=emb)
-        except:
-            pass
             
                 
     @commands.command()
     @commands.has_any_role(645265129893658624)
     async def unblock(self, ctx, member: discord.Member):
-        try:
-            id = member.id
+        id = member.id
 
-            block_system = MongoClient(db_pass)
-            db = block_system["BlockSystem"]
-            collection = db["Block"] 
+        block_system = MongoClient(db_pass)
+        db = block_system["BlockSystem"]
+        collection = db["Block"] 
 
-            results = collection.find_one({"id": id})
-            if results == None:
-                embed = discord.Embed(title="Ошибка!",description=f"Участник {member.mention} не заблокирован.",color= random.choice(clr))
-                await ctx.send(embed=embed)
+        results = collection.find_one({"id": id})
+        if results == None:
+            embed = discord.Embed(title="Ошибка!",description=f"Участник {member.mention} не заблокирован.",color= random.choice(clr))
+            await ctx.send(embed=embed)
 
-            else:
-                collection.delete_one({"id": id})        
+        else:
+            collection.delete_one({"id": id})        
 
-                emb = discord.Embed(title=f"Вы разблокировали пользователя", description = f"Упоминание участника: {member.mention}", color= random.choice(clr))
-                await ctx.send(embed=emb)
+            emb = discord.Embed(title=f"Вы разблокировали пользователя", description = f"Упоминание участника: {member.mention}", color= random.choice(clr))
+            await ctx.send(embed=emb)
                                 
-                await member.send(f"Вы были разблокированы администратором {ctx.message.author}")
-        except:
-            pass
-                
-            
+            await member.send(f"Вы были разблокированы администратором {ctx.message.author}")
+                    
     @commands.command()
     @commands.has_any_role(645265129893658624)
     async def blocked(self,ctx):
-        try:
-            block_system = MongoClient(db_pass)
-            db = block_system["BlockSystem"]
-            collection = db["Block"]
-            blocked = []
-            results = collection.find({"status":"blocked"})
-            for i in results:
-                i = i["id"]
-                blocked_users = ctx.guild.get_member(int(i))
-                blocked.append(f"{i} - {blocked_users.mention}")
+        block_system = MongoClient(db_pass)
+        db = block_system["BlockSystem"]
+        collection = db["Block"]
+        blocked = []
+        results = collection.find({"status":"blocked"})
+        for i in results:
+            i = i["id"]
+            blocked_users = ctx.guild.get_member(int(i))
+            blocked.append(f"{i} - {blocked_users.mention}")
                     
-            emb = discord.Embed(title= "Список заблокированных людей: ", description=("\n".join([str(i) for i in blocked])),  color= random.choice(clr))
-            await ctx.send(embed=emb)
-        except: 
-            pass
+        emb = discord.Embed(title= "Список заблокированных людей: ", description=("\n".join([str(i) for i in blocked])),  color= random.choice(clr))
+        await ctx.send(embed=emb)
+
     @commands.command()
     @commands.has_any_role(645265129893658624)
     async def answer(self,ctx, member: discord.Member, *, textAnswer):
-        try:
-            await member.send(embed=discord.Embed(title=f"Вы получили ответ от {ctx.message.author}. ", description=textAnswer, color= random.choice(clr)).set_footer(text=f"С уважением, {ctx.message.author}",icon_url=f"{ctx.message.author.avatar_url}"))
-            await ctx.send(embed=discord.Embed(title="Успех!", description=f"Вы успешно отправили сообщение участнику {member}.", color=random.choice(clr)))    
-        except:
-            pass 
+        await member.send(embed=discord.Embed(title=f"Вы получили ответ от {ctx.message.author}. ", description=textAnswer, color= random.choice(clr)).set_footer(text=f"С уважением, {ctx.message.author}",icon_url=f"{ctx.message.author.avatar_url}"))
+        await ctx.send(embed=discord.Embed(title="Успех!", description=f"Вы успешно отправили сообщение участнику {member}.", color=random.choice(clr)))
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.guild == None:
