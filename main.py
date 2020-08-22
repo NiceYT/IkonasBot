@@ -147,8 +147,8 @@ async def case(ctx):
                 case1 = discord.utils.get(ctx.guild.roles, name="Кейс")
                 await user.remove_roles(case1)
             else:
-                return
-"""
+                return"""
+
               
 @client.command()
 @commands.has_any_role(642383351239409664) 
@@ -178,7 +178,18 @@ async def c_poll(ctx):
       await msg.delete()
       await channel.set_permissions(members_role, read_messages=True)
 
-              
+@client.command()
+@commands.has_any_role(645265129893658624)
+async def members(ctx):
+    member = 0 
+    bot = 0
+    for m in ctx.guild.members:
+        if m.bot:
+              bot = bot + 1
+        if not m.bot:
+              member = member + 1
+    embed = discord.Embed(title="Кол-во участников и ботов сервера Ikonas Family", description=f"Участников: {member}\nБотов:{bot}", color= random.choice(clr))
+    await ctx.send(embed=embed)
 
 @client.command()
 @commands.has_any_role(645265129893658624)
