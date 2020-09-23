@@ -70,4 +70,3 @@ async def on_message(msg):
     await client.process_commands(msg)
 token = os.environ.get("bot_token")
 client.run(str(token))
-client.run("NjAxNDcyODcyMzQ2NTUwMjg3.XTCzQw.ntecyj-HI90qeUaE72ITOg0Sl60")
