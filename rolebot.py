@@ -68,5 +68,5 @@ async def on_message(msg):
                     await member.remove_roles(role2)
                     await msg.channel.send("Успешно!")
     await client.process_commands(msg)
-token = os.environ.get("bot_token")
+token = os.environ.get("token")
 client.run(str(token))
