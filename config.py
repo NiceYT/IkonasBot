@@ -1,6 +1,7 @@
 import discord
-version = "0.9.8"
-prefix = "."
+version = "1.0.0"
+prefix1 = "."
+prefix2 = "-"
 normal_list = (discord.Color.red(),
                 discord.Color.dark_red(),
                 discord.Color.blue(),
@@ -52,9 +53,3 @@ New_Year = (0xFF0000,
 good = "Полиция"
 bad = "Вор"
 clr = normal_list
-
-def rolebot():
-    clr = clr
-    prefix = "-"
-    version = "1.0.0"
-    return clr, prefix, version
