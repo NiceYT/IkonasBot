@@ -13,6 +13,7 @@ db_pass = os.environ.get("DB_pass")
 db_pass = str(db_pass)
 
 
+
 class blockCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
