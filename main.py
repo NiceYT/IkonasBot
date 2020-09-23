@@ -18,20 +18,20 @@ db_pass = os.environ.get("DB_pass")
 db_pass = str(db_pass)
 
 
-client = commands.Bot(command_prefix = '.')
+client = commands.Bot(command_prefix = prefix1)
 
 @client.event
 async def on_ready():
     print("Я включен")
     i = 0
     while i == 0:
-        game = discord.Game(f"В статусе разработки. | {version} | {prefix}")    
+        game = discord.Game(f"В статусе разработки. | {version} | {prefix1}")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(30)
-        game = discord.Game(f"Восстановление активности сервера...| {version} | {prefix}")    
+        game = discord.Game(f"Восстановление активности сервера...| {version} | {prefix1}")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(60)
-        game = discord.Game(f"Бот для IKONAS FAMILY. | {version} | {prefix}")    
+        game = discord.Game(f"Бот для IKONAS FAMILY. | {version} | {prefix1}")    
         await client.change_presence(status=discord.Status.online, activity=game)
         await asyncio.sleep(60)
         
