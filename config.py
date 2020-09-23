@@ -52,3 +52,9 @@ New_Year = (0xFF0000,
 good = "Полиция"
 bad = "Вор"
 clr = normal_list
+
+def rolebot():
+    clr = clr
+    prefix = "-"
+    version = "1.0.0"
+    return clr, prefix, version
