@@ -20,27 +20,27 @@ async def on_ready():
     game = discord.Game(f"Bot by Nice. | {version} | {prefix2}")    
     await client.change_presence(status=discord.Status.online, activity=game)
 @client.command()
-@commands.has_any_role(645265129893658624)
 async def addrole(ctx, member: discord.Member, time: int, role1: discord.Role, role2: discord.Role):
-    if time < 60:
-        time = time * 60
-        timer = 0
-        role_system = MongoClient(db_pass)
-        db = role_system["RoleSystem"]
-        collection = db["Timer"] 
-        collection.insert_one({"timer": timer, "time": time, "member": member.id, "role1": role1.id, "role2": role2.id, "role": True})
-        while timer != time:
-            await asyncio.sleep(1)
-            timer += 1
-            collection.find_one_and_update({"time": time}, {"$set":{"timer": timer}})
-            if timer == time:
-                collection.find_one_and_delete({"time": time})
-                await member.add_roles(role1)
-                await member.remove_roles(role2)
-                await ctx.send("Успешно!")
-    elif time > 60:
-        error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time}), которое больше чем максимальное.", color=random.choice(normal_list))
-        await ctx.send(embed=error_embed)
+    if ctx.message.author.id == 759670745440976916 or ctx.message.author.id == 361179719800061963:
+        if time < 60:
+            time = time * 60
+            timer = 0
+            role_system = MongoClient(db_pass)
+            db = role_system["RoleSystem"]
+            collection = db["Timer"] 
+            collection.insert_one({"timer": timer, "time": time, "member": member.id, "role1": role1.id, "role2": role2.id, "role": True, "guild": ctx.guild.id})
+            while timer != time:
+                await asyncio.sleep(1)
+                timer += 1
+                collection.find_one_and_update({"time": time}, {"$set":{"timer": timer}})
+                if timer == time:
+                    collection.find_one_and_delete({"time": time})
+                    await member.add_roles(role1)
+                    await member.remove_roles(role2)
+                    await ctx.send("Успешно!")
+        elif time > 60:
+            error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time}), которое больше чем максимальное.", color=random.choice(normal_list))
+            await ctx.send(embed=error_embed)
 
 @client.event
 async def on_message(msg):
@@ -55,9 +55,10 @@ async def on_message(msg):
             member = int(results["member"])
             role1 = int(results["role1"])
             role2 = int(results["role2"])
-            member = client.get_guild(531006906630930432).get_member(member)
-            role1 = client.get_guild(531006906630930432).get_role(role1)
-            role2 = client.get_guild(531006906630930432).get_role(role2)
+            guild = int(results["guild"])
+            member = client.get_guild(guild).get_member(member)
+            role1 = client.get_guild(guild).get_role(role1)
+            role2 = client.get_guild(guild).get_role(role2)
             while timer != time:
                 await asyncio.sleep(1)
                 timer += 1
