@@ -21,7 +21,7 @@ async def on_ready():
     await client.change_presence(status=discord.Status.online, activity=game)
 @client.command()
 async def addrole(ctx, member: discord.Member, time: int, role1: discord.Role, role2: discord.Role):
-    if ctx.message.author.id == 503981176806178816 or ctx.message.author.id == 361179719800061963:
+    if ctx.message.author.id == 503981176806178816 or ctx.message.author.id == 361179719800061963 or ctx.message.author.id == 264081734264422400:
         if time < 60:
             time = time * 60
             timer = 0
