@@ -29,7 +29,7 @@ async def addrole(ctx, member: discord.Member, time: int, role1: discord.Role, r
             db = role_system["RoleSystem"]
             collection = db["Timer"] 
             collection.insert_one({"timer": timer, "time": time, "member": member.id, "role1": role1.id, "role2": role2.id, "role": True, "guild": ctx.guild.id})
-            succes_embed = discord.Embed(title="Успешно!", description=f"Вы ввели время({time} минут), через которое будет выдана роль.", color=random.choice(normal_list))
+            succes_embed = discord.Embed(title="Успешно!", description=f"Вы ввели время({time} секунд), через которое будет выдана роль.", color=random.choice(normal_list))
             await ctx.send(embed=succes_embed)
             while timer != time:
                 await asyncio.sleep(1)
@@ -41,7 +41,7 @@ async def addrole(ctx, member: discord.Member, time: int, role1: discord.Role, r
                     await member.remove_roles(role2)
                     await ctx.send("Успешно!")
         elif time > 60:
-            error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time}), которое больше чем максимальное.", color=random.choice(normal_list))
+            error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time} минут), которое больше чем максимальное.", color=random.choice(normal_list))
             await ctx.send(embed=error_embed)
 
 @client.event
