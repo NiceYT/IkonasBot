@@ -29,6 +29,8 @@ async def addrole(ctx, member: discord.Member, time: int, role1: discord.Role, r
             db = role_system["RoleSystem"]
             collection = db["Timer"] 
             collection.insert_one({"timer": timer, "time": time, "member": member.id, "role1": role1.id, "role2": role2.id, "role": True, "guild": ctx.guild.id})
+            succes_embed = discord.Embed(title="Успешно!", description=f"Вы ввели время({time} минут), через которое будет выдана роль.", color=random.choice(normal_list))
+            await ctx.send(embed=succes_embed)
             while timer != time:
                 await asyncio.sleep(1)
                 timer += 1
