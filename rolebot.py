@@ -70,13 +70,17 @@ async def create(ctx, member: discord.Member, name, type, colour, attention, spe
         db = stats_system["StatsSystem"]
         collection = db["Profiles"]
         results = collection.find_one({"member": member.id})
-        print(results["member"])
-        if results["member"] == None:
-            pass
-        else:
+        if results == None:
             collection.insert_one({"member": member.id, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy})
             succes_embed = discord.Embed(title="Успешно!", description=f"Профиль участника {member} был создан.", color=random.choice(normal_list))
             await ctx.send(embed=succes_embed)
+        else:
+            if int(results["member"]) == member.id:
+                pass
+            else:
+                collection.insert_one({"member": member.id, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy})
+                succes_embed = discord.Embed(title="Успешно!", description=f"Профиль участника {member} был создан.", color=random.choice(normal_list))
+                await ctx.send(embed=succes_embed)
         
 
 
