@@ -69,9 +69,13 @@ async def create(ctx, member: discord.Member, name, type, colour, attention, spe
         stats_system = MongoClient(db_pass)
         db = stats_system["StatsSystem"]
         collection = db["Profiles"]
-        collection.insert_one({"member": member.id, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy})
-        succes_embed = discord.Embed(title="Успешно!", description=f"Профиль участника {member} был создан.", color=random.choice(normal_list))
-        await ctx.send(embed=succes_embed)
+        results = collection.find_one({"role": True})
+        if int(results["member"]) == member.id:
+            pass
+        else:
+            collection.insert_one({"member": member.id, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy})
+            succes_embed = discord.Embed(title="Успешно!", description=f"Профиль участника {member} был создан.", color=random.choice(normal_list))
+            await ctx.send(embed=succes_embed)
         
 
 
