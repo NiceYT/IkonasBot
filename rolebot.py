@@ -57,8 +57,9 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                     if timer == time:
                         collection.find_one_and_delete({"time": time})
                         await member.add_roles(role2)
-                        for i in member.roles:
-                            await member.remove_roles(i)
+                        for role in member.roles:
+                            print(role)
+                            await member.remove_roles(role.id)
                         await ctx.send("Успешно!")
         elif time > 60:
             error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time} минут), которое больше чем максимальное.", color=random.choice(normal_list))
