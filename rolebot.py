@@ -40,7 +40,7 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                         collection.find_one_and_delete({"time": time})
                         await member.add_roles(role2)
                         await member.remove_roles(role1)
-                        await ctx.send("Успешно!")
+                        await ctx.send(f"Роль была выдана, {ctx.message.author.mention}")
             if role1 == None:
                 time = time * 60
                 timer = 0
@@ -59,10 +59,25 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                         await member.add_roles(role2)
                         for role in member.roles[1:]:
                             await member.remove_roles(role)
-                        await ctx.send("Успешно!")
+                        await ctx.send(f"Роль была выдана, {ctx.message.author.mention}")
         elif time > 60:
             error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time} минут), которое больше чем максимальное.", color=random.choice(normal_list))
             await ctx.send(embed=error_embed)
+@client.command()
+async def create(ctx, member: discord.Member, name, type, colour, attention, speed, accuracy):
+    if ctx.message.author.id == 264081734264422400 or ctx.message.author.id == 361179719800061963:
+        stats_system = MongoClient(db_pass)
+        db = stats_system["StatsSystem"]
+        collection = db["Profiles"]
+        collection.insert_one({"member": member, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy})
+        succes_embed = discord.Embed(title="Успешно!", description=f"Профиль участника {member} был создан.", color=random.choice(normal_list))
+        await ctx.send(succes_embed)
+        
+
+
+
+
+
 
 @client.event
 async def on_message(msg):
@@ -90,20 +105,23 @@ async def on_message(msg):
                         await member.add_roles(role2)
                         for role in member.roles[1:]:
                             await member.remove_roles(role)
-                        await msg.channel.send("Успешно!")
+                        await msg.channel.send("Роль была выдана.")
             else:
-                member = client.get_guild(guild).get_member(member)
-                role1 = client.get_guild(guild).get_role(role1)
-                role2 = client.get_guild(guild).get_role(role2)
-                while timer != time:
-                    await asyncio.sleep(1)
-                    timer += 1
-                    collection.find_one_and_update({"time": time}, {"$set":{"timer": timer}})
-                    if timer == time:
-                        collection.find_one_and_delete({"time": time})
-                        await member.add_roles(role2)
-                        await member.remove_roles(role1)
-                        await msg.channel.send("Успешно!")
+                try:
+                    member = client.get_guild(guild).get_member(member)
+                    role1 = client.get_guild(guild).get_role(role1)
+                    role2 = client.get_guild(guild).get_role(role2)
+                    while timer != time:
+                        await asyncio.sleep(1)
+                        timer += 1
+                        collection.find_one_and_update({"time": time}, {"$set":{"timer": timer}})
+                        if timer == time:
+                            collection.find_one_and_delete({"time": time})
+                            await member.add_roles(role2)
+                            await member.remove_roles(role1)
+                            await msg.channel.send("Роль была выдана.")
+                except:
+                    pass
     await client.process_commands(msg)
 token = os.environ.get("token")
 client.run(str(token))
