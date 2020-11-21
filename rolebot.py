@@ -69,7 +69,7 @@ async def create(ctx, member: discord.Member, name, type, colour, attention, spe
         stats_system = MongoClient(db_pass)
         db = stats_system["StatsSystem"]
         collection = db["Profiles"]
-        results = collection.find_one({"role": True})
+        results = collection.find_one({"member": member.id})
         if int(results["member"]) == member.id:
             pass
         else:
