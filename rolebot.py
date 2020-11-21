@@ -20,7 +20,7 @@ async def on_ready():
     game = discord.Game(f"Bot by Nice. | {version} | {prefix2}")    
     await client.change_presence(status=discord.Status.online, activity=game)
 @client.command()
-async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, role1: discord.Role):
+async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, role1: discord.Role = None):
     if ctx.message.author.id == 503981176806178816 or ctx.message.author.id == 361179719800061963 or ctx.message.author.id == 264081734264422400:
         if time < 60:
             if role1 != None:
