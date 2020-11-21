@@ -81,12 +81,31 @@ async def create(ctx, member: discord.Member, name, type, colour, attention, spe
                 collection.insert_one({"member": member.id, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy})
                 succes_embed = discord.Embed(title="Успешно!", description=f"Профиль участника {member} был создан.", color=random.choice(normal_list))
                 await ctx.send(embed=succes_embed)
-        
-
-
-
-
-
+@client.command()
+async def profile(ctx, member: discord.member = None):
+    if member == None:
+        stats_system = MongoClient(db_pass)
+        db = stats_system["StatsSystem"]
+        collection = db["Profiles"]
+        results = collection.find_one({"member": ctx.message.author.id})
+        if results != None:
+            name = results["name"]
+            type = results["type"]
+            colour = results["colour"]
+            attention = results["attention"]
+            speed = results["speed"]
+            accuracy = results["accuracy"]
+            embed = discord.Embed(title="Ваш профиль.", description="Информация о вас ниже.", colour=random.choice(normal_list))
+            embed.add_field(name="Имя персонажа", value=name, inline=False)
+            embed.add_field(name="Класс", value=type, inline=False)
+            embed.add_field(name="Цвет огня", value=colour, inline=False)
+            embed.add_field(name="Внимательность", value=attention, inline=False)
+            embed.add_field(name="Скорость", value=speed, inline=False)
+            embed.add_field(name="Точность", value=accuracy, inline=False)
+            await ctx.message.author.send(embed=embed)
+        else: 
+            embed = discord.Embed(title="Ошибка!", description="У вас нет профиля.",colour=random.choice(normal_list))
+            await ctx.message.author.send(embed=embed, delete_after=20)
 
 @client.event
 async def on_message(msg):
