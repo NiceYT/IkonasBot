@@ -106,6 +106,29 @@ async def profile(ctx, member: discord.member = None):
         else: 
             embed = discord.Embed(title="Ошибка!", description="У вас нет профиля.",colour=random.choice(normal_list))
             await ctx.message.author.send(embed=embed, delete_after=20)
+    if member != None and ctx.message.author.id == 264081734264422400 or member != None and ctx.message.author.id == 361179719800061963:
+        stats_system = MongoClient(db_pass)
+        db = stats_system["StatsSystem"]
+        collection = db["Profiles"]
+        results = collection.find_one({"member": member.id})
+        if results != None:
+            name = results["name"]
+            type = results["type"]
+            colour = results["colour"]
+            attention = results["attention"]
+            speed = results["speed"]
+            accuracy = results["accuracy"]
+            embed = discord.Embed(title=f"Профиль {member.mention}.", description=f"Информация о игроке ниже.", colour=random.choice(normal_list))
+            embed.add_field(name="Имя персонажа", value=name, inline=False)
+            embed.add_field(name="Класс", value=type, inline=False)
+            embed.add_field(name="Цвет огня", value=colour, inline=False)
+            embed.add_field(name="Внимательность", value=attention, inline=False)
+            embed.add_field(name="Скорость", value=speed, inline=False)
+            embed.add_field(name="Точность", value=accuracy, inline=False)
+            await ctx.message.author.send(embed=embed)
+        else: 
+            embed = discord.Embed(title="Ошибка!", description=f"У пользователя {member.mention} нет профиля.",colour=random.choice(normal_list))
+            await ctx.message.author.send(embed=embed, delete_after=20)
 
 @client.event
 async def on_message(msg):
