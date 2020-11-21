@@ -1,1 +1,1 @@
-worker: python main.py rolebot.py
+worker: python main.py
