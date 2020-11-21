@@ -70,7 +70,7 @@ async def create(ctx, member: discord.Member, name, type, colour, attention, spe
         db = stats_system["StatsSystem"]
         collection = db["Profiles"]
         results = collection.find_one({"member": member.id})
-        if int(results["member"]) == member.id:
+        if results["member"] == None:
             pass
         else:
             collection.insert_one({"member": member.id, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy})
