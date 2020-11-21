@@ -1,2 +1,1 @@
-worker: python main.py
-worket: python rolebot.py
+worker: python main.py, python rolebot.py
