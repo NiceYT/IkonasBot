@@ -118,7 +118,7 @@ async def profile(ctx, member: discord.Member = None):
             attention = results["attention"]
             speed = results["speed"]
             accuracy = results["accuracy"]
-            embed = discord.Embed(title=f"Профиль {member.mention}.", description=f"Информация о игроке ниже.", colour=random.choice(normal_list))
+            embed = discord.Embed(title=f"Профиль {member}.", description=f"Информация о игроке ниже.", colour=random.choice(normal_list))
             embed.add_field(name="Имя персонажа", value=name, inline=False)
             embed.add_field(name="Класс", value=type, inline=False)
             embed.add_field(name="Цвет огня", value=colour, inline=False)
