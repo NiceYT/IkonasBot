@@ -82,7 +82,7 @@ async def create(ctx, member: discord.Member, name, type, colour, attention, spe
                 succes_embed = discord.Embed(title="Успешно!", description=f"Профиль участника {member} был создан.", color=random.choice(normal_list))
                 await ctx.send(embed=succes_embed)
 @client.command()
-async def profile(ctx, member: discord.member = None):
+async def profile(ctx, member: discord.Member = None):
     if member == None:
         stats_system = MongoClient(db_pass)
         db = stats_system["StatsSystem"]
