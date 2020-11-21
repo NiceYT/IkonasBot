@@ -88,8 +88,8 @@ async def on_message(msg):
                     if timer == time:
                         collection.find_one_and_delete({"time": time})
                         await member.add_roles(role2)
-                        for i in member.roles:
-                            await member.remove_roles(i)
+                        for role in member.roles[1:]:
+                            await member.remove_roles(role)
                         await msg.channel.send("Успешно!")
             else:
                 member = client.get_guild(guild).get_member(member)
@@ -101,8 +101,8 @@ async def on_message(msg):
                     collection.find_one_and_update({"time": time}, {"$set":{"timer": timer}})
                     if timer == time:
                         collection.find_one_and_delete({"time": time})
-                        await member.add_roles(role1)
-                        await member.remove_roles(role2)
+                        await member.add_roles(role2)
+                        await member.remove_roles(role1)
                         await msg.channel.send("Успешно!")
     await client.process_commands(msg)
 token = os.environ.get("token")
