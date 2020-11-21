@@ -71,7 +71,7 @@ async def create(ctx, member: discord.Member, name, type, colour, attention, spe
         collection = db["Profiles"]
         collection.insert_one({"member": member.id, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy})
         succes_embed = discord.Embed(title="Успешно!", description=f"Профиль участника {member} был создан.", color=random.choice(normal_list))
-        await ctx.send(succes_embed)
+        await ctx.send(embed=succes_embed)
         
 
 
