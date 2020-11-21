@@ -57,8 +57,7 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                     if timer == time:
                         collection.find_one_and_delete({"time": time})
                         await member.add_roles(role2)
-                        print(member.roles)
-                        for role in member.roles:
+                        for role in member.roles[1:]:
                             await member.remove_roles(role)
                         await ctx.send("Успешно!")
         elif time > 60:
