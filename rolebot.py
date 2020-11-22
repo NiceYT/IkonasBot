@@ -130,6 +130,49 @@ async def profile(ctx, member: discord.Member = None):
             embed = discord.Embed(title="Ошибка!", description=f"У пользователя {member.mention} нет профиля.",colour=random.choice(normal_list))
             await ctx.message.author.send(embed=embed, delete_after=20)
 
+@client.command()
+async def d1(ctx):
+    stats_system = MongoClient(db_pass)
+    db = stats_system["StatsSystem"]
+    collection = db["Profiles"]
+    results = collection.find_one({"member": ctx.message.author.id})
+    if results != None:
+        random_number= random.randint(1, 100)
+        attention = int(results["attention"]) - 10
+        attention = attention + random_number
+        embed = discord.Embed(title="Выпало число:", description=attention, colour=random.choice(normal_list))
+        await ctx.send(ctx.message.author.mention, embed=embed, delete_after=20)
+    else:
+        await ctx.message.author.send("У вас нет профиля!", delete_after=30)
+@client.command()
+async def d2(ctx):
+    stats_system = MongoClient(db_pass)
+    db = stats_system["StatsSystem"]
+    collection = db["Profiles"]
+    results = collection.find_one({"member": ctx.message.author.id})
+    if results != None:
+        random_number= random.randint(1, 100)
+        speed = int(results["speed"]) - 10
+        speed = speed + random_number
+        embed = discord.Embed(title="Выпало число:", description=speed, colour=random.choice(normal_list))
+        await ctx.send(ctx.message.author.mention, embed=embed, delete_after=20)
+    else:
+        await ctx.message.author.send("У вас нет профиля!", delete_after=30)
+@client.command()
+async def d3(ctx):
+    stats_system = MongoClient(db_pass)
+    db = stats_system["StatsSystem"]
+    collection = db["Profiles"]
+    results = collection.find_one({"member": ctx.message.author.id})
+    if results != None:
+        random_number= random.randint(1, 100)
+        accuracy = int(results["accuracy"]) - 10
+        accuracy = accuracy + random_number
+        embed = discord.Embed(title="Выпало число:", description=accuracy, colour=random.choice(normal_list))
+        await ctx.send(ctx.message.author.mention, embed=embed, delete_after=20)
+    else:
+        await ctx.message.author.send("У вас нет профиля!", delete_after=30)
+
 @client.event
 async def on_message(msg):
     if msg.author.id == 601472872346550287:
