@@ -64,9 +64,6 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
             error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time} минут), которое больше чем максимальное.", color=random.choice(normal_list))
             await ctx.send(embed=error_embed)
 @client.command()
-async def test(ctx, number: int):
-    await ctx.send(number)
-@client.command()
 async def create(ctx, member: discord.Member, name, type, colour, attention, speed, accuracy):
     if ctx.message.author.id == 264081734264422400 or ctx.message.author.id == 361179719800061963:
         stats_system = MongoClient(db_pass)
@@ -150,11 +147,11 @@ async def stop(ctx):
         results = collection.find_one({"Working": True})
         results = results["Status"]
         if results == True:
-            results = collection.find_one_and_update({"Working": True}, {"Status": False})
+            results = collection.find_one_and_update({"Working": True}, {"$set":{"Status": False}})
             embed = discord.Embed(title="Успешно!", description="Роллы больше не работают.", colour=random.choice(normal_list))
             await ctx.send(embed=embed)
         if results == True:
-            results = collection.find_one_and_update({"Working": True}, {"Status": True})
+            results = collection.find_one_and_update({"Working": True}, {"$set": {"Status": True}})
             embed = discord.Embed(title="Успешно!", description="Роллы снова работают.", colour=random.choice(normal_list))
             await ctx.send(embed=embed)
 
