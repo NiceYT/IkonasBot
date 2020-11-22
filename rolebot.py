@@ -130,10 +130,15 @@ async def profile(ctx, member: discord.Member = None):
             embed = discord.Embed(title="Ошибка!", description=f"У пользователя {member.mention} нет профиля.",colour=random.choice(normal_list))
             await ctx.message.author.send(embed=embed)
 @client.command()
-async def d(ctx, max: int):
-    number = random.randint(1, max)
-    embed = discord.Embed(title="Выпало число:", description=number, colour=random.choice(normal_list))
-    await ctx.send(ctx.message.author.mention, embed=embed)
+async def d(ctx, max: int = None):
+    if max != None:
+        number = random.randint(1, max)
+        embed = discord.Embed(title="Выпало число:", description=number, colour=random.choice(normal_list))
+        await ctx.send(ctx.message.author.mention, embed=embed)
+    elif max == None:
+        number = random.randint(1, 100)
+        embed = discord.Embed(title="Выпало число:", description=number, colour=random.choice(normal_list))
+        await ctx.send(ctx.message.author.mention, embed=embed)
 @client.command()
 async def d1(ctx):
     stats_system = MongoClient(db_pass)
