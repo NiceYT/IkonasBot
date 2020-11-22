@@ -150,7 +150,7 @@ async def stop(ctx):
             results = collection.find_one_and_update({"Working": True}, {"$set":{"Status": False}})
             embed = discord.Embed(title="Успешно!", description="Роллы больше не работают.", colour=random.choice(normal_list))
             await ctx.send(embed=embed)
-        if results == True:
+        if results == False:
             results = collection.find_one_and_update({"Working": True}, {"$set": {"Status": True}})
             embed = discord.Embed(title="Успешно!", description="Роллы снова работают.", colour=random.choice(normal_list))
             await ctx.send(embed=embed)
