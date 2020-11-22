@@ -228,7 +228,7 @@ async def on_message(msg):
         if results == True:
             pass
         elif results == False:
-            if msg.startswith("!d"):
+            if msg.content.startswith("!d"):
                 return
             else: 
                 pass
