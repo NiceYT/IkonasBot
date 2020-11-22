@@ -278,7 +278,8 @@ async def on_message(msg):
                                 await member.add_roles(role2)
                                 await member.remove_roles(role1)
                                 await msg.channel.send(f"Роль была выдана {member.mention}.")
-                except:
+                except Exception as e:
+                    print(e)
                     pass
     elif msg.guild == None:
         return
