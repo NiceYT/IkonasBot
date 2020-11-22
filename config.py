@@ -1,5 +1,5 @@
 import discord
-version = "1.0.1"
+version = "1.1.0"
 prefix1 = "."
 prefix2 = "!"
 normal_list = (discord.Color.red(),
