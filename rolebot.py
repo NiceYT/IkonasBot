@@ -193,35 +193,21 @@ async def d3(ctx):
 
 @client.event
 async def on_message(msg):
-    if msg.author.id == 601472872346550287:
-        if msg.content == "1":
-            role_system = MongoClient(db_pass)
-            db = role_system["RoleSystem"]
-            collection = db["Timer"]
-            results = collection.find_one({"role": True})
-            timer = int(results["timer"])
-            time = int(results["time"])
-            member = int(results["member"])
-            role1 = results["role1"]
-            role2 = int(results["role2"])
-            guild = int(results["guild"])
-            if role1 == "empty":
-                member = client.get_guild(guild).get_member(member)
-                role2 = client.get_guild(guild).get_role(role2)
-                while timer != time:
-                    await asyncio.sleep(1)
-                    timer += 1
-                    collection.find_one_and_update({"time": time}, {"$set":{"timer": timer}})
-                    if timer == time:
-                        collection.find_one_and_delete({"time": time})
-                        await member.add_roles(role2)
-                        for role in member.roles[1:]:
-                            await member.remove_roles(role)
-                        await msg.channel.send("Роль была выдана.")
-            else:
-                try:
+    if msg.guild != None:
+        if msg.author.id == 601472872346550287:
+            if msg.content == "1":
+                role_system = MongoClient(db_pass)
+                db = role_system["RoleSystem"]
+                collection = db["Timer"]
+                results = collection.find_one({"role": True})
+                timer = int(results["timer"])
+                time = int(results["time"])
+                member = int(results["member"])
+                role1 = results["role1"]
+                role2 = int(results["role2"])
+                guild = int(results["guild"])
+                if role1 == "empty":
                     member = client.get_guild(guild).get_member(member)
-                    role1 = client.get_guild(guild).get_role(role1)
                     role2 = client.get_guild(guild).get_role(role2)
                     while timer != time:
                         await asyncio.sleep(1)
@@ -230,10 +216,27 @@ async def on_message(msg):
                         if timer == time:
                             collection.find_one_and_delete({"time": time})
                             await member.add_roles(role2)
-                            await member.remove_roles(role1)
+                            for role in member.roles[1:]:
+                                await member.remove_roles(role)
                             await msg.channel.send("Роль была выдана.")
-                except:
-                    pass
+                else:
+                    try:
+                        member = client.get_guild(guild).get_member(member)
+                        role1 = client.get_guild(guild).get_role(role1)
+                        role2 = client.get_guild(guild).get_role(role2)
+                        while timer != time:
+                            await asyncio.sleep(1)
+                            timer += 1
+                            collection.find_one_and_update({"time": time}, {"$set":{"timer": timer}})
+                            if timer == time:
+                                collection.find_one_and_delete({"time": time})
+                                await member.add_roles(role2)
+                                await member.remove_roles(role1)
+                                await msg.channel.send("Роль была выдана.")
+                    except:
+                        pass
+    elif msg.guild == None:
+        return
     await client.process_commands(msg)
 token = os.environ.get("token")
 client.run(str(token))
