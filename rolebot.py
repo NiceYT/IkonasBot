@@ -82,6 +82,15 @@ async def create(ctx, member: discord.Member, name, type, colour, attention, spe
                 succes_embed = discord.Embed(title="Успешно!", description=f"Профиль участника {member} был создан.", color=random.choice(normal_list))
                 await ctx.send(embed=succes_embed)
 @client.command()
+async def delete(ctx, member: discord.Member):
+    if ctx.message.author.id == 264081734264422400 or ctx.message.author.id == 361179719800061963:
+        stats_system = MongoClient(db_pass)
+        db = stats_system["StatsSystem"]
+        collection = db["Profiles"]
+        collection.find_one_and_delete({"member": member.id})
+        embed = discord.Embed(title="Успешно!", description=f"Профиль {member.mention} удален.", colour=random.choice(normal_list))
+        await ctx.send(embed=embed)
+@client.command()
 async def profile(ctx, member: discord.Member = None):
     if member == None:
         stats_system = MongoClient(db_pass)
