@@ -105,7 +105,7 @@ async def profile(ctx, member: discord.Member = None):
             await ctx.message.author.send(embed=embed)
         else: 
             embed = discord.Embed(title="Ошибка!", description="У вас нет профиля.",colour=random.choice(normal_list))
-            await ctx.message.author.send(embed=embed, delete_after=20)
+            await ctx.message.author.send(embed=embed)
     if member != None and ctx.message.author.id == 264081734264422400 or member != None and ctx.message.author.id == 361179719800061963:
         stats_system = MongoClient(db_pass)
         db = stats_system["StatsSystem"]
@@ -128,8 +128,12 @@ async def profile(ctx, member: discord.Member = None):
             await ctx.message.author.send(embed=embed)
         else: 
             embed = discord.Embed(title="Ошибка!", description=f"У пользователя {member.mention} нет профиля.",colour=random.choice(normal_list))
-            await ctx.message.author.send(embed=embed, delete_after=20)
-
+            await ctx.message.author.send(embed=embed)
+@client.command()
+async def d(ctx, max: int):
+    number = random.randint(1, max)
+    embed = discord.Embed(title="Выпало число:", description=number, colour=random.choice(normal_list))
+    await ctx.send(ctx.message.author.mention, embed=embed)
 @client.command()
 async def d1(ctx):
     stats_system = MongoClient(db_pass)
@@ -141,9 +145,9 @@ async def d1(ctx):
         attention = int(results["attention"]) - 10
         attention = attention + random_number
         embed = discord.Embed(title="Выпало число:", description=attention, colour=random.choice(normal_list))
-        await ctx.send(ctx.message.author.mention, embed=embed, delete_after=20)
+        await ctx.send(ctx.message.author.mention, embed=embed)
     else:
-        await ctx.message.author.send("У вас нет профиля!", delete_after=30)
+        await ctx.message.author.send("У вас нет профиля!")
 @client.command()
 async def d2(ctx):
     stats_system = MongoClient(db_pass)
@@ -155,9 +159,9 @@ async def d2(ctx):
         speed = int(results["speed"]) - 10
         speed = speed + random_number
         embed = discord.Embed(title="Выпало число:", description=speed, colour=random.choice(normal_list))
-        await ctx.send(ctx.message.author.mention, embed=embed, delete_after=20)
+        await ctx.send(ctx.message.author.mention, embed=embed)
     else:
-        await ctx.message.author.send("У вас нет профиля!", delete_after=30)
+        await ctx.message.author.send("У вас нет профиля!")
 @client.command()
 async def d3(ctx):
     stats_system = MongoClient(db_pass)
@@ -169,9 +173,9 @@ async def d3(ctx):
         accuracy = int(results["accuracy"]) - 10
         accuracy = accuracy + random_number
         embed = discord.Embed(title="Выпало число:", description=accuracy, colour=random.choice(normal_list))
-        await ctx.send(ctx.message.author.mention, embed=embed, delete_after=20)
+        await ctx.send(ctx.message.author.mention, embed=embed)
     else:
-        await ctx.message.author.send("У вас нет профиля!", delete_after=30)
+        await ctx.message.author.send("У вас нет профиля!")
 
 @client.event
 async def on_message(msg):
