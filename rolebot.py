@@ -64,6 +64,9 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
             error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time} минут), которое больше чем максимальное.", color=random.choice(normal_list))
             await ctx.send(embed=error_embed)
 @client.command()
+async def test(ctx, number: int):
+    await ctx.send(number)
+@client.command()
 async def create(ctx, member: discord.Member, name, type, colour, attention, speed, accuracy):
     if ctx.message.author.id == 264081734264422400 or ctx.message.author.id == 361179719800061963:
         stats_system = MongoClient(db_pass)
@@ -139,11 +142,34 @@ async def profile(ctx, member: discord.Member = None):
             embed = discord.Embed(title="Ошибка!", description=f"У пользователя {member.mention} нет профиля.",colour=random.choice(normal_list))
             await ctx.message.author.send(embed=embed)
 @client.command()
-async def d(ctx, max: int = None):
+async def stop(ctx):
+    if ctx.message.author.id == 264081734264422400 or ctx.message.author.id == 361179719800061963:
+        stats_system = MongoClient(db_pass)
+        db = stats_system["StatsSystem"]
+        collection = db["Rolls"]
+        results = collection.find_one({"Working": True})
+        results = results["Status"]
+        if results == True:
+            results = collection.find_one_and_update({"Working": True}, {"Status": False})
+            embed = discord.Embed(title="Успешно!", description="Роллы больше не работают.", colour=random.choice(normal_list))
+            await ctx.send(embed=embed)
+        if results == True:
+            results = collection.find_one_and_update({"Working": True}, {"Status": True})
+            embed = discord.Embed(title="Успешно!", description="Роллы снова работают.", colour=random.choice(normal_list))
+            await ctx.send(embed=embed)
+
+
+@client.command()
+async def d(ctx, max: int = None, add: int = 0):
     if max != None:
-        number = random.randint(1, max)
-        embed = discord.Embed(title="Выпало число:", description=number, colour=random.choice(normal_list))
-        await ctx.send(ctx.message.author.mention, embed=embed)
+        if add != 0:
+            number = random.randint(1, max)
+            embed = discord.Embed(title="Выпало число:", description=number+add, colour=random.choice(normal_list))
+            await ctx.send(ctx.message.author.mention, embed=embed)
+        elif add == 0:
+            number = random.randint(1, max)
+            embed = discord.Embed(title="Выпало число:", description=number+add, colour=random.choice(normal_list))
+            await ctx.send(ctx.message.author.mention, embed=embed)            
     elif max == None:
         number = random.randint(1, 100)
         embed = discord.Embed(title="Выпало число:", description=number, colour=random.choice(normal_list))
@@ -161,7 +187,8 @@ async def d1(ctx):
         embed = discord.Embed(title="Выпало число:", description=attention, colour=random.choice(normal_list))
         await ctx.send(ctx.message.author.mention, embed=embed)
     else:
-        await ctx.message.author.send("У вас нет профиля!")
+        embed = discord.Embed(title="Ошибка!", description="У вас нет профиля.",colour=random.choice(normal_list))
+        await ctx.message.author.send(embed=embed)
 @client.command()
 async def d2(ctx):
     stats_system = MongoClient(db_pass)
@@ -175,7 +202,8 @@ async def d2(ctx):
         embed = discord.Embed(title="Выпало число:", description=speed, colour=random.choice(normal_list))
         await ctx.send(ctx.message.author.mention, embed=embed)
     else:
-        await ctx.message.author.send("У вас нет профиля!")
+        embed = discord.Embed(title="Ошибка!", description="У вас нет профиля.",colour=random.choice(normal_list))
+        await ctx.message.author.send(embed=embed)
 @client.command()
 async def d3(ctx):
     stats_system = MongoClient(db_pass)
@@ -189,11 +217,28 @@ async def d3(ctx):
         embed = discord.Embed(title="Выпало число:", description=accuracy, colour=random.choice(normal_list))
         await ctx.send(ctx.message.author.mention, embed=embed)
     else:
-        await ctx.message.author.send("У вас нет профиля!")
+        embed = discord.Embed(title="Ошибка!", description="У вас нет профиля.",colour=random.choice(normal_list))
+        await ctx.message.author.send(embed=embed)
 
 @client.event
 async def on_message(msg):
     if msg.guild != None:
+        stats_system = MongoClient(db_pass)
+        db = stats_system["StatsSystem"]
+        collection = db["Rolls"]
+        results = collection.find_one({"Working": True})
+        results = results["Status"]
+        if results == True:
+            pass
+        elif results == False:
+            if msg.startswith("!d"):
+                return
+            else: 
+                pass
+
+
+
+
         if msg.author.id == 601472872346550287:
             if msg.content == "1":
                 role_system = MongoClient(db_pass)
