@@ -4,6 +4,7 @@ import pymongo
 from pymongo import MongoClient
 import asyncio
 from discord.ext import commands
+from discord.ext.commands import MissingPermissions
 from config import *
 import os
 db_pass = os.environ.get("DB_pass")
@@ -23,8 +24,8 @@ async def on_ready():
 async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, role1: discord.Role = None):
     if ctx.message.author.id == 503981176806178816 or ctx.message.author.id == 361179719800061963 or ctx.message.author.id == 264081734264422400:
         if time < 60:
-            try:
-                if role1 != None:
+            if role1 != None:
+                try:
                     time = time * 60
                     timer = 0
                     role_system = MongoClient(db_pass)
@@ -41,8 +42,15 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                             collection.find_one_and_delete({"time": time})
                             await member.add_roles(role2)
                             await member.remove_roles(role1)
-                            await ctx.send(f"Роль была выдана {member.mention}.")
-                if role1 == None:
+                        await ctx.send(f"Роль была выдана {member.mention}.")
+                except MissingPermissions as e:
+                    print(e)
+                    pass
+
+
+
+            if role1 == None:
+                try:
                     time = time * 60
                     timer = 0
                     role_system = MongoClient(db_pass)
@@ -60,10 +68,13 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                             await member.add_roles(role2)
                             for role in member.roles[1:]:
                                 await member.remove_roles(role)
-                            await ctx.send(f"Роль была выдана {member.mention}.")
-            except Exception as e:
-                print(e)
-                
+                            await ctx.send(f"Роль была выдана {member.mention}.")  
+                except MissingPermissions as e:
+                    print(e)
+                    pass
+
+
+                             
         elif time > 60:
             error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time} минут), которое больше чем максимальное.", color=random.choice(normal_list))
             await ctx.send(embed=error_embed)
