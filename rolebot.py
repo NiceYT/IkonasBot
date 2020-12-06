@@ -42,7 +42,7 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                             await member.add_roles(role2)
                             await member.remove_roles(role1)
                             await ctx.send(f"Роль была выдана {member.mention}.")
-                except commands.MissingPermissions as e:
+                except Exception as e:
                     print(e)
                     pass
             if role1 == None:
@@ -65,7 +65,7 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                             for role in member.roles[1:]:
                                 await member.remove_roles(role)
                                 await ctx.send(f"Роль была выдана {member.mention}.")  
-                except commands.MissingPermissions as e:
+                except Exception as e:
                     print(e)
                     pass                
         elif time > 60:
@@ -222,6 +222,7 @@ async def d3(ctx):
     else:
         embed = discord.Embed(title="Ошибка!", description="У вас нет профиля.",colour=random.choice(normal_list))
         await ctx.message.author.send(embed=embed)
+
 @client.event
 async def on_message(msg):
     if msg.guild != None:
