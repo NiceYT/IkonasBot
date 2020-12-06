@@ -4,7 +4,6 @@ import pymongo
 from pymongo import MongoClient
 import asyncio
 from discord.ext import commands
-from discord.ext.commands import BotMissingPermissions
 from config import *
 import os
 db_pass = os.environ.get("DB_pass")
@@ -42,8 +41,8 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                             collection.find_one_and_delete({"time": time})
                             await member.add_roles(role2)
                             await member.remove_roles(role1)
-                        await ctx.send(f"Роль была выдана {member.mention}.")
-                except BotMissingPermissions as e:
+                            await ctx.send(f"Роль была выдана {member.mention}.")
+                except commands.MissingPermissions as e:
                     print(e)
                     pass
             if role1 == None:
@@ -65,8 +64,8 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                             await member.add_roles(role2)
                             for role in member.roles[1:]:
                                 await member.remove_roles(role)
-                            await ctx.send(f"Роль была выдана {member.mention}.")  
-                except BotMissingPermissions as e:
+                                await ctx.send(f"Роль была выдана {member.mention}.")  
+                except commands.MissingPermissions as e:
                     print(e)
                     pass                
         elif time > 60:
