@@ -61,8 +61,9 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                             for role in member.roles[1:]:
                                 await member.remove_roles(role)
                             await ctx.send(f"Роль была выдана {member.mention}.")
-            except:
-                pass
+            except Exception as e:
+                print(e)
+                
         elif time > 60:
             error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time} минут), которое больше чем максимальное.", color=random.choice(normal_list))
             await ctx.send(embed=error_embed)
