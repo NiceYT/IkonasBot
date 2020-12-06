@@ -46,9 +46,6 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                 except BotMissingPermissions as e:
                     print(e)
                     pass
-
-
-
             if role1 == None:
                 try:
                     time = time * 60
@@ -71,10 +68,7 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                             await ctx.send(f"Роль была выдана {member.mention}.")  
                 except BotMissingPermissions as e:
                     print(e)
-                    pass
-
-
-                             
+                    pass                
         elif time > 60:
             error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time} минут), которое больше чем максимальное.", color=random.choice(normal_list))
             await ctx.send(embed=error_embed)
@@ -169,8 +163,6 @@ async def stop(ctx):
             results = collection.find_one_and_update({"Working": True}, {"$set": {"Status": True}})
             embed = discord.Embed(title="Успешно!", description="Роллы снова работают.", colour=random.choice(normal_list))
             await ctx.send(embed=embed)
-
-
 @client.command()
 async def d(ctx, max: int = None, add: int = 0):
     if max != None:
@@ -247,10 +239,6 @@ async def on_message(msg):
                 return
             else: 
                 pass
-
-
-
-
         if msg.author.id == 601472872346550287:
             if msg.content == "1":
                 role_system = MongoClient(db_pass)
