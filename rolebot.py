@@ -222,7 +222,6 @@ async def d3(ctx):
     else:
         embed = discord.Embed(title="Ошибка!", description="У вас нет профиля.",colour=random.choice(normal_list))
         await ctx.message.author.send(embed=embed)
-
 @client.event
 async def on_message(msg):
     if msg.guild != None:
