@@ -259,12 +259,11 @@ async def on_message(msg):
                             collection.find_one_and_update({"time": time}, {"$set":{"timer": timer}})
                             if timer == time:
                                 collection.find_one_and_delete({"time": time})
-                                await member.add_roles(role2)
                                 for role in member.roles[1:]:
                                     await member.remove_roles(role)
-                                    await msg.channel.send(f"Роль была выдана {member.mention}.")
-                    except Exception as e:
-                        print(e)
+                                await member.add_roles(role2)
+                                await msg.channel.send(f"Роль была выдана {member.mention}.")
+                    except:
                         pass  
                 else:
                     try:
@@ -280,8 +279,7 @@ async def on_message(msg):
                                 await member.add_roles(role2)
                                 await member.remove_roles(role1)
                                 await msg.channel.send(f"Роль была выдана {member.mention}.")
-                    except Exception as e:
-                        print(e)
+                    except:
                         pass
 
     elif msg.guild == None:
