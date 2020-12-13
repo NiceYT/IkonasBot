@@ -64,7 +64,7 @@ async def addrole(ctx, member: discord.Member, time: int, role2: discord.Role, r
                             await member.add_roles(role2)
                             for role in member.roles[1:]:
                                 await member.remove_roles(role)
-                                await ctx.send(f"Роль была выдана {member.mention}.")  
+                            await ctx.send(f"Роль была выдана {member.mention}.")  
                 except Exception as e:
                     print(e)
                     pass                
