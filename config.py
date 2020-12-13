@@ -1,7 +1,6 @@
 import discord
 version = "1.1.0"
-prefix1 = "."
-prefix2 = "!"
+prefix = "!"
 normal_list = (discord.Color.red(),
                 discord.Color.dark_red(),
                 discord.Color.blue(),
@@ -50,6 +49,4 @@ New_Year = (0xFF0000,
             0xE0FFFF,
             0x00FF7F,
             0xC0C0C0)
-good = "Полиция"
-bad = "Вор"
 clr = normal_list
