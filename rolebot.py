@@ -24,5 +24,23 @@ for i in configs["Cogs"]:
         print(f'{i} cannot be loaded {e}')
     else:
         print(f"{i.replace('cogs.', '')} has been loaded!")
+@client.event
+async def on_message(msg):
+        if msg.guild != None:
+            stats_system = MongoClient(db_pass)
+            db = stats_system["StatsSystem"]
+            collection = db["Rolls"]
+            results = collection.find_one({"Working": True})
+            results = results["Status"]
+            if results == True:
+                pass
+            elif results == False:
+                if msg.content.startswith("!d"):
+                    return
+                else: 
+                    pass
+        elif msg.guild == None:
+            return
+        await client.process_commands(msg)
 
 client.run(str(token))
