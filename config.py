@@ -1,7 +1,8 @@
 import discord
 import os
-version = "1.1.0"
-prefix = "!"
+configs = {"version":"1.2.0",
+            "prefix":"!",
+            "Cogs": ["cogs.profiles", "cogs.roles"]}
 normal_list = (discord.Color.red(),
                 discord.Color.dark_red(),
                 discord.Color.blue(),
@@ -51,6 +52,3 @@ New_Year = (0xFF0000,
             0x00FF7F,
             0xC0C0C0)
 clr = normal_list
-db_pass = os.environ.get("DB_pass")
-db_pass = str(db_pass)
-token = os.environ.get("token")
