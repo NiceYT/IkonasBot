@@ -52,3 +52,5 @@ New_Year = (0xFF0000,
             0x00FF7F,
             0xC0C0C0)
 clr = normal_list
+db_pass = str(os.environ.get("DB_pass))
+token = str(os.environ.get("token"))
