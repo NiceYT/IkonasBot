@@ -160,23 +160,5 @@ class ProfilesCog(commands.Cog):
         else:
             embed = discord.Embed(title="Ошибка!", description="У вас нет профиля.",colour=random.choice(clr))
             await ctx.message.author.send(embed=embed)
-    @commands.Cog.listener()
-    async def on_message(self,msg):
-        if msg.guild != None:
-            stats_system = MongoClient(db_pass)
-            db = stats_system["StatsSystem"]
-            collection = db["Rolls"]
-            results = collection.find_one({"Working": True})
-            results = results["Status"]
-            if results == True:
-                pass
-            elif results == False:
-                if msg.content.startswith("!d"):
-                    return
-                else: 
-                    pass
-        elif msg.guild == None:
-            return
-        await self.bot.process_commands(msg)
 def setup(bot):
     bot.add_cog(ProfilesCog(bot))
