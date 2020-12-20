@@ -1,4 +1,5 @@
 import discord
+import os
 version = "1.1.0"
 prefix = "!"
 normal_list = (discord.Color.red(),
@@ -50,3 +51,6 @@ New_Year = (0xFF0000,
             0x00FF7F,
             0xC0C0C0)
 clr = normal_list
+db_pass = os.environ.get("DB_pass")
+db_pass = str(db_pass)
+token = os.environ.get("token")
