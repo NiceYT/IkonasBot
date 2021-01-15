@@ -82,9 +82,12 @@ class InventoryCog(commands.Cog):
                 m_attention = int(results["attention"])
                 m_speed = int(results["speed"])
                 m_accuracy =int(results["accuracy"])
-                m_attention = int(m_attention + attention)
+                m_attention = m_attention + attention
                 m_speed = m_speed + speed
                 m_accuracy = m_accuracy + accuracy
+                m_attention = str(m_attention)
+                m_speed = str(m_speed)
+                m_accuracy = str(m_accuracy)
                 collection.find_one_and_update({"member": member.id},{"$set":{"attention": m_attention, "speed": m_speed, "accuracy": m_accuracy, f"item{slot}": item}})
                 embed = discord.Embed(title="Успешно!", description=f'Участнику {member.mention} был выдан предмет "{item}" с характеристиками: {attention}(Внимание), {speed}(скорость), {accuracy}(точность).', colour=random.choice(clr))
                 await ctx.message.channel.send(embed=embed)
