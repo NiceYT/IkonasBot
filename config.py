@@ -2,7 +2,7 @@ import discord
 import os
 configs = {"version":"1.2.0",
             "prefix":"!",
-            "Cogs": ["cogs.profiles", "cogs.roles"]}
+            "Cogs": ["cogs.profiles", "cogs.roles", "cogs.inventory"]}
 normal_list = (discord.Color.red(),
                 discord.Color.dark_red(),
                 discord.Color.blue(),
