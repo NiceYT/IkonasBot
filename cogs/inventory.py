@@ -73,7 +73,7 @@ class InventoryCog(commands.Cog):
                 await ctx.message.author.send(embed=embed)
     @commands.command(aliases=["ai"])
     async def additem(self, ctx, member: discord.Member, slot, attention: int, speed: int, accuracy: int, *, item):
-        if ctx.message.author.id == 264081734264422400 or ctx.message.author.id == 361179719800061963:
+        if ctx.author.id == 264081734264422400 or ctx.author.id == 361179719800061963:
             stats_system = MongoClient(db_pass)
             db = stats_system["StatsSystem"]
             collection = db["Profiles"]
