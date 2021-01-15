@@ -3,12 +3,11 @@ from discord.ext import commands
 import pymongo
 from pymongo import MongoClient
 import random
-from config import *
+from config import clr, db_pass
 class ProfilesCog(commands.Cog):
     def __init__(self, bot):
         self.bot=bot
 
-    
     @commands.command()
     async def create(self,ctx, member: discord.Member, name, type, colour, attention, speed, accuracy):
         if ctx.message.author.id == 264081734264422400 or ctx.message.author.id == 361179719800061963:
@@ -17,14 +16,14 @@ class ProfilesCog(commands.Cog):
             collection = db["Profiles"]
             results = collection.find_one({"member": member.id})
             if results == None:
-                collection.insert_one({"member": member.id, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy})
+                collection.insert_one({"member": member.id, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy, "item1": None,"item2": None,"item3": None,"item4":None,"item5": None})
                 succes_embed = discord.Embed(title="Успешно!", description=f"Профиль участника {member} был создан.", color=random.choice(clr))
                 await ctx.send(embed=succes_embed)
             else:
                 if int(results["member"]) == member.id:
                     pass
                 else:
-                    collection.insert_one({"member": member.id, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy})
+                    collection.insert_one({"member": member.id, "name": name, "type": type, "colour": colour, "attention": attention, "speed": speed, "accuracy": accuracy, "item1": None,"item2": None,"item3": None,"item4":None,"item5": None})
                     succes_embed = discord.Embed(title="Успешно!", description=f"Профиль участника {member} был создан.", color=random.choice(clr))
                     await ctx.send(embed=succes_embed)
     @commands.command()
