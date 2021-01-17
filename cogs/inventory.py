@@ -88,8 +88,8 @@ class InventoryCog(commands.Cog):
                 m_attention = str(m_attention)
                 m_speed = str(m_speed)
                 m_accuracy = str(m_accuracy)
-                collection.find_one_and_update({"member": member.id},{"$set":{"attention": m_attention, "speed": m_speed, "accuracy": m_accuracy, f"item{slot}": item}})
-                embed = discord.Embed(title="Успешно!", description=f'Участнику {member.mention} был выдан предмет "{item}" с характеристиками: {attention}(Внимание), {speed}(скорость), {accuracy}(точность).', colour=random.choice(clr))
+                collection.find_one_and_update({"member": member.id},{"$set":{"attention": m_attention, "speed": m_speed, "accuracy": m_accuracy, f"item{slot}":item}})
+                embed = discord.Embed(title="Успешно!", description=f'Участнику {member.mention} был выдан предмет "{item}" с характеристиками: {attention}(Внимание), {speed}(Скорость), {accuracy}(Точность).', colour=random.choice(clr))
                 await ctx.message.channel.send(embed=embed)
             else: 
                 embed = discord.Embed(title="Ошибка!", description=f"У участника {member.mention} нет профиля.",colour=random.choice(clr))
