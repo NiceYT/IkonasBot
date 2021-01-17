@@ -23,14 +23,14 @@ class roleCog(commands.Cog):
                         succes_embed = discord.Embed(title="Успешно!", description=f"Вы ввели время({time} секунд), через которое будет выдана роль.", color=random.choice(clr))
                         await ctx.send(embed=succes_embed)
                         while timer != time:
-                            await asyncio.sleep(1)
                             timer += 1
                             collection.find_one_and_update({"time": time}, {"$set":{"timer": timer}})
-                            if timer == time:
-                                collection.find_one_and_delete({"time": time})
-                                await member.add_roles(role2)
-                                await ctx.send(f"Роль была выдана {member.mention}.")
-                                await member.remove_roles(role1)
+                            await asyncio.sleep(1)
+                        if timer == time:
+                            collection.find_one_and_delete({"time": time})
+                            await member.add_roles(role2)
+                            await ctx.send(f"Роль была выдана {member.mention}.")
+                            await member.remove_roles(role1)
                 if role1 == None:
                         time = time * 60
                         timer = 0
@@ -41,18 +41,18 @@ class roleCog(commands.Cog):
                         succes_embed = discord.Embed(title="Успешно!", description=f"Вы ввели время({time} секунд), через которое будет выдана роль.", color=random.choice(clr))
                         await ctx.send(embed=succes_embed)
                         while timer != time:
-                            await asyncio.sleep(1)
                             timer += 1
                             collection.find_one_and_update({"time": time}, {"$set":{"timer": timer}})
-                            if timer == time:
-                                collection.find_one_and_delete({"time": time})
-                                for role in member.roles[1:]:
-                                    try:
-                                        await member.remove_roles(role)
-                                    except discord.errors.Forbidden:
-                                        pass
-                                await member.add_roles(role2)
-                                await ctx.send(f"Роль была выдана {member.mention}.")              
+                            await asyncio.sleep(1)
+                        if timer == time:
+                            collection.find_one_and_delete({"time": time})
+                            for role in member.roles[1:]:
+                                try:
+                                    await member.remove_roles(role)
+                                except discord.errors.Forbidden:
+                                    pass
+                            await member.add_roles(role2)
+                            await ctx.send(f"Роль была выдана {member.mention}.")              
             elif time > 60:
                 error_embed = discord.Embed(title="Ошибка!", description=f"Вы ввели время({time} минут), которое больше чем максимальное.", color=random.choice(clr))
                 await ctx.send(embed=error_embed)
