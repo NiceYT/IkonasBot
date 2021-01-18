@@ -26,7 +26,7 @@ for i in configs["Cogs"]:
 @client.event
 async def on_message(message):
         try:
-            if message.guild.id == 791649735727251487 or message.guild.id == 751786385781817423:
+            if message.guild.id == 800405012160577536 or message.guild.id == 751786385781817423:
                 await client.process_commands(message)
                 stats_system = MongoClient(db_pass)
                 db = stats_system["StatsSystem"]
